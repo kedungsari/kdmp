@@ -42,13 +42,27 @@ img{max-width:100%;display:block}
 button{font-family:inherit}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
-/* ===== Header ===== */
-.top{background:var(--paper);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
-.top img{height:64px;width:auto;object-fit:contain;flex-shrink:0}
-.top-title{text-align:center;min-width:0}
-.top-title h1{font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2.2rem);color:var(--teal);line-height:1.05;letter-spacing:.04em}
-.top-title p{font-size:clamp(.8rem,2.2vw,1rem);font-weight:600;color:var(--ink-soft);letter-spacing:.04em}
+/* ===== Header (rata kiri) ===== */
+.top{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:10px;padding-bottom:10px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{display:none;height:50px;width:auto;max-width:90px;object-fit:contain;flex-shrink:0}
+.brand img.show{display:block}
+.brand-text{min-width:0;text-align:left}
+.brand-text.loading{visibility:hidden}
+.brand-text strong{display:block;font-family:var(--font-display);color:var(--teal);font-size:1.25rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-text p{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart-btn{
+  position:relative;flex-shrink:0;width:46px;height:46px;border-radius:50%;background:var(--paper);
+  border:1.5px solid var(--line);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,border-color .2s
+}
+.cart-btn:hover{transform:translateY(-2px);border-color:var(--teal)}
+.cart-btn .cnt{
+  position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:50%;
+  background:var(--gold);color:var(--teal-dark);font-size:.72rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;border:2px solid #fff
+}
 
 /* ===== Slider dasar (banner & media produk) ===== */
 .slider{position:relative}
@@ -57,8 +71,17 @@ button{font-family:inherit}
 .slide{flex:0 0 100%;scroll-snap-align:start;position:relative;overflow:hidden}
 .slide img,.slide video,.slide iframe{width:100%;height:100%;border:0;display:block}
 .slide img{object-fit:cover}
-.slide video{object-fit:contain;background:#000}
+.slide video{object-fit:cover}
 .slide.broken img{display:none}
+/* Video tampil sebagai sampul penuh seperti foto; diputar di jendela pemutar */
+.slide.vid{cursor:pointer;background:linear-gradient(135deg,#10303a,#0E5A6E)}
+.slide.vid img,.slide.vid video{pointer-events:none}
+.play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;
+  background:rgba(0,0,0,.55);border:2px solid #fff;color:#fff;font-size:1.3rem;padding-left:4px;
+  display:flex;align-items:center;justify-content:center;pointer-events:none;transition:transform .2s
+}
+.slide.vid:hover .play{transform:translate(-50%,-50%) scale(1.1)}
 .nav{
   position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;
   border:none;background:rgba(255,255,255,.92);color:var(--teal-dark);font-size:1.2rem;line-height:1;
@@ -82,10 +105,8 @@ button{font-family:inherit}
 .banner a.slide{display:block;color:inherit;text-decoration:none}
 
 /* ===== Agen & Produk ===== */
-.agent-strip{margin:18px auto 0;font-size:.85rem;color:var(--ink-soft);text-align:center}
-.agent-strip b{color:var(--teal)}
-.products{padding:22px 0 56px}
-.tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:22px;justify-content:center}
+.products{padding-top:22px;padding-bottom:56px}
+.tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:22px}
 .tab{
   border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);
   padding:8px 18px;border-radius:100px;font-weight:600;font-size:.88rem;cursor:pointer;
@@ -118,8 +139,8 @@ button{font-family:inherit}
 .add:disabled{background:#c9cfd1;color:#6b7478;cursor:not-allowed}
 
 /* ===== Testimoni ===== */
-.testi{padding:10px 0 60px}
-.sec-title{font-family:var(--font-display);color:var(--teal);font-size:clamp(1.5rem,3vw,2rem);text-align:center;margin-bottom:22px}
+.testi{padding-top:10px;padding-bottom:60px}
+.sec-title{font-family:var(--font-display);color:var(--teal);font-size:clamp(1.5rem,3vw,2rem);text-align:left;margin-bottom:22px}
 .testi-grid{columns:3 250px;column-gap:1.2rem}
 .t-card{break-inside:avoid;background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);margin-bottom:1.2rem;overflow:hidden}
 .t-card button{display:block;width:100%;border:none;padding:0;background:none;cursor:zoom-in}
@@ -130,20 +151,18 @@ button{font-family:inherit}
 .t-body strong{display:block;margin-top:.55rem;font-size:.82rem;color:var(--teal)}
 
 /* ===== Footer ===== */
-footer{background:var(--teal-dark);color:rgba(255,255,255,.75);text-align:center;font-size:.82rem;padding:1.4rem 0 5.5rem}
+footer{background:var(--teal-dark);color:rgba(255,255,255,.75);text-align:left;font-size:.82rem;padding:1.4rem 0 5.5rem}
 footer a{color:rgba(255,255,255,.45);text-decoration:none}
 
 /* ===== Keranjang ===== */
 .fab{
-  position:fixed;right:20px;bottom:22px;z-index:900;width:60px;height:60px;border-radius:50%;
-  border:none;background:var(--teal);color:#fff;font-size:1.6rem;cursor:pointer;
-  box-shadow:0 14px 30px -10px rgba(10,66,82,.6);display:flex;align-items:center;justify-content:center
+  position:fixed;right:20px;bottom:22px;z-index:900;height:54px;padding:0 22px;border-radius:100px;
+  background:var(--teal);color:#fff;font-weight:700;font-size:.95rem;text-decoration:none;
+  box-shadow:0 14px 30px -10px rgba(10,66,82,.6);display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .2s
 }
-.fab .cnt{
-  position:absolute;top:-4px;right:-4px;min-width:22px;height:22px;border-radius:50%;
-  background:var(--gold);color:var(--teal-dark);font-size:.72rem;font-weight:800;
-  display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)
-}
+.fab:hover{transform:translateY(-2px)}
+.fab[hidden]{display:none}
 .overlay{position:fixed;inset:0;background:rgba(20,35,40,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:1200}
 .overlay.open{opacity:1;pointer-events:auto}
 .drawer{
@@ -198,6 +217,10 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
 .lightbox.open{opacity:1;pointer-events:auto}
 .lightbox img{max-width:min(900px,94vw);max-height:90vh;border-radius:var(--r-md)}
 .lightbox button{position:absolute;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.18);color:#fff;font-size:1.4rem;cursor:pointer}
+.vbox{width:min(900px,94vw)}
+.vbox .frame{position:relative;aspect-ratio:16/9;background:#000;border-radius:var(--r-md);overflow:hidden}
+.vbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vbox video{display:block;width:100%;max-height:86vh;background:#000;border-radius:var(--r-md)}
 
 /* ===== Toast & status ===== */
 .toast{
@@ -208,7 +231,8 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
 .status{text-align:center;color:var(--ink-soft);padding:3rem 1rem;grid-column:1/-1}
 
 @media (max-width:640px){
-  .top img{height:46px}
+  .brand img{height:42px;max-width:70px}
+  .brand-text strong{font-size:1.05rem}
   .banner .slide{aspect-ratio:4/3}
   .grid{grid-template-columns:1fr}
 }
@@ -218,13 +242,15 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
 <body>
 
 <header class="top">
-  <div class="wrap">
-    <img src="logoKDMP.png" alt="Logo KDMP Merah Putih">
-    <div class="top-title">
-      <h1>KDMP</h1>
-      <p>Kalurahan Kedungsari</p>
+  <div class="wrap bar">
+    <div class="brand">
+      <img id="brandLogo" alt="Logo">
+      <div class="brand-text loading" id="brandText">
+        <strong id="brandName">KDMP</strong>
+        <p id="brandSub">Kalurahan Kedungsari</p>
+      </div>
     </div>
-    <img src="logoKemenkop.png" alt="Logo Kementerian Koperasi">
+    <button class="cart-btn" id="cartBtn" aria-label="Buka keranjang belanja">🛒<span class="cnt" id="cnt">0</span></button>
   </div>
 </header>
 
@@ -232,8 +258,6 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
   <section class="banner wrap" id="bannerSec" hidden>
     <div class="slider" id="bannerSlider"></div>
   </section>
-
-  <p class="agent-strip wrap" id="agentStrip" hidden></p>
 
   <section class="products wrap" id="produk">
     <div class="tabs" id="tabs"></div>
@@ -250,7 +274,7 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
   <div class="wrap">&copy; <span id="year"></span> KDMP Kalurahan Kedungsari · <a href="laporanPenjualan.html">Admin</a></div>
 </footer>
 
-<button class="fab" id="fab" aria-label="Buka keranjang">🛒<span class="cnt" id="cnt">0</span></button>
+<a class="fab" id="chatFab" href="#" target="_blank" rel="noopener" aria-label="Chat dengan Agen via WhatsApp" hidden>💬 Chat Agen</a>
 
 <div class="overlay" id="cartOverlay"></div>
 <aside class="drawer" id="drawer" aria-label="Keranjang belanja">
@@ -259,6 +283,7 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
   <div class="d-foot">
     <div class="total"><span>Estimasi Total</span><span id="dTotal">Rp 0</span></div>
     <button class="btn" id="checkoutBtn">💬 Checkout via WhatsApp</button>
+    <button class="btn ghost" id="clearBtn" type="button" style="margin-top:.6rem">🗑️ Kosongkan Keranjang</button>
     <p class="hint">Harga estimasi. Total akhir dikonfirmasi lewat WhatsApp.</p>
   </div>
 </aside>
@@ -277,7 +302,18 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
   </div>
 </div>
 
+<div class="overlay top" id="confirmOverlay"></div>
+<div class="modal" id="confirmModal" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <h4 id="confirmTitle">Kosongkan Keranjang?</h4>
+  <p class="intro">Semua produk di keranjang akan dihapus.</p>
+  <div class="m-actions">
+    <button class="btn ghost" id="cCancel" type="button">Batal</button>
+    <button class="btn" id="cOk" type="button">Ya, Kosongkan</button>
+  </div>
+</div>
+
 <div class="lightbox" id="lightbox"><button id="lbClose" aria-label="Tutup">×</button><img id="lbImg" src="" alt=""></div>
+<div class="lightbox" id="vModal"><button id="vClose" aria-label="Tutup video">×</button><div class="vbox" id="vBox"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -285,7 +321,7 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
    API_URL : URL Web App Apps Script (Code.gs), berakhiran "/exec".
    Link untuk tiap agen: https://alamat-situs/?agen=kode-agen
    (kode agen = kolom "kode" di sheet Agen). */
-const API_URL = 'https://script.google.com/macros/s/AKfycbxzvgxmdF18-GRu5KUsuZcVaoF2GUwqtEElFUxOCIWsPVhwuhwSXlZ35EN5fjoq-jVQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwx3G_z3jgiBlN5sVLLoeUNNL77JmCY_PwQMO0AvYLsXmmJoVUSc2ROGaLDOjv7ctZA/exec';
 
 const CACHE_KEY = 'kdmp_data_v1';
 const CART_KEY  = 'kdmp_cart_v1';
@@ -315,23 +351,82 @@ function resolveAgent(){
   if(code){ try { sessionStorage.setItem(AGENT_KEY, code); } catch(e){} }
   else { try { code = sessionStorage.getItem(AGENT_KEY) || ''; } catch(e){} }
   AGENT = agents.find(a => a.kode === code) || agents[0]; // cadangan: agen pertama di sheet
-  const strip = $('agentStrip');
-  strip.innerHTML = 'Pesanan Anda dilayani oleh <b>' + esc(AGENT.nama) + '</b>';
-  strip.hidden = false;
 }
 function waLink(text){ return 'https://wa.me/' + AGENT.wa + '?text=' + encodeURIComponent(text); }
 
+/* Judul, alamat, dan logo di header mengikuti agen. Logo kosong jika tidak diisi / file tidak ada. */
+function applyBrand(){
+  const logo = $('brandLogo');
+  $('brandName').textContent = AGENT ? AGENT.nama : 'KDMP';
+  $('brandSub').textContent = (AGENT && AGENT.alamat) ? AGENT.alamat : 'Kalurahan Kedungsari';
+  document.title = (AGENT ? AGENT.nama + ' — ' : '') + 'KDMP Kalurahan Kedungsari';
+  $('brandText').classList.remove('loading');
+  logo.classList.remove('show');
+  const src = AGENT ? safeUrl(AGENT.logo) : '';
+  if(src){
+    logo.onload = () => logo.classList.add('show');
+    logo.onerror = () => logo.classList.remove('show');
+    logo.alt = 'Logo ' + AGENT.nama;
+    logo.src = src;
+  } else {
+    logo.removeAttribute('src');
+  }
+  const chat = $('chatFab');
+  if(AGENT){
+    chat.href = waLink('Halo ' + AGENT.nama + ', saya ingin bertanya tentang produk.');
+    chat.hidden = false;
+  } else {
+    chat.hidden = true;
+  }
+}
+
 /* ================= Slider (foto / video) ================= */
+/* Foto dan video sama-sama memenuhi frame (cover). Video tampil sebagai sampul
+   dengan tombol ▶; saat diketuk, video diputar di jendela pemutar yang ukurannya pas. */
 function mediaSlide(src, name){
   src = safeUrl(src);
   if(!src) return '';
   let m = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
-  if(m) return `<div class="slide"><iframe src="https://www.youtube.com/embed/${m[1]}?rel=0" title="${esc(name)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+  if(m){
+    const id = m[1], fb = `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+    return `<div class="slide vid" data-kind="yt" data-ref="${id}" data-title="${esc(name)}">
+      <img src="https://i.ytimg.com/vi/${id}/maxresdefault.jpg" alt="${esc(name)}" loading="lazy"
+           onload="if(this.naturalWidth<=120){this.onload=null;this.src='${fb}'}"
+           onerror="this.onerror=null;this.src='${fb}'">
+      <span class="play">▶</span></div>`;
+  }
   m = src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
-  if(m) return `<div class="slide"><iframe src="https://drive.google.com/file/d/${m[1]}/preview" title="${esc(name)}" loading="lazy" allowfullscreen></iframe></div>`;
-  if(/\.(mp4|webm|mov)(\?.*)?$/i.test(src)) return `<div class="slide"><video src="${esc(src)}" controls playsinline preload="metadata"></video></div>`;
+  if(m) return `<div class="slide vid" data-kind="drive" data-ref="${m[1]}" data-title="${esc(name)}">
+      <img src="https://drive.google.com/thumbnail?id=${m[1]}&sz=w800" alt="${esc(name)}" loading="lazy" onerror="this.remove()">
+      <span class="play">▶</span></div>`;
+  if(/\.(mp4|webm|mov)(\?.*)?$/i.test(src)){
+    const base = src.split('#')[0];
+    return `<div class="slide vid" data-kind="file" data-ref="${esc(base)}" data-title="${esc(name)}">
+      <video src="${esc(base)}#t=0.1" muted playsinline preload="metadata" tabindex="-1"></video>
+      <span class="play">▶</span></div>`;
+  }
   return `<div class="slide"><img src="${esc(src)}" alt="${esc(name)}" loading="lazy" onerror="this.closest('.slide').classList.add('broken')"></div>`;
 }
+
+/* ===== Pemutar video ===== */
+function openVideo(kind, ref, title){
+  let html = '';
+  if(kind === 'yt') html = `<div class="frame"><iframe src="https://www.youtube.com/embed/${ref}?autoplay=1&rel=0" title="${esc(title)}" allow="autoplay; accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+  else if(kind === 'drive') html = `<div class="frame"><iframe src="https://drive.google.com/file/d/${ref}/preview" title="${esc(title)}" allow="autoplay" allowfullscreen></iframe></div>`;
+  else html = `<video src="${esc(ref)}" controls autoplay playsinline></video>`;
+  $('vBox').innerHTML = html;
+  $('vModal').classList.add('open');
+}
+function closeVideo(){
+  $('vModal').classList.remove('open');
+  $('vBox').innerHTML = ''; // menghentikan pemutaran
+}
+document.addEventListener('click', e => {
+  const v = e.target.closest('.slide.vid');
+  if(v) openVideo(v.dataset.kind, v.dataset.ref, v.dataset.title);
+});
+$('vClose').addEventListener('click', closeVideo);
+$('vModal').addEventListener('click', e => { if(e.target === $('vModal')) closeVideo(); });
 function sliderControls(n){
   if(n < 2) return '';
   return `<button class="nav prev" data-dir="-1" aria-label="Sebelumnya">‹</button>
@@ -467,7 +562,31 @@ function renderCart(){
   }
   $('dTotal').textContent = rp(total);
   $('checkoutBtn').disabled = !ids.length || !AGENT;
+  $('clearBtn').style.display = ids.length ? 'flex' : 'none';
 }
+function askConfirm(){
+  return new Promise(resolve => {
+    const ov = $('confirmOverlay'), md = $('confirmModal');
+    function close(v){
+      ov.classList.remove('open'); md.classList.remove('open');
+      $('cOk').removeEventListener('click', yes); $('cCancel').removeEventListener('click', no);
+      ov.removeEventListener('click', no); document.removeEventListener('keydown', key);
+      resolve(v);
+    }
+    function yes(){ close(true); }
+    function no(){ close(false); }
+    function key(ev){ if(ev.key === 'Escape') no(); }
+    $('cOk').addEventListener('click', yes); $('cCancel').addEventListener('click', no);
+    ov.addEventListener('click', no); document.addEventListener('keydown', key);
+    ov.classList.add('open'); md.classList.add('open');
+  });
+}
+$('clearBtn').addEventListener('click', async () => {
+  if(!Object.keys(cart).length) return;
+  if(!(await askConfirm())) return;
+  cart = {}; saveCart();
+  toast('Keranjang dikosongkan 🗑️');
+});
 $('dItems').addEventListener('click', e => {
   const b = e.target.closest('button[data-q]'); if(!b) return;
   const id = b.dataset.id;
@@ -477,7 +596,7 @@ $('dItems').addEventListener('click', e => {
 });
 function openCart(){ $('drawer').classList.add('open'); $('cartOverlay').classList.add('open'); }
 function closeCart(){ $('drawer').classList.remove('open'); $('cartOverlay').classList.remove('open'); }
-$('fab').addEventListener('click', openCart);
+$('cartBtn').addEventListener('click', openCart);
 $('drawerClose').addEventListener('click', closeCart);
 $('cartOverlay').addEventListener('click', closeCart);
 
@@ -552,9 +671,11 @@ function applyData(d){
     produk: d.produk || [], agen: d.agen || [], testimoni: d.testimoni || [], banner: d.banner || []
   };
   resolveAgent();
+  applyBrand();
   renderBanner(); renderTabs(); renderProducts(); renderTesti(); renderCart();
 }
 function showError(){
+  $('brandText').classList.remove('loading');
   $('grid').innerHTML = '<p class="status">Produk belum bisa dimuat. Periksa koneksi internet lalu muat ulang halaman.</p>';
 }
 async function load(){
@@ -586,6 +707,7 @@ load();
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', e => {
   const k = e.key;
+  if(k === 'Escape'){ closeVideo(); $('lightbox').classList.remove('open'); }
   if(k === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(k)) || (e.ctrlKey && ['U','u','S','s'].includes(k))) e.preventDefault();
 });
 </script>
