@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KDMP Kalurahan Kedungsari — Produk Warga</title>
+<meta name="description" content="Belanja produk warga Kalurahan Kedungsari, Kapanewon Pengasih, Kulon Progo. Pesan langsung lewat WhatsApp.">
+<meta name="theme-color" content="#0E5A6E">
+<link rel="icon" href="logoKDMP.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#F7F5EE;
+  --paper:#FFFFFF;
+  --ink:#1F2A2E;
+  --ink-soft:#5B676B;
+  --teal:#0E5A6E;
+  --teal-dark:#0A4252;
+  --lime:#A3B91A;
+  --gold:#E8A81C;
+  --red:#E8412A;
+  --line:rgba(14,90,110,.14);
+  --shadow:0 14px 34px -18px rgba(14,90,110,.35);
+  --r-lg:24px; --r-md:16px; --r-sm:10px;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Work Sans','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.55;
+  overflow-x:hidden;
+  -webkit-user-select:none;user-select:none;
+}
+input,textarea{-webkit-user-select:text;user-select:text}
+img{max-width:100%;display:block}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ===== Header ===== */
+.top{background:var(--paper);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.top img{height:64px;width:auto;object-fit:contain;flex-shrink:0}
+.top-title{text-align:center;min-width:0}
+.top-title h1{font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2.2rem);color:var(--teal);line-height:1.05;letter-spacing:.04em}
+.top-title p{font-size:clamp(.8rem,2.2vw,1rem);font-weight:600;color:var(--ink-soft);letter-spacing:.04em}
+
+/* ===== Slider dasar (banner & media produk) ===== */
+.slider{position:relative}
+.slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.slides::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;position:relative;overflow:hidden}
+.slide img,.slide video,.slide iframe{width:100%;height:100%;border:0;display:block}
+.slide img{object-fit:cover}
+.slide video{object-fit:contain;background:#000}
+.slide.broken img{display:none}
+.nav{
+  position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;
+  border:none;background:rgba(255,255,255,.92);color:var(--teal-dark);font-size:1.2rem;line-height:1;
+  cursor:pointer;z-index:3;box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+.nav.prev{left:8px}.nav.next{right:8px}
+.dots{position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:6px;z-index:3;pointer-events:none}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.6);transition:all .2s}
+.dots i.on{background:#fff;width:18px;border-radius:5px}
+
+/* ===== Banner ===== */
+.banner{margin:20px auto 0}
+.banner .slider{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);background:var(--teal)}
+.banner .slide{aspect-ratio:16/6.5}
+.banner .cap{
+  position:absolute;left:0;right:0;bottom:0;padding:2.4rem 1.6rem 1.5rem;color:#fff;
+  background:linear-gradient(to top,rgba(10,40,50,.82),transparent);
+}
+.banner .cap h2{font-family:var(--font-display);font-size:clamp(1.1rem,3vw,1.8rem);line-height:1.2}
+.banner .cap p{font-size:clamp(.82rem,2vw,1rem);opacity:.9}
+.banner a.slide{display:block;color:inherit;text-decoration:none}
+
+/* ===== Agen & Produk ===== */
+.agent-strip{margin:18px auto 0;font-size:.85rem;color:var(--ink-soft);text-align:center}
+.agent-strip b{color:var(--teal)}
+.products{padding:22px 0 56px}
+.tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:22px;justify-content:center}
+.tab{
+  border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);
+  padding:8px 18px;border-radius:100px;font-weight:600;font-size:.88rem;cursor:pointer;
+}
+.tab.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.3rem}
+.card{background:var(--paper);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;position:relative}
+.card .slider{background:linear-gradient(135deg,#DCE9B8,#B7CF6A)}
+.card .slide{aspect-ratio:4/3}
+.card .ph{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:3.4rem;background:linear-gradient(135deg,#DCE9B8,#B7CF6A)}
+.badge{
+  position:absolute;top:10px;right:10px;z-index:4;color:#fff;font-size:.68rem;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;padding:4px 11px;border-radius:100px;box-shadow:0 4px 10px rgba(0,0,0,.18)
+}
+.badge.baru{background:var(--teal)}.badge.promo{background:var(--red)}.badge.habis{background:#7d8689}
+.card.habis .slider,.card.habis .ph{filter:grayscale(.7);opacity:.7}
+.body{padding:1rem 1.15rem 1.2rem;display:flex;flex-direction:column;gap:.4rem;flex:1}
+.body h3{font-size:1.02rem;font-weight:700}
+.body ul{list-style:none;display:flex;flex-direction:column;gap:.2rem}
+.body li{font-size:.84rem;color:var(--ink-soft);padding-left:1rem;position:relative}
+.body li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--lime)}
+.price{font-family:var(--font-display);font-weight:700;font-size:1.2rem;color:var(--teal-dark);margin-top:auto;padding-top:.3rem}
+.price small{font-family:var(--font-body);font-weight:500;font-size:.82rem;color:var(--ink-soft)}
+.price s{font-family:var(--font-body);font-weight:500;font-size:.85rem;color:#98a0a2;margin-right:6px}
+.add{
+  margin-top:.5rem;background:var(--teal);color:#fff;border:none;border-radius:100px;
+  padding:11px 14px;font-weight:700;font-size:.9rem;cursor:pointer;transition:background .2s
+}
+.add:hover{background:var(--teal-dark)}
+.add:disabled{background:#c9cfd1;color:#6b7478;cursor:not-allowed}
+
+/* ===== Testimoni ===== */
+.testi{padding:10px 0 60px}
+.sec-title{font-family:var(--font-display);color:var(--teal);font-size:clamp(1.5rem,3vw,2rem);text-align:center;margin-bottom:22px}
+.testi-grid{columns:3 250px;column-gap:1.2rem}
+.t-card{break-inside:avoid;background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);margin-bottom:1.2rem;overflow:hidden}
+.t-card button{display:block;width:100%;border:none;padding:0;background:none;cursor:zoom-in}
+.t-card img{width:100%;height:auto}
+.t-body{padding:1rem 1.15rem}
+.t-body p{font-size:.93rem;color:var(--ink)}
+.t-body p::before{content:"“";font-family:var(--font-display);font-size:1.6rem;color:var(--gold);line-height:0;vertical-align:-.35em;margin-right:2px}
+.t-body strong{display:block;margin-top:.55rem;font-size:.82rem;color:var(--teal)}
+
+/* ===== Footer ===== */
+footer{background:var(--teal-dark);color:rgba(255,255,255,.75);text-align:center;font-size:.82rem;padding:1.4rem 0 5.5rem}
+footer a{color:rgba(255,255,255,.45);text-decoration:none}
+
+/* ===== Keranjang ===== */
+.fab{
+  position:fixed;right:20px;bottom:22px;z-index:900;width:60px;height:60px;border-radius:50%;
+  border:none;background:var(--teal);color:#fff;font-size:1.6rem;cursor:pointer;
+  box-shadow:0 14px 30px -10px rgba(10,66,82,.6);display:flex;align-items:center;justify-content:center
+}
+.fab .cnt{
+  position:absolute;top:-4px;right:-4px;min-width:22px;height:22px;border-radius:50%;
+  background:var(--gold);color:var(--teal-dark);font-size:.72rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)
+}
+.overlay{position:fixed;inset:0;background:rgba(20,35,40,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:1200}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;height:100%;width:min(400px,92vw);background:var(--bg);z-index:1300;
+  transform:translateX(100%);transition:transform .35s;display:flex;flex-direction:column;box-shadow:-20px 0 40px rgba(0,0,0,.15)
+}
+.drawer.open{transform:translateX(0)}
+.d-head{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.4rem;border-bottom:1px solid var(--line)}
+.d-head h3{font-family:var(--font-display);color:var(--teal);font-size:1.2rem}
+.d-head button{background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--ink-soft)}
+.d-items{flex:1;overflow-y:auto;padding:1rem 1.4rem;display:flex;flex-direction:column;gap:.8rem}
+.d-empty{text-align:center;color:var(--ink-soft);padding:3rem 1rem}
+.row{display:flex;gap:.8rem;align-items:center;background:var(--paper);border-radius:var(--r-sm);padding:.75rem}
+.row img,.row .ico{width:46px;height:46px;border-radius:10px;object-fit:cover;flex-shrink:0;background:#DCE9B8;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.row .info{flex:1;min-width:0}
+.row h4{font-size:.9rem}
+.row span{font-size:.78rem;color:var(--ink-soft)}
+.qty{display:flex;align-items:center;gap:6px;font-weight:600}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--teal-dark);font-weight:700;cursor:pointer}
+.d-foot{padding:1.2rem 1.4rem 1.5rem;border-top:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;font-weight:700;margin-bottom:.9rem}
+.btn{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:100px;
+  padding:13px 20px;font-weight:700;font-size:.95rem;cursor:pointer;background:var(--teal);color:#fff
+}
+.btn:disabled{background:#c9cfd1;color:#6b7478;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--teal-dark);border:1.5px solid var(--teal)}
+.hint{font-size:.76rem;color:var(--ink-soft);text-align:center;margin-top:.7rem}
+
+/* ===== Modal pembeli ===== */
+.modal{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);background:var(--paper);
+  border-radius:var(--r-lg);padding:1.8rem 1.6rem 1.5rem;width:min(400px,calc(100vw - 40px));z-index:1701;
+  opacity:0;pointer-events:none;transition:all .25s;box-shadow:0 30px 60px -20px rgba(0,0,0,.4)
+}
+.modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.modal h4{font-family:var(--font-display);color:var(--teal);font-size:1.25rem;text-align:center;margin-bottom:.3rem}
+.modal .intro{text-align:center;font-size:.85rem;color:var(--ink-soft);margin-bottom:1.1rem}
+.field{margin-bottom:.9rem}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:.3rem}
+.field input,.field textarea{
+  width:100%;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);font:inherit;font-size:.92rem;background:var(--bg)
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--teal);background:#fff}
+.err{display:none;color:#B5382A;font-size:.82rem;margin-bottom:.8rem}
+.err.show{display:block}
+.m-actions{display:flex;gap:.7rem}
+.overlay.top{z-index:1700}
+
+/* ===== Lightbox ===== */
+.lightbox{position:fixed;inset:0;background:rgba(15,25,30,.9);display:flex;align-items:center;justify-content:center;z-index:1800;opacity:0;pointer-events:none;transition:opacity .3s;padding:20px}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox img{max-width:min(900px,94vw);max-height:90vh;border-radius:var(--r-md)}
+.lightbox button{position:absolute;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.18);color:#fff;font-size:1.4rem;cursor:pointer}
+
+/* ===== Toast & status ===== */
+.toast{
+  position:fixed;left:50%;bottom:96px;transform:translate(-50%,10px);background:var(--teal-dark);color:#fff;
+  padding:12px 22px;border-radius:100px;font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:1900;pointer-events:none;max-width:calc(100vw - 40px)
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.status{text-align:center;color:var(--ink-soft);padding:3rem 1rem;grid-column:1/-1}
+
+@media (max-width:640px){
+  .top img{height:46px}
+  .banner .slide{aspect-ratio:4/3}
+  .grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <img src="logoKDMP.png" alt="Logo KDMP Merah Putih">
+    <div class="top-title">
+      <h1>KDMP</h1>
+      <p>Kalurahan Kedungsari</p>
+    </div>
+    <img src="logoKemenkop.png" alt="Logo Kementerian Koperasi">
+  </div>
+</header>
+
+<main>
+  <section class="banner wrap" id="bannerSec" hidden>
+    <div class="slider" id="bannerSlider"></div>
+  </section>
+
+  <p class="agent-strip wrap" id="agentStrip" hidden></p>
+
+  <section class="products wrap" id="produk">
+    <div class="tabs" id="tabs"></div>
+    <div class="grid" id="grid"><p class="status">Memuat produk…</p></div>
+  </section>
+
+  <section class="testi wrap" id="testiSec" hidden>
+    <h2 class="sec-title">Kata Pembeli</h2>
+    <div class="testi-grid" id="testiGrid"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">&copy; <span id="year"></span> KDMP Kalurahan Kedungsari · <a href="laporanPenjualan.html">Admin</a></div>
+</footer>
+
+<button class="fab" id="fab" aria-label="Buka keranjang">🛒<span class="cnt" id="cnt">0</span></button>
+
+<div class="overlay" id="cartOverlay"></div>
+<aside class="drawer" id="drawer" aria-label="Keranjang belanja">
+  <div class="d-head"><h3>🛒 Keranjang</h3><button id="drawerClose" aria-label="Tutup">×</button></div>
+  <div class="d-items" id="dItems"></div>
+  <div class="d-foot">
+    <div class="total"><span>Estimasi Total</span><span id="dTotal">Rp 0</span></div>
+    <button class="btn" id="checkoutBtn">💬 Checkout via WhatsApp</button>
+    <p class="hint">Harga estimasi. Total akhir dikonfirmasi lewat WhatsApp.</p>
+  </div>
+</aside>
+
+<div class="overlay top" id="buyerOverlay"></div>
+<div class="modal" id="buyerModal" role="dialog" aria-modal="true" aria-labelledby="buyerTitle">
+  <h4 id="buyerTitle">Data Pembeli</h4>
+  <p class="intro">Supaya pesanan Anda tercatat dan mudah dikonfirmasi.</p>
+  <div class="field"><label for="bNama">Nama *</label><input id="bNama" type="text" placeholder="Nama lengkap"></div>
+  <div class="field"><label for="bHp">No HP/WA (opsional)</label><input id="bHp" type="tel" placeholder="08xxxxxxxxxx"></div>
+  <div class="field"><label for="bAlamat">Alamat Pengiriman (opsional)</label><textarea id="bAlamat" rows="2" placeholder="Dusun/RT-RW, Kalurahan…"></textarea></div>
+  <p class="err" id="bErr"></p>
+  <div class="m-actions">
+    <button class="btn ghost" id="bCancel" type="button">Batal</button>
+    <button class="btn" id="bOk" type="button">Lanjut ke WhatsApp</button>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox"><button id="lbClose" aria-label="Tutup">×</button><img id="lbImg" src="" alt=""></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= Pengaturan =================
+   API_URL : URL Web App Apps Script (Code.gs), berakhiran "/exec".
+   Link untuk tiap agen: https://alamat-situs/?agen=kode-agen
+   (kode agen = kolom "kode" di sheet Agen). */
+const API_URL = 'PASTE_URL_WEB_APP_DI_SINI';
+
+const CACHE_KEY = 'kdmp_data_v1';
+const CART_KEY  = 'kdmp_cart_v1';
+const AGENT_KEY = 'kdmp_agen_v1';
+const CAT_LABEL = { sayur:'🥬 Sayur & Kebun', olahan:'🍪 Olahan Pangan', ikan:'🐟 Perikanan', ternak:'🐐 Peternakan', kerajinan:'🧵 Kerajinan', lain:'🎁 Lain-lain' };
+const STATUS_LABEL = { baru:'Baru', promo:'Promo', habis:'Stok Habis' };
+
+let DATA = { produk:[], agen:[], testimoni:[], banner:[] };
+let AGENT = null;
+let activeCat = 'semua';
+let cart = {};
+try { cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}') || {}; } catch(e){ cart = {}; }
+let bannerTimer;
+
+const $ = id => document.getElementById(id);
+const rp = n => 'Rp ' + Number(n).toLocaleString('id-ID');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const priceOf = p => (p.status === 'promo' && p.promoPrice > 0) ? p.promoPrice : p.price;
+function safeUrl(u){ u = String(u||'').trim(); return /^(javascript|data):/i.test(u) ? '' : u; }
+
+/* ================= Agen (dari ?agen=kode) ================= */
+function resolveAgent(){
+  const agents = DATA.agen;
+  if(!agents.length){ AGENT = null; return; }
+  let code = '';
+  try { code = (new URLSearchParams(location.search).get('agen') || '').trim().toLowerCase(); } catch(e){}
+  if(code){ try { sessionStorage.setItem(AGENT_KEY, code); } catch(e){} }
+  else { try { code = sessionStorage.getItem(AGENT_KEY) || ''; } catch(e){} }
+  AGENT = agents.find(a => a.kode === code) || agents[0]; // cadangan: agen pertama di sheet
+  const strip = $('agentStrip');
+  strip.innerHTML = 'Pesanan Anda dilayani oleh <b>' + esc(AGENT.nama) + '</b>';
+  strip.hidden = false;
+}
+function waLink(text){ return 'https://wa.me/' + AGENT.wa + '?text=' + encodeURIComponent(text); }
+
+/* ================= Slider (foto / video) ================= */
+function mediaSlide(src, name){
+  src = safeUrl(src);
+  if(!src) return '';
+  let m = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  if(m) return `<div class="slide"><iframe src="https://www.youtube.com/embed/${m[1]}?rel=0" title="${esc(name)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+  m = src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+  if(m) return `<div class="slide"><iframe src="https://drive.google.com/file/d/${m[1]}/preview" title="${esc(name)}" loading="lazy" allowfullscreen></iframe></div>`;
+  if(/\.(mp4|webm|mov)(\?.*)?$/i.test(src)) return `<div class="slide"><video src="${esc(src)}" controls playsinline preload="metadata"></video></div>`;
+  return `<div class="slide"><img src="${esc(src)}" alt="${esc(name)}" loading="lazy" onerror="this.closest('.slide').classList.add('broken')"></div>`;
+}
+function sliderControls(n){
+  if(n < 2) return '';
+  return `<button class="nav prev" data-dir="-1" aria-label="Sebelumnya">‹</button>
+          <button class="nav next" data-dir="1" aria-label="Berikutnya">›</button>
+          <div class="dots">${Array.from({length:n},(_,i)=>`<i class="${i===0?'on':''}"></i>`).join('')}</div>`;
+}
+document.addEventListener('click', e => {
+  const nav = e.target.closest('.nav');
+  if(!nav) return;
+  const slides = nav.closest('.slider').querySelector('.slides');
+  slides.scrollBy({ left: Number(nav.dataset.dir) * slides.clientWidth, behavior:'smooth' });
+});
+document.addEventListener('scroll', e => {
+  const t = e.target;
+  if(!t.classList || !t.classList.contains('slides')) return;
+  const idx = Math.round(t.scrollLeft / (t.clientWidth || 1));
+  t.parentElement.querySelectorAll('.dots i').forEach((d,i) => d.classList.toggle('on', i === idx));
+}, true);
+
+/* ================= Banner ================= */
+function renderBanner(){
+  clearInterval(bannerTimer);
+  const list = DATA.banner;
+  $('bannerSec').hidden = !list.length;
+  if(!list.length) return;
+  const slides = list.map(b => {
+    const link = safeUrl(b.link);
+    const inner = `<img src="${esc(safeUrl(b.gambar))}" alt="${esc(b.judul || 'Banner')}" onerror="this.remove()">` +
+      ((b.judul || b.subjudul) ? `<div class="cap">${b.judul ? `<h2>${esc(b.judul)}</h2>` : ''}${b.subjudul ? `<p>${esc(b.subjudul)}</p>` : ''}</div>` : '');
+    return link ? `<a class="slide" href="${esc(link)}">${inner}</a>` : `<div class="slide">${inner}</div>`;
+  }).join('');
+  $('bannerSlider').innerHTML = `<div class="slides">${slides}</div>${sliderControls(list.length)}`;
+  if(list.length > 1){
+    const el = $('bannerSlider').querySelector('.slides');
+    bannerTimer = setInterval(() => {
+      const idx = Math.round(el.scrollLeft / el.clientWidth);
+      el.scrollTo({ left: ((idx + 1) % list.length) * el.clientWidth, behavior:'smooth' });
+    }, 5000);
+  }
+}
+
+/* ================= Produk ================= */
+function renderTabs(){
+  const cats = [...new Set(DATA.produk.map(p => p.cat))];
+  if(cats.length < 2){ $('tabs').innerHTML = ''; return; }
+  $('tabs').innerHTML =
+    `<button class="tab${activeCat==='semua'?' on':''}" data-cat="semua">🧺 Semua</button>` +
+    cats.map(c => `<button class="tab${activeCat===c?' on':''}" data-cat="${esc(c)}">${esc(CAT_LABEL[c] || c)}</button>`).join('');
+}
+function renderProducts(){
+  const list = activeCat === 'semua' ? DATA.produk : DATA.produk.filter(p => p.cat === activeCat);
+  if(!list.length){ $('grid').innerHTML = '<p class="status">Belum ada produk.</p>'; return; }
+  $('grid').innerHTML = list.map(p => {
+    const habis = p.status === 'habis';
+    const promo = p.status === 'promo' && p.promoPrice > 0;
+    const slides = p.media.map(m => mediaSlide(m, p.name)).join('');
+    const visual = slides
+      ? `<div class="slider"><div class="slides">${slides}</div>${sliderControls(p.media.length)}</div>`
+      : `<div class="ph">${esc(p.icon)}</div>`;
+    return `<article class="card${habis ? ' habis' : ''}">
+      ${STATUS_LABEL[p.status] ? `<span class="badge ${p.status}">${STATUS_LABEL[p.status]}</span>` : ''}
+      ${visual}
+      <div class="body">
+        <h3>${esc(p.name)}</h3>
+        ${p.desc.length ? `<ul>${p.desc.map(d => `<li>${esc(d)}</li>`).join('')}</ul>` : ''}
+        <div class="price">${promo ? `<s>${rp(p.price)}</s>` : ''}${rp(priceOf(p))}<small>/${esc(p.unit)}</small></div>
+        <button class="add" data-id="${esc(p.id)}" ${habis ? 'disabled' : ''}>${habis ? 'Stok Habis' : '+ Keranjang'}</button>
+      </div>
+    </article>`;
+  }).join('');
+}
+$('tabs').addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if(!b) return;
+  activeCat = b.dataset.cat; renderTabs(); renderProducts();
+});
+$('grid').addEventListener('click', e => {
+  const b = e.target.closest('.add'); if(!b || b.disabled) return;
+  cart[b.dataset.id] = (cart[b.dataset.id] || 0) + 1;
+  saveCart(); toast('Ditambahkan ke keranjang 🛒');
+});
+
+/* ================= Testimoni ================= */
+function renderTesti(){
+  const list = DATA.testimoni;
+  $('testiSec').hidden = !list.length;
+  $('testiGrid').innerHTML = list.map((t, i) => `
+    <div class="t-card">
+      ${t.gambar ? `<button data-i="${i}" aria-label="Perbesar tangkapan layar"><img src="${esc(safeUrl(t.gambar))}" alt="Testimoni ${esc(t.nama)}" loading="lazy"></button>` : ''}
+      ${(t.teks || t.nama) ? `<div class="t-body">${t.teks ? `<p>${esc(t.teks)}</p>` : ''}${t.nama ? `<strong>${esc(t.nama)}</strong>` : ''}</div>` : ''}
+    </div>`).join('');
+}
+$('testiGrid').addEventListener('click', e => {
+  const b = e.target.closest('button[data-i]'); if(!b) return;
+  const t = DATA.testimoni[b.dataset.i];
+  $('lbImg').src = safeUrl(t.gambar); $('lbImg').alt = 'Testimoni ' + t.nama;
+  $('lightbox').classList.add('open');
+});
+$('lbClose').addEventListener('click', () => $('lightbox').classList.remove('open'));
+$('lightbox').addEventListener('click', e => { if(e.target === $('lightbox')) $('lightbox').classList.remove('open'); });
+
+/* ================= Keranjang ================= */
+function saveCart(){
+  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e){}
+  renderCart();
+}
+function renderCart(){
+  // buang item yang sudah tidak ada / habis di data terbaru
+  if(DATA.produk.length){
+    Object.keys(cart).forEach(id => {
+      const p = DATA.produk.find(x => x.id === id);
+      if(!p || p.status === 'habis') delete cart[id];
+    });
+  }
+  const ids = Object.keys(cart);
+  const count = ids.reduce((s, id) => s + cart[id], 0);
+  $('cnt').textContent = count;
+  $('cnt').style.display = count ? 'flex' : 'none';
+
+  let total = 0;
+  if(!ids.length){
+    $('dItems').innerHTML = '<div class="d-empty">🛒<br>Keranjang masih kosong.</div>';
+  } else {
+    $('dItems').innerHTML = ids.map(id => {
+      const p = DATA.produk.find(x => x.id === id); if(!p) return '';
+      total += priceOf(p) * cart[id];
+      const first = p.media.find(m => !/youtu|drive\.google|\.(mp4|webm|mov)/i.test(m));
+      return `<div class="row">
+        ${first ? `<img src="${esc(safeUrl(first))}" alt="" onerror="this.outerHTML='<div class=ico>${esc(p.icon)}</div>'">` : `<div class="ico">${esc(p.icon)}</div>`}
+        <div class="info"><h4>${esc(p.name)}</h4><span>${rp(priceOf(p))} / ${esc(p.unit)}</span></div>
+        <div class="qty"><button data-q="-1" data-id="${esc(id)}" aria-label="Kurangi">−</button><span>${cart[id]}</span><button data-q="1" data-id="${esc(id)}" aria-label="Tambah">+</button></div>
+      </div>`;
+    }).join('');
+  }
+  $('dTotal').textContent = rp(total);
+  $('checkoutBtn').disabled = !ids.length || !AGENT;
+}
+$('dItems').addEventListener('click', e => {
+  const b = e.target.closest('button[data-q]'); if(!b) return;
+  const id = b.dataset.id;
+  cart[id] = (cart[id] || 0) + Number(b.dataset.q);
+  if(cart[id] <= 0) delete cart[id];
+  saveCart();
+});
+function openCart(){ $('drawer').classList.add('open'); $('cartOverlay').classList.add('open'); }
+function closeCart(){ $('drawer').classList.remove('open'); $('cartOverlay').classList.remove('open'); }
+$('fab').addEventListener('click', openCart);
+$('drawerClose').addEventListener('click', closeCart);
+$('cartOverlay').addEventListener('click', closeCart);
+
+/* ================= Form pembeli ================= */
+let lastBuyer = { nama:'', hp:'', alamat:'' };
+function askBuyer(){
+  return new Promise(resolve => {
+    $('bNama').value = lastBuyer.nama; $('bHp').value = lastBuyer.hp; $('bAlamat').value = lastBuyer.alamat;
+    $('bErr').classList.remove('show');
+    function close(v){
+      $('buyerModal').classList.remove('open'); $('buyerOverlay').classList.remove('open');
+      $('bOk').removeEventListener('click', ok); $('bCancel').removeEventListener('click', cancel);
+      $('buyerOverlay').removeEventListener('click', cancel); document.removeEventListener('keydown', esc_);
+      resolve(v);
+    }
+    function ok(){
+      const nama = $('bNama').value.trim();
+      if(!nama){ $('bErr').textContent = 'Nama wajib diisi.'; $('bErr').classList.add('show'); $('bNama').focus(); return; }
+      lastBuyer = { nama, hp: $('bHp').value.trim(), alamat: $('bAlamat').value.trim() };
+      close(lastBuyer);
+    }
+    function cancel(){ close(null); }
+    function esc_(ev){ if(ev.key === 'Escape') cancel(); }
+    $('bOk').addEventListener('click', ok); $('bCancel').addEventListener('click', cancel);
+    $('buyerOverlay').addEventListener('click', cancel); document.addEventListener('keydown', esc_);
+    $('buyerOverlay').classList.add('open'); $('buyerModal').classList.add('open');
+    setTimeout(() => $('bNama').focus(), 50);
+  });
+}
+
+/* ================= Checkout ================= */
+function logOrder(items, buyer){
+  if(!API_URL || API_URL.indexOf('PASTE_URL') !== -1) return;
+  const payload = {
+    agenKode: AGENT.kode, agenNama: AGENT.nama,
+    buyerNama: buyer.nama, buyerHp: buyer.hp, buyerAlamat: buyer.alamat,
+    items: items.map(it => ({ name: it.p.name, qty: it.qty, unit: it.p.unit, price: priceOf(it.p), subtotal: priceOf(it.p) * it.qty }))
+  };
+  fetch(API_URL, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+    .catch(() => {}); // gagal mencatat tidak boleh mengganggu checkout
+}
+$('checkoutBtn').addEventListener('click', async () => {
+  if(!AGENT) return;
+  const items = Object.keys(cart).map(id => ({ p: DATA.produk.find(x => x.id === id), qty: cart[id] })).filter(it => it.p);
+  if(!items.length) return;
+  const buyer = await askBuyer();
+  if(!buyer) return;
+
+  const total = items.reduce((s, it) => s + priceOf(it.p) * it.qty, 0);
+  let msg = `Halo ${AGENT.nama}, saya ingin memesan:\n`;
+  items.forEach((it, i) => { msg += `${i+1}. ${it.p.name} x${it.qty} (${rp(priceOf(it.p) * it.qty)})\n`; });
+  msg += `\nEstimasi total: ${rp(total)}\n\nNama: ${buyer.nama}\nAlamat: ${buyer.alamat || '-'}\n\nMohon konfirmasi ketersediaan, harga, dan ongkos kirim. Terima kasih 🙏`;
+
+  logOrder(items, buyer);
+  const w = window.open(waLink(msg), '_blank', 'noopener');
+  if(!w) location.href = waLink(msg);
+
+  cart = {}; saveCart(); closeCart();
+  toast('Pesanan terkirim, keranjang dikosongkan 🛒');
+});
+
+/* ================= Toast ================= */
+let toastTimer;
+function toast(text){
+  const t = $('toast'); t.textContent = text; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ================= Muat data (cache dulu, lalu segarkan) ================= */
+function applyData(d){
+  DATA = {
+    produk: d.produk || [], agen: d.agen || [], testimoni: d.testimoni || [], banner: d.banner || []
+  };
+  resolveAgent();
+  renderBanner(); renderTabs(); renderProducts(); renderTesti(); renderCart();
+}
+function showError(){
+  $('grid').innerHTML = '<p class="status">Produk belum bisa dimuat. Periksa koneksi internet lalu muat ulang halaman.</p>';
+}
+async function load(){
+  let cachedRaw = null;
+  try { cachedRaw = localStorage.getItem(CACHE_KEY); } catch(e){}
+  if(cachedRaw){ try { applyData(JSON.parse(cachedRaw)); } catch(e){ cachedRaw = null; } }
+  if(!API_URL || API_URL.indexOf('PASTE_URL') !== -1){ if(!cachedRaw) showError(); return; }
+  try {
+    const r = await fetch(API_URL);
+    const text = await r.text();
+    const d = JSON.parse(text);
+    if(!d || !Array.isArray(d.produk)) throw new Error('format data salah');
+    if(text !== cachedRaw){
+      try { localStorage.setItem(CACHE_KEY, text); } catch(e){}
+      applyData(d);
+    }
+  } catch(e){
+    if(!cachedRaw) showError();
+  }
+}
+
+$('year').textContent = new Date().getFullYear();
+renderCart();
+load();
+
+/* ================= Proteksi ringan (dibawa dari versi lama) =================
+   Hanya penghalang untuk pengunjung awam, bukan keamanan sungguhan. Komentari
+   blok ini sementara kalau perlu membuka DevTools untuk debugging. */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  const k = e.key;
+  if(k === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(k)) || (e.ctrlKey && ['U','u','S','s'].includes(k))) e.preventDefault();
+});
+</script>
+</body>
+</html>
