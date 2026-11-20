@@ -51,6 +51,22 @@ button{font-family:inherit}
 .msg.err{color:var(--red)} .msg.ok{color:var(--ok)}
 
 
+.app{padding-top:20px;padding-bottom:70px}
+.ov{position:fixed;inset:0;background:rgba(20,35,40,.5);z-index:200;display:none}
+.ov.open{display:block}
+.modal{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(420px,calc(100vw - 40px));background:var(--paper);
+  border-radius:var(--r-lg);padding:1.7rem 1.6rem 1.4rem;z-index:201;display:none;box-shadow:0 30px 60px -20px rgba(0,0,0,.4)
+}
+.modal.open{display:block}
+.modal h4{font-family:var(--font-display);color:var(--teal);font-size:1.2rem;margin-bottom:.8rem}
+.modal .acts{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-end;margin-top:1rem}
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,10px);background:var(--teal-dark);color:#fff;padding:12px 22px;border-radius:100px;
+  font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:300;pointer-events:none;max-width:calc(100vw - 40px);text-align:center
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
 .tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
 .tab{border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);font-weight:700;font-size:.86rem;padding:8px 18px;border-radius:100px;cursor:pointer}
 .tab[aria-selected="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
@@ -69,6 +85,7 @@ td.act .btn{margin-left:.3rem}
 tr.off td{opacity:.55}
 .empty{padding:2rem;text-align:center;color:var(--ink-soft)}
 .fm{width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 40px);overflow-y:auto}
+.fm .acts{position:sticky;bottom:-1.4rem;background:var(--paper);padding:.8rem 0 .2rem;margin-top:.4rem}
 .fm .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
 .fm .field{margin-bottom:.8rem}
 .fm .field.full{grid-column:1/-1}
@@ -141,7 +158,7 @@ const SKEMA = {
   },
   Produk: {
     judul:'Produk', satuan:'produk',
-    note:'Foto & video produk diatur di halaman Kelola Foto & Video.',
+    note:'Untuk mengunggah file foto/video baru, gunakan Kelola Foto & Video. Di sini Anda bisa mengetik/menyusun daftar media.',
     kunci:'id', tabel:['id','nama','kategori','harga','hargaPromo','status','aktif'],
     fields:[
       { name:'id', label:'ID produk', req:1, hint:'Unik, mis. p15. Jangan diubah bila sudah ada pesanan.' },
@@ -153,7 +170,8 @@ const SKEMA = {
       { name:'hargaPromo', label:'Harga promo (Rp)', type:'number', hint:'Kosong = tidak promo. Isi bersama status "promo".' },
       { name:'status', label:'Status', type:'select', opsi:[['', 'Normal'],['baru','Baru'],['promo','Promo'],['habis','Habis']] },
       { name:'aktif', label:'Tampil / aktif', type:'check' },
-      { name:'deskripsi', label:'Deskripsi', type:'list', full:1, hint:'Satu poin per baris.' }
+      { name:'deskripsi', label:'Deskripsi', type:'list', full:1, hint:'Satu poin per baris.' },
+      { name:'media', label:'Foto & video (maks 3)', type:'list', full:1, hint:'Satu per baris: nama file di repo (mis. produk-foto/ikan.jpg), link YouTube, atau link https. Yang paling atas jadi sampul di toko.' }
     ]
   },
   Banner: {
@@ -266,7 +284,7 @@ function bukaForm(row){
   const S = SKEMA[cur], D = DATA[cur];
   const r = row ? D.rows.find(x => x._row === row) : null;
   if(row && !r) return;
-  editing = r ? { row: r._row, orig: r[D.headers[0]] } : null;
+  editing = r ? { row: r._row, orig: r[D.headers[0]], mediaAwal: String(r.media == null ? '' : r.media).split('|').map(x => x.trim()).filter(Boolean).join('|') } : null;
   const v = r || { aktif: true };
   if(!r && cur === 'Produk'){
     const n = D.rows.map(x => /^p(\d+)$/i.exec(String(x.id))).filter(Boolean).map(m => +m[1]);
@@ -281,7 +299,7 @@ function bukaForm(row){
   $('ov').classList.add('open'); $('modal').classList.add('open');
   const first = $('mFields').querySelector('input:not([type=checkbox]),textarea,select'); if(first) setTimeout(() => first.focus(), 50);
 }
-function tutupForm(){ $('ov').classList.remove('open'); $('modal').classList.remove('open'); }
+function tutupForm(){ $('mSave').disabled = false; $('mSave').textContent = 'Simpan'; $('ov').classList.remove('open'); $('modal').classList.remove('open'); }
 $('addBtn').addEventListener('click', () => { if(DATA[cur]) bukaForm(0); });
 $('tw').addEventListener('click', e => {
   const ed = e.target.closest('[data-edit]'); if(ed) return bukaForm(+ed.dataset.edit);
@@ -300,6 +318,8 @@ function ambilForm(){
       : t === 'list' ? el.value.split('\n').map(x => x.replace(/\|/g, '/').trim()).filter(Boolean).join('|')
       : el.value.trim();
   });
+  if(editing && out.media !== undefined && out.media === editing.mediaAwal) delete out.media;   // tidak berubah: jangan kirim
+  if(out.media && out.media.split('|').length > 3){ out.__err = 'Maksimal 3 foto/video per produk.'; }
   return out;
 }
 async function hapusKirim(){
@@ -316,6 +336,7 @@ $('mForm').addEventListener('submit', async e => {
   e.preventDefault();
   if(editing && editing.hapus) return hapusKirim();
   const S = SKEMA[cur], data = ambilForm();
+  if(data.__err){ $('mErr').textContent = data.__err; return; }
   for(const f of S.fields){
     if(f.req && data[f.name] !== undefined && data[f.name] === ''){ $('mErr').textContent = `"${f.label}" wajib diisi.`; return; }
   }
