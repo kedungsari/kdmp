@@ -81,6 +81,12 @@ th{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink
 tr:last-child td{border-bottom:0}
 td.act{white-space:nowrap;text-align:right}
 td.act .btn{margin-left:.3rem}
+.mv{display:inline-flex;gap:3px;margin-right:.5rem;vertical-align:middle}
+.mv button{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);font-weight:700;cursor:pointer;font-size:.8rem;line-height:1}
+.mv button:hover:not(:disabled){border-color:var(--teal);background:rgba(14,90,110,.06)}
+.mv button:disabled{opacity:.3;cursor:not-allowed}
+.uin{width:74px;padding:6px 8px;border-radius:8px;border:1.5px solid var(--line);font:inherit;font-size:.86rem;background:var(--bg)}
+.uin:focus{outline:none;border-color:var(--teal);background:#fff}
 .trunc{max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 tr.off td{opacity:.55}
 .empty{padding:2rem;text-align:center;color:var(--ink-soft)}
@@ -159,8 +165,9 @@ const SKEMA = {
   Produk: {
     judul:'Produk', satuan:'produk',
     note:'Untuk mengunggah file foto/video baru, gunakan Kelola Foto & Video. Di sini Anda bisa mengetik/menyusun daftar media.',
-    kunci:'id', tabel:['id','nama','kategori','harga','hargaPromo','status','aktif'],
+    kunci:'id', urutNum:true, tabel:['urutan','id','nama','kategori','harga','hargaPromo','status','aktif'],
     fields:[
+      { name:'urutan', label:'Urutan tampil', type:'number', hint:'Angka kecil tampil lebih dulu (1 = paling atas). Kosong = paling bawah.' },
       { name:'id', label:'ID produk', req:1, hint:'Unik, mis. p15. Jangan diubah bila sudah ada pesanan.' },
       { name:'kategori', label:'Kategori', list:'kategori', hint:'Pilih yang ada atau ketik baru (huruf kecil).' },
       { name:'nama', label:'Nama produk', req:1, full:1 },
@@ -176,13 +183,14 @@ const SKEMA = {
   },
   Banner: {
     judul:'Banner', satuan:'banner',
-    note:'Banner tampil bergantian di bagian atas toko.',
-    kunci:'gambar', tabel:['gambar','judul','subjudul','link','aktif'],
+    note:'Banner tampil bergantian di bagian atas toko. Banner boleh berupa iklan titipan yang tidak ada di daftar produk.',
+    kunci:'gambar', urutNum:true, tabel:['urutan','gambar','judul','subjudul','link','aktif'],
     fields:[
+      { name:'urutan', label:'Urutan tampil', type:'number', hint:'Angka kecil = slide lebih dulu (1 = pertama). Kosong = paling akhir.' },
       { name:'gambar', label:'Gambar', req:1, full:1, hint:'Nama file di repo, mis. produk-foto/cabai.jpg, atau link https.' },
       { name:'judul', label:'Judul', full:1 },
       { name:'subjudul', label:'Subjudul', full:1 },
-      { name:'link', label:'Link saat diklik', hint:'mis. #produk' },
+      { name:'link', label:'Saat banner diklik', type:'tujuan', full:1 },
       { name:'aktif', label:'Tampil / aktif', type:'check' }
     ]
   },
@@ -234,28 +242,39 @@ function renderTabs(){
     return `<button class="tab" role="tab" type="button" data-t="${n}" aria-selected="${n === cur}">${esc(SKEMA[n].judul)}${c}</button>`;
   }).join('');
 }
+function urutProduk(rows){
+  const key = r => (r.urutan === '' || r.urutan == null || isNaN(Number(r.urutan))) ? Infinity : Number(r.urutan);
+  return rows.slice().sort((a, b) => key(a) === key(b) ? a._row - b._row : (key(a) < key(b) ? -1 : 1));
+}
 function cellHtml(col, r){
   const v = r[col];
+  if(col === 'urutan') return `<input class="uin" type="number" step="any" data-u="${r._row}" value="${esc(v)}" placeholder="—" aria-label="Urutan tampil">`;
   if(col === 'aktif') return isOn(v) ? 'Ya' : '<span style="color:var(--red);font-weight:700">Tidak</span>';
   if(kosong(v)) return '<span style="color:#aab">—</span>';
   if(col === 'harga' || col === 'hargaPromo') return rp(v);
+  if(col === 'link' && cur === 'Banner'){
+    const pm = /^produk:(.+)$/.exec(String(v)); const pr = pm && DATA.Produk && DATA.Produk.rows.find(x => String(x.id) === pm[1]);
+    if(pm) return `<div class="trunc">Produk: ${esc(pr ? pr.nama : pm[1])}</div>`;
+  }
   return `<div class="trunc" title="${esc(v)}">${esc(v)}</div>`;
 }
 function render(){
   renderTabs();
   const S = SKEMA[cur], D = DATA[cur];
-  $('note').textContent = S.note;
+  $('note').textContent = S.note + (S.urutNum ? ' Urutan tampil di toko mengikuti kolom Urutan: ketik angka pada kolom itu (kecil = lebih dulu, mis. 1 = paling atas), lalu tekan Enter.' : ' Urutan tampil di toko = urutan di tabel ini; atur dengan tombol ⤒ ▲ ▼ (kosongkan kolom Cari dulu).');
   if(!D){ $('tw').innerHTML = '<div class="empty">Memuat…</div>'; return; }
   const q = $('q').value.trim().toLowerCase();
   const cols = S.tabel.filter(c => D.headers.indexOf(c) !== -1);
-  const rows = D.rows.filter(r => !q || cols.concat(S.fields.map(f => f.name)).some(c => String(r[c] == null ? '' : r[c]).toLowerCase().indexOf(q) !== -1));
+  const baris = S.urutNum ? urutProduk(D.rows) : D.rows;
+  const rows = baris.filter(r => !q || cols.concat(S.fields.map(f => f.name)).some(c => String(r[c] == null ? '' : r[c]).toLowerCase().indexOf(q) !== -1));
   if(!rows.length){
     $('tw').innerHTML = `<div class="empty">${D.rows.length ? 'Tidak ada yang cocok dengan pencarian.' : 'Belum ada data. Tekan "+ Tambah".'}</div>`;
     return;
   }
+  const urut = !q && !S.urutNum;   // tombol urutan hanya aktif saat tidak sedang mencari
   $('tw').innerHTML = `<table><thead><tr>${cols.map(c => `<th>${esc(c)}</th>`).join('')}<th></th></tr></thead><tbody>` +
     rows.map(r => `<tr class="${isOn(r.aktif) ? '' : 'off'}">${cols.map(c => `<td>${cellHtml(c, r)}</td>`).join('')}
-      <td class="act"><button class="btn ghost sm" data-edit="${r._row}" type="button">Ubah</button><button class="btn ghost sm" data-del="${r._row}" type="button" style="color:var(--red);border-color:var(--red)">Hapus</button></td></tr>`).join('') +
+      <td class="act">${urut ? `<span class="mv"><button type="button" data-mv="atas:${r._row}" title="Pindah ke paling atas" aria-label="Pindah ke paling atas" ${r._row === D.rows[0]._row ? 'disabled' : ''}>⤒</button><button type="button" data-mv="naik:${r._row}" title="Naik satu" aria-label="Naik satu" ${r._row === D.rows[0]._row ? 'disabled' : ''}>▲</button><button type="button" data-mv="turun:${r._row}" title="Turun satu" aria-label="Turun satu" ${r._row === D.rows[D.rows.length - 1]._row ? 'disabled' : ''}>▼</button></span>` : ''}<button class="btn ghost sm" data-edit="${r._row}" type="button">Ubah</button><button class="btn ghost sm" data-del="${r._row}" type="button" style="color:var(--red);border-color:var(--red)">Hapus</button></td></tr>`).join('') +
     '</tbody></table>';
 }
 $('tabs').addEventListener('click', e => {
@@ -272,6 +291,17 @@ function fieldHtml(f, v){
   const hint = f.hint ? `<div class="h">${esc(f.hint)}</div>` : '';
   const cls = 'field' + (f.full ? ' full' : '');
   const lab = `<label for="${id}">${esc(f.label)}${f.req ? ' <span class="req">*</span>' : ''}</label>`;
+  if(t === 'tujuan'){
+    const raw = String(v == null ? '' : v).trim(), pm = /^produk:(.+)$/.exec(raw);
+    const mode = !raw ? 'none' : pm ? 'produk' : 'url';
+    const prods = (DATA.Produk ? DATA.Produk.rows : []).map(r => [String(r.id), String(r.nama || r.id)]);
+    if(pm && !prods.some(x => x[0] === pm[1])) prods.push([pm[1], pm[1] + ' (tidak ditemukan)']);
+    return `<div class="${cls}">${lab}
+      <select id="f_link_mode"><option value="none"${mode === 'none' ? ' selected' : ''}>Tidak ada link (hanya tampil)</option><option value="produk"${mode === 'produk' ? ' selected' : ''}>Menuju produk di toko</option><option value="url"${mode === 'url' ? ' selected' : ''}>Link luar (WhatsApp, Instagram, dll.)</option></select>
+      <select id="f_link_produk" style="margin-top:.5rem"${mode === 'produk' ? '' : ' hidden'}>${prods.map(x => `<option value="${esc(x[0])}"${pm && pm[1] === x[0] ? ' selected' : ''}>${esc(x[0])} — ${esc(x[1])}</option>`).join('')}</select>
+      <input id="f_link_url" type="text" style="margin-top:.5rem" placeholder="https://…" value="${mode === 'url' ? esc(raw) : ''}"${mode === 'url' ? '' : ' hidden'}>
+      <div class="h">Menuju produk: pelanggan yang mengklik banner dibawa ke kartu produk itu. Pilih "Tidak ada link" untuk iklan titipan yang tidak perlu diklik.</div></div>`;
+  }
   if(t === 'check') return `<div class="${cls}"><label class="chk"><input type="checkbox" id="${id}" ${isOn(v) ? 'checked' : ''}> ${esc(f.label)}</label>${hint}</div>`;
   if(t === 'textarea') return `<div class="${cls}">${lab}<textarea id="${id}">${esc(v)}</textarea>${hint}</div>`;
   if(t === 'list') return `<div class="${cls}">${lab}<textarea id="${id}">${esc(String(v == null ? '' : v).split('|').map(x => x.trim()).filter(Boolean).join('\n'))}</textarea>${hint}</div>`;
@@ -290,6 +320,10 @@ function bukaForm(row){
     const n = D.rows.map(x => /^p(\d+)$/i.exec(String(x.id))).filter(Boolean).map(m => +m[1]);
     v.id = 'p' + ((n.length ? Math.max.apply(null, n) : 0) + 1);
   }
+  if(!r && S.urutNum){
+    const us = D.rows.filter(x => x.urutan !== '' && x.urutan != null).map(x => Number(x.urutan)).filter(x => !isNaN(x));
+    v.urutan = (us.length ? Math.max.apply(null, us) : 0) + 10;
+  }
   $('mTitle').textContent = (r ? 'Ubah ' : 'Tambah ') + S.satuan;
   const ada = S.fields.filter(f => D.headers.indexOf(f.name) !== -1);
   const hilang = S.fields.filter(f => D.headers.indexOf(f.name) === -1).map(f => f.name);
@@ -301,9 +335,60 @@ function bukaForm(row){
 }
 function tutupForm(){ $('mSave').disabled = false; $('mSave').textContent = 'Simpan'; $('ov').classList.remove('open'); $('modal').classList.remove('open'); }
 $('addBtn').addEventListener('click', () => { if(DATA[cur]) bukaForm(0); });
+/* ================= Urutan (angka) ================= */
+$('tw').addEventListener('change', async e => {
+  const inp = e.target.closest('.uin'); if(!inp) return;
+  const D = DATA[cur], row = +inp.dataset.u, r = D.rows.find(x => x._row === row); if(!r) return;
+  const v = inp.value.trim();
+  if(v !== '' && (isNaN(Number(v)) || Number(v) < 0)){ toast('Urutan harus angka 0 atau lebih.'); inp.value = r.urutan == null ? '' : r.urutan; return; }
+  inp.disabled = true;
+  try {
+    await Admin.post({ action:'simpanBaris', sheet:cur, row, orig: r[D.headers[0]], data:{ urutan: v } });
+    r.urutan = v === '' ? '' : Number(v);
+    toast('Urutan disimpan'); render();
+  } catch(err){ if(!err.auth){ toast(err.message); inp.value = r.urutan == null ? '' : r.urutan; inp.disabled = false; } }
+});
+
+/* ================= Urutan (tombol, untuk Agen/Banner/Testimoni) ================= */
+let antri = Promise.resolve(), sisa = 0;
+function geserLokal(row, arah){
+  const rows = DATA[cur].rows, i = rows.findIndex(r => r._row === row);
+  if(i < 0) return false;
+  let j;
+  if(arah === 'atas') j = 0; else if(arah === 'naik') j = i - 1; else j = i + 1;
+  if(j < 0 || j >= rows.length || j === i) return false;
+  const moved = rows[i], target = rows[j];
+  if(j < i){ // naik: baris j..i-1 turun satu posisi
+    const dest = target._row;
+    rows.slice(j, i).forEach(r => { r._row += 1; });
+    moved._row = dest;
+  } else {   // turun: baris i+1..j naik satu posisi
+    const dest = target._row;
+    rows.slice(i + 1, j + 1).forEach(r => { r._row -= 1; });
+    moved._row = dest;
+  }
+  rows.splice(i, 1); rows.splice(j, 0, moved);
+  return true;
+}
+function geser(arah, row){
+  const D = DATA[cur], sheet = cur, r = D.rows.find(x => x._row === row);
+  if(!r) return;
+  const kirim = { action:'geserBaris', sheet, row, orig: r[D.headers[0]], arah };
+  if(!geserLokal(row, arah)) return;
+  render(); sisa++;
+  antri = antri.then(() => Admin.post(kirim)).catch(err => { if(!err.auth) toast(err.message); return 'gagal'; })
+    .then(() => { if(--sisa === 0) muat(sheet); });
+}
+
 $('tw').addEventListener('click', e => {
+  const mv = e.target.closest('[data-mv]'); if(mv){ const p = mv.dataset.mv.split(':'); return geser(p[0], +p[1]); }
   const ed = e.target.closest('[data-edit]'); if(ed) return bukaForm(+ed.dataset.edit);
   const dl = e.target.closest('[data-del]'); if(dl) return hapus(+dl.dataset.del);
+});
+$('mFields').addEventListener('change', e => {
+  if(e.target.id !== 'f_link_mode') return;
+  $('f_link_produk').hidden = e.target.value !== 'produk';
+  $('f_link_url').hidden = e.target.value !== 'url';
 });
 $('mCancel').addEventListener('click', tutupForm);
 $('ov').addEventListener('click', () => { if($('modal').classList.contains('open')) tutupForm(); });
@@ -313,7 +398,12 @@ function ambilForm(){
   const S = SKEMA[cur], D = DATA[cur], out = {};
   S.fields.forEach(f => {
     if(D.headers.indexOf(f.name) === -1) return;
-    const el = $('f_' + f.name), t = f.type || 'text';
+    const t = f.type || 'text', el = $('f_' + f.name);
+    if(t === 'tujuan'){
+      const m = $('f_link_mode').value;
+      out[f.name] = m === 'produk' ? ($('f_link_produk').value ? 'produk:' + $('f_link_produk').value : '') : m === 'url' ? $('f_link_url').value.trim() : '';
+      return;
+    }
     out[f.name] = t === 'check' ? el.checked
       : t === 'list' ? el.value.split('\n').map(x => x.replace(/\|/g, '/').trim()).filter(Boolean).join('|')
       : el.value.trim();
@@ -336,6 +426,7 @@ $('mForm').addEventListener('submit', async e => {
   e.preventDefault();
   if(editing && editing.hapus) return hapusKirim();
   const S = SKEMA[cur], data = ambilForm();
+  if(data.link && !/^produk:|^https?:\/\/\S+$|^#[\w-]+$/.test(data.link)){ $('mErr').textContent = 'Link luar harus diawali https:// (atau http://).'; return; }
   if(data.__err){ $('mErr').textContent = data.__err; return; }
   for(const f of S.fields){
     if(f.req && data[f.name] !== undefined && data[f.name] === ''){ $('mErr').textContent = `"${f.label}" wajib diisi.`; return; }
