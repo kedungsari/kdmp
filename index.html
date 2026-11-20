@@ -82,6 +82,11 @@ button{font-family:inherit}
   display:flex;align-items:center;justify-content:center;pointer-events:none;transition:transform .2s
 }
 .slide.vid:hover .play{transform:translate(-50%,-50%) scale(1.1)}
+/* Video file (.mp4) diputar langsung di dalam kartu, tetap memenuhi frame */
+.slide.vid.playing{cursor:default}
+.slide.vid.playing video{pointer-events:auto}
+.slide.vid.playing .play{display:none}
+.slider:has(.slide.playing) .dots{display:none}
 .nav{
   position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;
   border:none;background:rgba(255,255,255,.92);color:var(--teal-dark);font-size:1.2rem;line-height:1;
@@ -421,9 +426,24 @@ function closeVideo(){
   $('vModal').classList.remove('open');
   $('vBox').innerHTML = ''; // menghentikan pemutaran
 }
+/* Video .mp4 diputar langsung di kartu (tetap memenuhi frame).
+   YouTube & Google Drive tetap di jendela pemutar, karena pemutar mereka
+   tidak bisa dipotong memenuhi frame tanpa menghilangkan tombol kontrolnya. */
+function playInline(slide){
+  const vid = slide.querySelector('video');
+  if(!vid || slide.classList.contains('playing')) return;
+  document.querySelectorAll('.slide.vid video').forEach(x => { if(x !== vid) x.pause(); });
+  slide.classList.add('playing');
+  vid.controls = true;
+  vid.muted = false;
+  const p = vid.play();
+  if(p && p.catch) p.catch(() => {}); // kalau diblokir browser, pengguna tinggal menekan play di kontrol
+}
 document.addEventListener('click', e => {
   const v = e.target.closest('.slide.vid');
-  if(v) openVideo(v.dataset.kind, v.dataset.ref, v.dataset.title);
+  if(!v) return;
+  if(v.dataset.kind === 'file') playInline(v);
+  else openVideo(v.dataset.kind, v.dataset.ref, v.dataset.title);
 });
 $('vClose').addEventListener('click', closeVideo);
 $('vModal').addEventListener('click', e => { if(e.target === $('vModal')) closeVideo(); });
@@ -444,6 +464,11 @@ document.addEventListener('scroll', e => {
   if(!t.classList || !t.classList.contains('slides')) return;
   const idx = Math.round(t.scrollLeft / (t.clientWidth || 1));
   t.parentElement.querySelectorAll('.dots i').forEach((d,i) => d.classList.toggle('on', i === idx));
+  // geser ke foto lain -> hentikan video yang sedang diputar di kartu ini
+  t.querySelectorAll('video').forEach(v => {
+    const s = v.closest('.slide');
+    if(s && Array.prototype.indexOf.call(t.children, s) !== idx) v.pause();
+  });
 }, true);
 
 /* ================= Banner ================= */
