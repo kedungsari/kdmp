@@ -151,6 +151,8 @@ button{font-family:inherit}
 }
 .badge.baru{background:var(--teal)}.badge.promo{background:var(--red)}.badge.habis{background:#7d8689}
 .card.habis .slider,.card.habis .ph{filter:grayscale(.7);opacity:.7}
+@keyframes flash{0%,100%{box-shadow:var(--shadow)}30%,70%{box-shadow:0 0 0 4px var(--gold),0 14px 34px -14px rgba(232,168,28,.6)}}
+.card.flash{animation:flash 1.8s ease 1}
 .body{padding:1rem 1.15rem 1.2rem;display:flex;flex-direction:column;gap:.4rem;flex:1}
 .body h3{font-size:1.02rem;font-weight:700}
 .body ul{list-style:none;display:flex;flex-direction:column;gap:.2rem}
@@ -353,7 +355,7 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
    API_URL : URL Web App Apps Script (Code.gs), berakhiran "/exec".
    Link untuk tiap agen: https://alamat-situs/?agen=kode-agen
    (kode agen = kolom "kode" di sheet Agen). */
-const API_URL = 'https://script.google.com/macros/s/AKfycbyDaTd-fxFEDuo8LCjwZWtdZ84fTjaMyhy1lAo3T4-dW5z1sbKXYqyIgRFnqjfyDLTX/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzY6Pz3qjNBum78IZKyrj32MJAuUo9-fgMBQpp_8DCvaJJ_SBnJRWal0mfC3iaV3aSY/exec';
 
 const CACHE_KEY = 'kdmp_data_v1';
 const CART_KEY  = 'kdmp_cart_v1';
@@ -505,10 +507,14 @@ function renderBanner(){
   $('bannerSec').hidden = !list.length;
   if(!list.length) return;
   const slides = list.map(b => {
-    const link = safeUrl(b.link);
+    const ref = String(b.link || '').trim();
+    const pm = /^produk:(.+)$/.exec(ref);
+    const link = pm ? '#produk' : safeUrl(ref);
     const inner = `<img src="${esc(safeUrl(b.gambar))}" alt="${esc(b.judul || 'Banner')}" onerror="this.remove()">` +
       ((b.judul || b.subjudul) ? `<div class="cap">${b.judul ? `<h2>${esc(b.judul)}</h2>` : ''}${b.subjudul ? `<p>${esc(b.subjudul)}</p>` : ''}</div>` : '');
-    return link ? `<a class="slide" href="${esc(link)}">${inner}</a>` : `<div class="slide">${inner}</div>`;
+    if(!link) return `<div class="slide">${inner}</div>`;
+    const luar = /^https?:\/\//i.test(link);
+    return `<a class="slide" href="${esc(link)}"${pm ? ` data-produk="${esc(pm[1].trim())}"` : ''}${luar ? ' target="_blank" rel="noopener noreferrer"' : ''}>${inner}</a>`;
   }).join('');
   $('bannerSlider').innerHTML = `<div class="slides">${slides}</div>${sliderControls(list.length)}`;
   if(list.length > 1){
@@ -519,6 +525,21 @@ function renderBanner(){
     }, 5000);
   }
 }
+
+/* Klik banner yang menuju produk: buka kartu produknya & beri sorotan */
+function goProduk(id){
+  const p = DATA.produk.find(x => String(x.id) === String(id));
+  if(p && activeCat !== 'semua' && p.cat !== activeCat){ activeCat = 'semua'; renderTabs(); renderProducts(); }
+  const card = [...document.querySelectorAll('#grid .card')].find(c => c.dataset.pid === String(id));
+  if(!card){ const sec = $('produk'); if(sec) sec.scrollIntoView({ behavior:'smooth' }); return; }
+  card.scrollIntoView({ behavior:'smooth', block:'center' });
+  card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash');
+  setTimeout(() => card.classList.remove('flash'), 2000);
+}
+$('bannerSlider').addEventListener('click', e => {
+  const a = e.target.closest('a[data-produk]'); if(!a) return;
+  e.preventDefault(); goProduk(a.dataset.produk);
+});
 
 /* ================= Produk ================= */
 function renderTabs(){
@@ -540,7 +561,7 @@ function renderProducts(){
     const visual = slides
       ? `<div class="slider"><div class="slides">${slides}</div>${sliderControls(p.media.length)}</div>`
       : `<div class="ph">${esc(p.icon)}</div>`;
-    return `<article class="card${habis ? ' habis' : ''}">
+    return `<article class="card${habis ? ' habis' : ''}" data-pid="${esc(p.id)}">
       ${STATUS_LABEL[p.status] ? `<span class="badge ${p.status}">${STATUS_LABEL[p.status]}</span>` : ''}
       ${visual}
       <div class="body">
