@@ -59,6 +59,9 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-hei
   display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;align-items:end;
   background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.1rem 1.2rem;margin-bottom:1.2rem
 }
+.presets{display:flex;gap:.4rem;flex-wrap:wrap;margin:-.2rem 0 .9rem}
+.presets button{font:inherit;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);cursor:pointer}
+.presets button:hover{border-color:var(--teal)}
 .filters .btns{display:flex;gap:.6rem;flex-wrap:wrap}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.6rem}
 .stat{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.1rem 1.3rem}
@@ -108,6 +111,14 @@ tfoot td{font-weight:700;background:#F7FAF4}
       <button class="btn ghost sm" id="reloadBtn" type="button">↻ Muat ulang</button>
       <button class="btn sm" id="csvBtn" type="button">⬇ Unduh CSV</button>
     </div>
+  </div>
+
+  <div class="presets" id="presets" aria-label="Rentang cepat">
+    <button type="button" data-r="today">Hari ini</button>
+    <button type="button" data-r="7">7 hari</button>
+    <button type="button" data-r="30">30 hari</button>
+    <button type="button" data-r="month">Bulan ini</button>
+    <button type="button" data-r="all">Semua</button>
   </div>
 
   <p class="status" id="statusLine"></p>
@@ -176,6 +187,16 @@ function buildAgenOptions(){
     [...map.entries()].map(([k, n]) => `<option value="${esc(k)}">${esc(n)}</option>`).join('');
   if(cur && map.has(cur)) sel.value = cur;
 }
+$('presets').addEventListener('click', e => {
+  const b = e.target.closest('[data-r]'); if(!b) return;
+  const r = b.dataset.r, today = dayKey(new Date().toISOString());
+  const geser = n => dayKey(new Date(Date.now() - n * 86400000).toISOString());
+  let from = '', to = '';
+  if(r === 'today'){ from = to = today; }
+  else if(r === 'month'){ from = today.slice(0, 8) + '01'; to = today; }
+  else if(r !== 'all'){ from = geser(+r - 1); to = today; }
+  $('fFrom').value = from; $('fTo').value = to; render();
+});
 ['fFrom','fTo','fAgen','fKomisi'].forEach(id => $(id).addEventListener('input', render));
 
 function applyFilter(){
