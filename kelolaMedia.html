@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Kelola Data — KDMP Kalurahan Kedungsari</title>
+<title>Kelola Foto & Video Produk — KDMP Kalurahan Kedungsari</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,42 +50,89 @@ button{font-family:inherit}
 .msg{font-size:.85rem;margin-top:.7rem;min-height:1.2em}
 .msg.err{color:var(--red)} .msg.ok{color:var(--ok)}
 
+/* Login */
+.login{max-width:380px;margin:64px auto;background:var(--paper);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:2rem 1.8rem}
+.login h1{font-family:var(--font-display);color:var(--teal);font-size:1.5rem;margin-bottom:.3rem}
+.login p.intro{color:var(--ink-soft);font-size:.9rem;margin-bottom:1.2rem}
+.login .btn{width:100%;margin-top:1rem}
 
-.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
-.tab{border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);font-weight:700;font-size:.86rem;padding:8px 18px;border-radius:100px;cursor:pointer}
-.tab[aria-selected="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
-.tab small{opacity:.75;font-weight:600;margin-left:4px}
-.tools{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin-bottom:.9rem}
-.tools .field{flex:1;min-width:180px}
-.note{font-size:.82rem;color:var(--ink-soft);margin-bottom:.9rem}
-.tw{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.86rem}
-th,td{padding:.65rem .9rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:#FAF8F2;white-space:nowrap}
-tr:last-child td{border-bottom:0}
-td.act{white-space:nowrap;text-align:right}
-td.act .btn{margin-left:.3rem}
-.trunc{max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-tr.off td{opacity:.55}
-.empty{padding:2rem;text-align:center;color:var(--ink-soft)}
-.fm{width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 40px);overflow-y:auto}
-.fm .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.fm .field{margin-bottom:.8rem}
-.fm .field.full{grid-column:1/-1}
-.fm .field select,.fm .field textarea{width:100%;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);font:inherit;font-size:.92rem;background:var(--bg);color:var(--ink)}
-.fm .field textarea{min-height:96px;resize:vertical}
-.fm .field .h{font-size:.74rem;color:var(--ink-soft);margin-top:3px}
-.fm .chk{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.9rem}
-.fm .chk input{width:auto}
-.req{color:var(--red)}
-@media (max-width:640px){ .brand strong{font-size:1.05rem} .fm .grid2{grid-template-columns:1fr} }
+/* Aplikasi */
+.app{padding-top:20px;padding-bottom:70px}
+.toolbar{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+.toolbar .field{flex:1;min-width:200px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:600;padding:8px 14px;border-radius:100px;background:var(--paper);border:1.5px solid var(--line)}
+.chip i{width:9px;height:9px;border-radius:50%;background:#b5b5a8}
+.chip.on i{background:#3F9142;box-shadow:0 0 0 3px rgba(63,145,66,.2)}
+.chip button{background:none;border:none;color:var(--teal);font-weight:700;cursor:pointer;text-decoration:underline;font-size:.82rem}
+
+.panel{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-bottom:1.2rem}
+.panel h2{font-family:var(--font-display);color:var(--teal);font-size:1.15rem;margin-bottom:.5rem}
+.panel ol{margin:.6rem 0 1rem 1.2rem;font-size:.88rem;color:var(--ink-soft)}
+.panel li{margin-bottom:.3rem}
+.panel code{background:#EEF3EA;padding:1px 6px;border-radius:6px;font-size:.82rem;color:var(--teal-dark)}
+.panel .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:flex-end}
+.panel .row .field{flex:1;min-width:240px}
+.hintbox{font-size:.8rem;color:var(--ink-soft);background:#FBF3DC;border-radius:var(--r-sm);padding:.6rem .8rem;margin-top:.8rem}
+
+.info{font-size:.84rem;color:var(--ink-soft);margin-bottom:1.1rem}
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.1rem;align-items:start}
+.pcard{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1rem 1.1rem 1.1rem}
+.pcard.hidden-prod{opacity:.78}
+.phead{display:flex;justify-content:space-between;gap:.6rem;align-items:flex-start;margin-bottom:.7rem}
+.phead h3{font-size:1rem;font-weight:700}
+.phead small{display:block;color:var(--ink-soft);font-size:.78rem}
+.tag{font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:#EEF3EA;color:var(--teal-dark);white-space:nowrap}
+.tag.warn{background:#F6E1DD;color:var(--red)}
+
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.slot{position:relative;aspect-ratio:4/3;border-radius:var(--r-sm);overflow:hidden;background:#E5EDDC}
+.slot img,.slot video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.slot .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#10303a,#0E5A6E);color:#fff;font-weight:700;font-size:.8rem}
+.slot .badge{position:absolute;left:6px;top:6px;background:rgba(0,0,0,.6);color:#fff;font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:100px}
+.slot .cover{position:absolute;right:6px;top:6px;background:var(--gold);color:var(--teal-dark);font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:100px}
+.slot .ctl{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:4px;padding:5px;background:linear-gradient(to top,rgba(0,0,0,.6),transparent)}
+.slot .ctl button{width:28px;height:28px;border-radius:50%;border:none;background:rgba(255,255,255,.92);color:var(--teal-dark);font-size:.9rem;font-weight:700;cursor:pointer}
+.slot .ctl button.del{color:var(--red)}
+.slot .ctl button:disabled{opacity:.4;cursor:not-allowed}
+.slot .pendtxt{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;font-size:.7rem;font-weight:600;color:var(--ink-soft);padding:.5rem;background:#E5EDDC}
+.slot.pend img{display:none}
+.slot.pend .pendtxt{display:flex}
+button.slot{border:2px dashed rgba(14,90,110,.3);background:transparent;cursor:pointer;color:var(--teal);font-weight:700;font-size:.78rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+button.slot b{font-size:1.5rem;line-height:1}
+button.slot:hover:not(:disabled){background:rgba(14,90,110,.06)}
+button.slot:disabled{opacity:.5;cursor:not-allowed}
+.slot.work{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;font-size:.72rem;font-weight:600;color:var(--teal)}
+.spin{width:22px;height:22px;border-radius:50%;border:3px solid rgba(14,90,110,.2);border-top-color:var(--teal);animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pfoot{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem;align-items:center}
+.pfoot .count{margin-left:auto;font-size:.76rem;color:var(--ink-soft)}
+.pmsg{font-size:.8rem;margin-top:.6rem;color:var(--red)}
+.empty{padding:2rem;text-align:center;color:var(--ink-soft);grid-column:1/-1}
+
+/* Modal */
+.ov{position:fixed;inset:0;background:rgba(20,35,40,.5);z-index:200;display:none}
+.ov.open{display:block}
+.modal{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(420px,calc(100vw - 40px));background:var(--paper);
+  border-radius:var(--r-lg);padding:1.7rem 1.6rem 1.4rem;z-index:201;display:none;box-shadow:0 30px 60px -20px rgba(0,0,0,.4)
+}
+.modal.open{display:block}
+.modal h4{font-family:var(--font-display);color:var(--teal);font-size:1.2rem;margin-bottom:.4rem}
+.modal p{font-size:.88rem;color:var(--ink-soft);margin-bottom:1rem}
+.modal .acts{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-end;margin-top:1rem}
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,10px);background:var(--teal-dark);color:#fff;padding:12px 22px;border-radius:100px;
+  font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:300;pointer-events:none;max-width:calc(100vw - 40px);text-align:center
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:640px){ .brand strong{font-size:1.05rem} .plist{grid-template-columns:1fr} .login{margin:32px auto} }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap bar">
-    <div class="brand"><strong>Kelola Data</strong><p>KDMP Kalurahan Kedungsari</p></div>
+    <div class="brand"><strong>Kelola Foto & Video</strong><p>KDMP Kalurahan Kedungsari</p></div>
     <div class="top-actions">
       <a class="btn ghost sm" href="dashboard.html">← Dashboard</a>
       <button class="btn ghost sm" id="logoutBtn" type="button">Keluar</button>
@@ -93,255 +140,392 @@ tr.off td{opacity:.55}
   </div>
 </header>
 
+<!-- ===== Pengelola ===== -->
 <main class="wrap app" id="appView">
-  <div class="tabs" role="tablist" id="tabs"></div>
-  <p class="note" id="note"></p>
-  <div class="tools">
-    <div class="field"><input type="search" id="q" placeholder="Cari…" aria-label="Cari"></div>
-    <button class="btn ghost sm" id="reloadBtn" type="button">↻ Muat ulang</button>
-    <button class="btn sm" id="addBtn" type="button">+ Tambah</button>
-  </div>
   <p class="msg err" id="loadErr" role="alert" hidden></p>
-  <div class="tw" id="tw"></div>
+
+  <section class="panel" id="ghPanel" hidden>
+    <h2>Sambungkan GitHub (sekali saja)</h2>
+    <p style="font-size:.88rem;color:var(--ink-soft)">Foto dan video disimpan di repo <b id="repoName"></b>. Supaya halaman ini boleh mengunggah ke sana, buat "token" khusus repo itu:</p>
+    <ol>
+      <li>Buka github.com → foto profil → <b>Settings</b> → <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>.</li>
+      <li><b>Resource owner</b>: akun/organisasi pemilik repo. <b>Repository access</b>: <code>Only select repositories</code> → pilih repo ini saja.</li>
+      <li><b>Repository permissions</b> → <b>Contents</b> → <code>Read and write</code>. Atur masa berlaku sesuai kebutuhan.</li>
+      <li>Klik <b>Generate token</b>, salin (diawali <code>github_pat_</code>), lalu tempel di bawah.</li>
+    </ol>
+    <div class="row">
+      <div class="field"><label for="ghTok">Token GitHub</label><input type="password" id="ghTok" placeholder="github_pat_…" autocomplete="off"></div>
+      <button class="btn" id="ghSave" type="button">Simpan & Tes</button>
+      <button class="btn ghost" id="ghClear" type="button">Lepas Token</button>
+    </div>
+    <p class="msg" id="ghMsg"></p>
+    <p class="hintbox">Token disimpan di browser ini saja (bukan di server). Pakai hanya di komputer/HP pribadi pengelola. Kalau perangkat hilang atau berganti, cabut token itu di GitHub (Settings → Developer settings) dan buat yang baru.</p>
+  </section>
+
+  <div class="toolbar">
+    <div class="field"><label for="q" class="sr" style="position:absolute;left:-9999px">Cari produk</label><input type="search" id="q" placeholder="🔍 Cari produk…"></div>
+    <span class="chip" id="ghChip"><i></i><span id="ghChipTxt">GitHub</span><button type="button" id="ghOpen">Atur</button></span>
+    <button class="btn ghost sm" id="reloadBtn" type="button">↻ Muat ulang</button>
+  </div>
+
+  <p class="info">Maksimal 3 foto/video per produk; <b>yang pertama menjadi sampul</b> di toko. Foto otomatis dikecilkan (±1280 px). Video: MP4/WebM, maksimal <span id="maxVid"></span> MB — untuk video lebih besar, unggah ke YouTube lalu pakai <b>Tambah link video</b>. Hasil unggahan tampil di toko sekitar 1 menit kemudian.</p>
+
+  <div class="plist" id="plist"></div>
 </main>
 
+<!-- Modal serbaguna -->
 <div class="ov" id="ov"></div>
-<div class="modal fm" id="modal" role="dialog" aria-modal="true">
+<div class="modal" id="modal" role="dialog" aria-modal="true">
   <h4 id="mTitle"></h4>
-  <form id="mForm" autocomplete="off" novalidate>
-    <div class="grid2" id="mFields"></div>
-    <p class="msg err" id="mErr" role="alert"></p>
-    <div class="acts">
-      <button class="btn ghost sm" type="button" id="mCancel">Batal</button>
-      <button class="btn sm" type="submit" id="mSave">Simpan</button>
-    </div>
-  </form>
+  <p id="mText"></p>
+  <div id="mBody"></div>
+  <p class="msg err" id="mErr"></p>
+  <div class="acts" id="mActs"></div>
 </div>
 <div class="toast" id="toast"></div>
+<input type="file" id="filePick" accept="image/*,video/mp4,video/webm" multiple hidden>
 
 <script src="admin.js"></script>
 <script>
-/* ================= Skema kolom per sheet =================
-   Untuk menambah kolom baru: tambah satu baris di 'fields' (name = judul kolom di Sheets).
-   type: text | textarea | number | select | check | list (list = satu poin per baris, disimpan dipisah "|")
-   tabel: daftar kolom yang ditampilkan di tabel. */
-const SKEMA = {
-  Agen: {
-    judul:'Agen', satuan:'agen',
-    note:'Agen menerima pesanan lewat WhatsApp pribadi. Bagikan link toko dengan ?agen=kode.',
-    kunci:'kode', tabel:['kode','nama','wa','alamat','aktif'],
-    fields:[
-      { name:'kode', label:'Kode agen', req:1, hint:'Huruf kecil/angka tanpa spasi, mis. trimiyem. Dipakai di link ?agen=kode.' },
-      { name:'nama', label:'Nama agen', req:1 },
-      { name:'wa', label:'Nomor WhatsApp', req:1, hint:'Format 62812xxxxxxxx (tanpa + dan spasi).', inputmode:'numeric' },
-      { name:'aktif', label:'Tampil / aktif', type:'check' },
-      { name:'alamat', label:'Alamat (tampil di header)', full:1, hint:'Kosong = "Kalurahan Kedungsari".' },
-      { name:'logo', label:'Logo', full:1, hint:'Nama file di repo, mis. logo-agen/MahaMeru.png. Kosong = tanpa logo.' }
-    ]
-  },
-  Produk: {
-    judul:'Produk', satuan:'produk',
-    note:'Foto & video produk diatur di halaman Kelola Foto & Video.',
-    kunci:'id', tabel:['id','nama','kategori','harga','hargaPromo','status','aktif'],
-    fields:[
-      { name:'id', label:'ID produk', req:1, hint:'Unik, mis. p15. Jangan diubah bila sudah ada pesanan.' },
-      { name:'kategori', label:'Kategori', list:'kategori', hint:'Pilih yang ada atau ketik baru (huruf kecil).' },
-      { name:'nama', label:'Nama produk', req:1, full:1 },
-      { name:'satuan', label:'Satuan', req:1, hint:'mis. kg, pack, bungkus' },
-      { name:'icon', label:'Ikon (emoji)', hint:'Tampil bila produk belum punya foto.' },
-      { name:'harga', label:'Harga (Rp)', type:'number', req:1 },
-      { name:'hargaPromo', label:'Harga promo (Rp)', type:'number', hint:'Kosong = tidak promo. Isi bersama status "promo".' },
-      { name:'status', label:'Status', type:'select', opsi:[['', 'Normal'],['baru','Baru'],['promo','Promo'],['habis','Habis']] },
-      { name:'aktif', label:'Tampil / aktif', type:'check' },
-      { name:'deskripsi', label:'Deskripsi', type:'list', full:1, hint:'Satu poin per baris.' }
-    ]
-  },
-  Banner: {
-    judul:'Banner', satuan:'banner',
-    note:'Banner tampil bergantian di bagian atas toko.',
-    kunci:'gambar', tabel:['gambar','judul','subjudul','link','aktif'],
-    fields:[
-      { name:'gambar', label:'Gambar', req:1, full:1, hint:'Nama file di repo, mis. produk-foto/cabai.jpg, atau link https.' },
-      { name:'judul', label:'Judul', full:1 },
-      { name:'subjudul', label:'Subjudul', full:1 },
-      { name:'link', label:'Link saat diklik', hint:'mis. #produk' },
-      { name:'aktif', label:'Tampil / aktif', type:'check' }
-    ]
-  },
-  Testimoni: {
-    judul:'Testimoni', satuan:'testimoni',
-    note:'Isi teks, gambar (screenshot WA), atau keduanya.',
-    kunci:'nama', tabel:['nama','teks','gambar','aktif'],
-    fields:[
-      { name:'nama', label:'Nama pembeli', full:1 },
-      { name:'teks', label:'Teks testimoni', type:'textarea', full:1 },
-      { name:'gambar', label:'Gambar', full:1, hint:'Nama file di repo, mis. produk-foto/testi1.jpg, atau link https.' },
-      { name:'aktif', label:'Tampil / aktif', type:'check' }
-    ]
-  }
-};
-const URUT = ['Produk','Agen','Banner','Testimoni'];
+/* ================= Pengaturan =================
+   (URL Web App & kata sandi diatur di admin.js / dashboard.html)
+   GH_OWNER / GH_REPO : akun & nama repo GitHub tempat situs ini berada.
+   MEDIA_DIR : folder di repo tempat foto/video produk disimpan. */
+const GH_OWNER = 'kedungsari';
+const GH_REPO  = 'kdmp';
+const MEDIA_DIR = 'produk-foto';
+
+const MAX_MEDIA = 3, MAX_VIDEO_MB = 30, MAX_IMG_PX = 1280, IMG_QUALITY = 0.82;
+const GH_KEY = 'kdmp_gh_token';         // localStorage (khusus browser ini)
+
+let P = [];          // semua produk
+let OTHER = [];      // file yang dipakai di Banner/Testimoni
+let PREV = {};       // path -> alamat pratinjau lokal untuk file yang baru diunggah
+let pickFor = null;  // id produk yang sedang memilih file
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ghToken = () => { try { return localStorage.getItem(GH_KEY) || ''; } catch(e){ return ''; } };
+const isRepoPath = m => m.indexOf(MEDIA_DIR + '/') === 0;
 const rp = n => 'Rp ' + Math.round(Number(n) || 0).toLocaleString('id-ID');
+
+$('repoName').textContent = GH_OWNER + '/' + GH_REPO;
+$('maxVid').textContent = MAX_VIDEO_MB;
+
 let toastTimer;
 function toast(t){ const e = $('toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => e.classList.remove('show'), 3200); }
 
-let cur = 'Produk';
-const DATA = {};     // nama sheet -> { headers, rows }
-let editing = null;  // { row, orig } atau null (baru)
+/* ================= Apps Script ================= */
+const apiGet = params => Admin.get(params);
+const apiPost = body => Admin.post(body);
 
-const isOn = v => String(v).trim().toUpperCase() !== 'FALSE';
-const kosong = v => v === '' || v == null;
+/* ================= GitHub ================= */
+const GH_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}`;
+const ghHead = tok => ({ Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' });
+function ghErr(status, d){
+  if(status === 401) return 'Token GitHub tidak valid atau sudah kedaluwarsa. Buat token baru lewat tombol Atur.';
+  if(status === 403) return 'Token GitHub tidak punya izin atau batas permintaan tercapai. Pastikan izin Contents = Read and write.';
+  if(status === 404) return 'Repo tidak ditemukan atau token tidak diberi akses ke repo ' + GH_OWNER + '/' + GH_REPO + '.';
+  if(status === 422) return 'Nama file sudah ada di repo. Coba unggah ulang.';
+  return (d && d.message) || ('Galat GitHub ' + status);
+}
+async function ghTest(tok){
+  let r; try { r = await fetch(GH_API, { headers: ghHead(tok) }); } catch(e){ throw new Error('Tidak bisa menghubungi GitHub. Periksa internet.'); }
+  const d = await r.json().catch(() => ({}));
+  if(!r.ok) throw new Error(ghErr(r.status, d));
+  if(d.permissions && d.permissions.push === false) throw new Error('Token hanya bisa membaca. Ubah izin Contents menjadi Read and write.');
+  return d;
+}
+const encPath = p => p.split('/').map(encodeURIComponent).join('/');
+async function ghPut(path, b64, message){
+  const r = await fetch(`${GH_API}/contents/${encPath(path)}`, {
+    method:'PUT', headers: Object.assign({ 'Content-Type':'application/json' }, ghHead(ghToken())),
+    body: JSON.stringify({ message, content: b64 })
+  });
+  const d = await r.json().catch(() => ({}));
+  if(!r.ok) throw new Error(ghErr(r.status, d));
+}
+async function ghDelete(path){
+  const g = await fetch(`${GH_API}/contents/${encPath(path)}`, { headers: ghHead(ghToken()) });
+  if(g.status === 404) return; // sudah tidak ada
+  const gd = await g.json().catch(() => ({}));
+  if(!g.ok) throw new Error(ghErr(g.status, gd));
+  const r = await fetch(`${GH_API}/contents/${encPath(path)}`, {
+    method:'DELETE', headers: Object.assign({ 'Content-Type':'application/json' }, ghHead(ghToken())),
+    body: JSON.stringify({ message: 'Hapus media ' + path, sha: gd.sha })
+  });
+  if(!r.ok){ const d = await r.json().catch(() => ({})); throw new Error(ghErr(r.status, d)); }
+}
 
-/* ================= Muat ================= */
-async function muat(name){
-  name = name || cur;
-  $('loadErr').hidden = true;
+/* Status sambungan GitHub */
+function refreshGhUi(){
+  const on = !!ghToken();
+  $('ghChip').classList.toggle('on', on);
+  $('ghChipTxt').textContent = on ? 'GitHub tersambung' : 'GitHub belum tersambung';
+  $('ghOpen').textContent = on ? 'Atur' : 'Sambungkan';
+  if(!on) $('ghPanel').hidden = false;
+}
+$('ghOpen').addEventListener('click', () => { $('ghPanel').hidden = !$('ghPanel').hidden; if(!$('ghPanel').hidden) $('ghTok').focus(); });
+$('ghSave').addEventListener('click', async () => {
+  const tok = $('ghTok').value.trim(), msg = $('ghMsg');
+  if(!tok){ msg.className = 'msg err'; msg.textContent = 'Tempel token dulu.'; return; }
+  msg.className = 'msg'; msg.textContent = 'Menguji sambungan…'; $('ghSave').disabled = true;
   try {
-    const d = await Admin.get({ action:'tabel', sheet:name });
-    DATA[name] = { headers: d.headers, rows: d.rows };
-    render();
-  } catch(e){
-    if(e.auth) return;
-    $('loadErr').hidden = false; $('loadErr').textContent = e.message + ' — tekan "Muat ulang" untuk mencoba lagi.';
-  }
+    await ghTest(tok);
+    localStorage.setItem(GH_KEY, tok); $('ghTok').value = '';
+    msg.className = 'msg ok'; msg.textContent = '✓ Tersambung ke ' + GH_OWNER + '/' + GH_REPO + '. Token tersimpan di browser ini.';
+    refreshGhUi(); renderAll();
+    setTimeout(() => { $('ghPanel').hidden = true; }, 1500);
+  } catch(e){ msg.className = 'msg err'; msg.textContent = e.message; }
+  $('ghSave').disabled = false;
+});
+$('ghClear').addEventListener('click', () => {
+  try { localStorage.removeItem(GH_KEY); } catch(e){}
+  $('ghMsg').className = 'msg'; $('ghMsg').textContent = 'Token dilepas dari browser ini.';
+  refreshGhUi(); renderAll();
+});
+
+/* ================= Login & muat data ================= */
+async function loadProducts(){
+  const d = await apiGet({ action:'produk' });
+  P = d.produk.map(p => Object.assign(p, { busy:false, err:'' }));
+  OTHER = d.lain || [];
+}
+async function muat(){
+  const box = $('loadErr'); box.hidden = true;
+  try { await loadProducts(); refreshGhUi(); renderAll(); }
+  catch(e){ if(!e.auth){ box.hidden = false; box.textContent = e.message + ' — tekan "Muat ulang" untuk mencoba lagi.'; } }
+}
+$('logoutBtn').addEventListener('click', () => Admin.logout());
+$('reloadBtn').addEventListener('click', async () => {
+  try { await loadProducts(); renderAll(); toast('Data dimuat ulang'); } catch(e){ if(!e.auth) toast(e.message); }
+});
+$('q').addEventListener('input', renderAll);
+
+/* ================= Jenis media ================= */
+function kindOf(m){
+  let x = m.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  if(x) return { t:'yt', id:x[1] };
+  if(/drive\.google\.com\/file\/d\/[\w-]+/.test(m)) return { t:'drive' };
+  if(/\.(mp4|webm|mov)(\?.*)?$/i.test(m)) return { t:'file' };
+  return { t:'img' };
 }
 
 /* ================= Tampilan ================= */
-function renderTabs(){
-  $('tabs').innerHTML = URUT.map(n => {
-    const c = DATA[n] ? `<small>${DATA[n].rows.length}</small>` : '';
-    return `<button class="tab" role="tab" type="button" data-t="${n}" aria-selected="${n === cur}">${esc(SKEMA[n].judul)}${c}</button>`;
-  }).join('');
+function tileHtml(p, i){
+  const m = p.media[i], k = kindOf(m), src = PREV[m] || m, dis = p.busy ? 'disabled' : '';
+  let inner;
+  if(k.t === 'yt') inner = `<img src="https://i.ytimg.com/vi/${k.id}/mqdefault.jpg" alt=""><span class="badge">▶ YouTube</span>`;
+  else if(k.t === 'drive') inner = `<div class="ph">Google Drive</div><span class="badge">▶ Video</span>`;
+  else if(k.t === 'file') inner = `<video src="${esc(src)}#t=0.1" muted playsinline preload="metadata"></video><span class="badge">▶ Video</span>`;
+  else inner = `<img src="${esc(src)}" alt="" onerror="this.parentElement.classList.add('pend')"><span class="pendtxt">Sedang diproses… muat ulang beberapa saat lagi</span>`;
+  return `<div class="slot">${inner}${i === 0 ? '<span class="cover">Sampul</span>' : ''}
+    <div class="ctl">
+      <button type="button" data-act="left" data-id="${esc(p.id)}" data-i="${i}" ${i === 0 ? 'disabled' : dis} title="Geser ke kiri" aria-label="Geser ke kiri">‹</button>
+      <button type="button" data-act="right" data-id="${esc(p.id)}" data-i="${i}" ${i === p.media.length - 1 ? 'disabled' : dis} title="Geser ke kanan" aria-label="Geser ke kanan">›</button>
+      <button type="button" class="del" data-act="del" data-id="${esc(p.id)}" data-i="${i}" ${dis} title="Hapus" aria-label="Hapus">🗑</button>
+    </div></div>`;
 }
-function cellHtml(col, r){
-  const v = r[col];
-  if(col === 'aktif') return isOn(v) ? 'Ya' : '<span style="color:var(--red);font-weight:700">Tidak</span>';
-  if(kosong(v)) return '<span style="color:#aab">—</span>';
-  if(col === 'harga' || col === 'hargaPromo') return rp(v);
-  return `<div class="trunc" title="${esc(v)}">${esc(v)}</div>`;
+function cardHtml(p){
+  const full = p.media.length >= MAX_MEDIA;
+  const slots = [];
+  for(let i = 0; i < p.media.length && i < MAX_MEDIA; i++) slots.push(tileHtml(p, i));
+  if(p.busy) slots.push(`<div class="slot work"><div class="spin"></div>${esc(p.work || 'Memproses…')}</div>`);
+  while(slots.length < MAX_MEDIA)
+    slots.push(`<button type="button" class="slot" data-act="pick" data-id="${esc(p.id)}" ${p.busy ? 'disabled' : ''}><b>+</b>Tambah</button>`);
+  const extra = p.media.length > MAX_MEDIA ? `<span class="tag warn">${p.media.length - MAX_MEDIA} media lebih tidak tampil</span>` : '';
+  return `<article class="pcard${p.aktif ? '' : ' hidden-prod'}" data-pid="${esc(p.id)}">
+    <div class="phead"><div><h3>${esc(p.nama)}</h3><small>${esc(p.kategori)} · ${rp(p.harga)}/${esc(p.satuan)}</small></div>
+      <div style="display:flex;gap:4px;flex-direction:column;align-items:flex-end">${p.aktif ? '' : '<span class="tag warn">Disembunyikan</span>'}${p.status === 'habis' ? '<span class="tag">Stok habis</span>' : ''}${extra}</div></div>
+    <div class="slots">${slots.join('')}</div>
+    <div class="pfoot">
+      <button type="button" class="btn sm" data-act="pick" data-id="${esc(p.id)}" ${p.busy || full ? 'disabled' : ''}>⬆ Unggah foto/video</button>
+      <button type="button" class="btn ghost sm" data-act="link" data-id="${esc(p.id)}" ${p.busy || full ? 'disabled' : ''}>🔗 Tambah link video</button>
+      <span class="count">${Math.min(p.media.length, MAX_MEDIA)}/${MAX_MEDIA}</span>
+    </div>
+    ${p.err ? `<p class="pmsg">${esc(p.err)}</p>` : ''}
+  </article>`;
 }
-function render(){
-  renderTabs();
-  const S = SKEMA[cur], D = DATA[cur];
-  $('note').textContent = S.note;
-  if(!D){ $('tw').innerHTML = '<div class="empty">Memuat…</div>'; return; }
+function renderCard(p){
+  const el = document.querySelector(`.pcard[data-pid="${CSS.escape(p.id)}"]`);
+  if(el) el.outerHTML = cardHtml(p); else renderAll();
+}
+function renderAll(){
   const q = $('q').value.trim().toLowerCase();
-  const cols = S.tabel.filter(c => D.headers.indexOf(c) !== -1);
-  const rows = D.rows.filter(r => !q || cols.concat(S.fields.map(f => f.name)).some(c => String(r[c] == null ? '' : r[c]).toLowerCase().indexOf(q) !== -1));
-  if(!rows.length){
-    $('tw').innerHTML = `<div class="empty">${D.rows.length ? 'Tidak ada yang cocok dengan pencarian.' : 'Belum ada data. Tekan "+ Tambah".'}</div>`;
-    return;
-  }
-  $('tw').innerHTML = `<table><thead><tr>${cols.map(c => `<th>${esc(c)}</th>`).join('')}<th></th></tr></thead><tbody>` +
-    rows.map(r => `<tr class="${isOn(r.aktif) ? '' : 'off'}">${cols.map(c => `<td>${cellHtml(c, r)}</td>`).join('')}
-      <td class="act"><button class="btn ghost sm" data-edit="${r._row}" type="button">Ubah</button><button class="btn ghost sm" data-del="${r._row}" type="button" style="color:var(--red);border-color:var(--red)">Hapus</button></td></tr>`).join('') +
-    '</tbody></table>';
+  const list = P.filter(p => !q || p.nama.toLowerCase().indexOf(q) !== -1 || p.kategori.toLowerCase().indexOf(q) !== -1);
+  $('plist').innerHTML = list.length ? list.map(cardHtml).join('') : '<div class="empty">Tidak ada produk.</div>';
 }
-$('tabs').addEventListener('click', e => {
-  const b = e.target.closest('[data-t]'); if(!b) return;
-  cur = b.dataset.t; $('q').value = ''; render(); if(!DATA[cur]) muat(cur);
-});
-$('q').addEventListener('input', render);
-$('reloadBtn').addEventListener('click', () => muat().then(() => toast('Data dimuat ulang')));
-$('logoutBtn').addEventListener('click', () => Admin.logout());
 
-/* ================= Formulir ================= */
-function fieldHtml(f, v){
-  const id = 'f_' + f.name, t = f.type || 'text';
-  const hint = f.hint ? `<div class="h">${esc(f.hint)}</div>` : '';
-  const cls = 'field' + (f.full ? ' full' : '');
-  const lab = `<label for="${id}">${esc(f.label)}${f.req ? ' <span class="req">*</span>' : ''}</label>`;
-  if(t === 'check') return `<div class="${cls}"><label class="chk"><input type="checkbox" id="${id}" ${isOn(v) ? 'checked' : ''}> ${esc(f.label)}</label>${hint}</div>`;
-  if(t === 'textarea') return `<div class="${cls}">${lab}<textarea id="${id}">${esc(v)}</textarea>${hint}</div>`;
-  if(t === 'list') return `<div class="${cls}">${lab}<textarea id="${id}">${esc(String(v == null ? '' : v).split('|').map(x => x.trim()).filter(Boolean).join('\n'))}</textarea>${hint}</div>`;
-  if(t === 'select') return `<div class="${cls}">${lab}<select id="${id}">${f.opsi.map(o => `<option value="${esc(o[0])}" ${String(v || '') === o[0] ? 'selected' : ''}>${esc(o[1])}</option>`).join('')}</select>${hint}</div>`;
-  const dl = f.list ? ` list="dl_${f.list}"` : '';
-  const kategori = f.list ? `<datalist id="dl_${f.list}">${[...new Set((DATA.Produk ? DATA.Produk.rows : []).map(r => String(r.kategori || '').trim()).filter(Boolean))].map(k => `<option value="${esc(k)}">`).join('')}</datalist>` : '';
-  return `<div class="${cls}">${lab}<input id="${id}" type="${t === 'number' ? 'number' : 'text'}" ${t === 'number' ? 'min="0" step="any"' : ''}${f.inputmode ? ` inputmode="${f.inputmode}"` : ''}${dl} value="${esc(v)}">${kategori}${hint}</div>`;
-}
-function bukaForm(row){
-  const S = SKEMA[cur], D = DATA[cur];
-  const r = row ? D.rows.find(x => x._row === row) : null;
-  if(row && !r) return;
-  editing = r ? { row: r._row, orig: r[D.headers[0]] } : null;
-  const v = r || { aktif: true };
-  if(!r && cur === 'Produk'){
-    const n = D.rows.map(x => /^p(\d+)$/i.exec(String(x.id))).filter(Boolean).map(m => +m[1]);
-    v.id = 'p' + ((n.length ? Math.max.apply(null, n) : 0) + 1);
-  }
-  $('mTitle').textContent = (r ? 'Ubah ' : 'Tambah ') + S.satuan;
-  const ada = S.fields.filter(f => D.headers.indexOf(f.name) !== -1);
-  const hilang = S.fields.filter(f => D.headers.indexOf(f.name) === -1).map(f => f.name);
-  $('mFields').innerHTML = ada.map(f => fieldHtml(f, v[f.name])).join('');
-  $('mErr').textContent = hilang.length ? 'Kolom belum ada di sheet dan tidak akan tersimpan: ' + hilang.join(', ') : '';
-  $('mSave').disabled = false; $('mSave').textContent = 'Simpan';
-  $('ov').classList.add('open'); $('modal').classList.add('open');
-  const first = $('mFields').querySelector('input:not([type=checkbox]),textarea,select'); if(first) setTimeout(() => first.focus(), 50);
-}
-function tutupForm(){ $('ov').classList.remove('open'); $('modal').classList.remove('open'); }
-$('addBtn').addEventListener('click', () => { if(DATA[cur]) bukaForm(0); });
-$('tw').addEventListener('click', e => {
-  const ed = e.target.closest('[data-edit]'); if(ed) return bukaForm(+ed.dataset.edit);
-  const dl = e.target.closest('[data-del]'); if(dl) return hapus(+dl.dataset.del);
-});
-$('mCancel').addEventListener('click', tutupForm);
-$('ov').addEventListener('click', () => { if($('modal').classList.contains('open')) tutupForm(); });
-document.addEventListener('keydown', e => { if(e.key === 'Escape') tutupForm(); });
-
-function ambilForm(){
-  const S = SKEMA[cur], D = DATA[cur], out = {};
-  S.fields.forEach(f => {
-    if(D.headers.indexOf(f.name) === -1) return;
-    const el = $('f_' + f.name), t = f.type || 'text';
-    out[f.name] = t === 'check' ? el.checked
-      : t === 'list' ? el.value.split('\n').map(x => x.replace(/\|/g, '/').trim()).filter(Boolean).join('|')
-      : el.value.trim();
+/* ================= Modal ================= */
+function ask({ title, text = '', body = '', buttons }){
+  return new Promise(resolve => {
+    $('mTitle').textContent = title; $('mText').textContent = text; $('mBody').innerHTML = body; $('mErr').textContent = '';
+    $('mActs').innerHTML = '';
+    function close(v){ $('ov').classList.remove('open'); $('modal').classList.remove('open'); document.removeEventListener('keydown', key); resolve(v); }
+    function key(e){ if(e.key === 'Escape') close(null); }
+    buttons.forEach(b => {
+      const el = document.createElement('button');
+      el.type = 'button'; el.className = 'btn sm ' + (b.cls || ''); el.textContent = b.label;
+      el.addEventListener('click', () => {
+        if(b.validate){ const err = b.validate(); if(err){ $('mErr').textContent = err; return; } }
+        close(b.value);
+      });
+      $('mActs').appendChild(el);
+    });
+    $('ov').onclick = () => close(null);
+    document.addEventListener('keydown', key);
+    $('ov').classList.add('open'); $('modal').classList.add('open');
+    const first = $('mBody').querySelector('input'); if(first) setTimeout(() => first.focus(), 50);
   });
-  return out;
 }
-async function hapusKirim(){
-  $('mSave').disabled = true; $('mSave').textContent = 'Menghapus…';
-  try {
-    await Admin.post({ action:'hapusBaris', sheet:cur, row: editing.row, orig: editing.orig });
-    tutupForm(); toast('Terhapus'); await muat(cur);
-  } catch(err){
-    if(err.auth) return;
-    $('mErr').textContent = err.message; $('mSave').disabled = false; $('mSave').textContent = 'Ya, hapus';
-  }
+
+/* ================= Simpan daftar media ke Sheets ================= */
+async function persist(p, before){
+  try { await apiPost({ action:'setMedia', id: p.id, media: p.media }); return true; }
+  catch(e){ p.media = before; p.err = 'Gagal menyimpan: ' + e.message; return false; }
 }
-$('mForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  if(editing && editing.hapus) return hapusKirim();
-  const S = SKEMA[cur], data = ambilForm();
-  for(const f of S.fields){
-    if(f.req && data[f.name] !== undefined && data[f.name] === ''){ $('mErr').textContent = `"${f.label}" wajib diisi.`; return; }
+
+/* ================= Aksi: unggah ================= */
+const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'produk';
+function toB64(blob){
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => res(String(fr.result).split(',')[1]);
+    fr.onerror = () => rej(new Error('Gagal membaca file.'));
+    fr.readAsDataURL(blob);
+  });
+}
+async function resizeImage(file){
+  let bmp;
+  try { bmp = await createImageBitmap(file); }
+  catch(e){
+    bmp = await new Promise((res, rej) => {
+      const im = new Image(), u = URL.createObjectURL(file);
+      im.onload = () => { URL.revokeObjectURL(u); res(im); };
+      im.onerror = () => rej(new Error('Foto "' + file.name + '" tidak bisa dibaca (format tidak didukung browser ini).'));
+      im.src = u;
+    });
   }
-  $('mErr').textContent = ''; $('mSave').disabled = true; $('mSave').textContent = 'Menyimpan…';
-  try {
-    await Admin.post({ action:'simpanBaris', sheet:cur, row: editing ? editing.row : 0, orig: editing ? editing.orig : '', data });
-    tutupForm(); toast('Tersimpan'); await muat(cur);
-  } catch(err){
-    if(err.auth) return;
-    $('mErr').textContent = err.message; $('mSave').disabled = false; $('mSave').textContent = 'Simpan';
+  const w = bmp.width || bmp.naturalWidth, h = bmp.height || bmp.naturalHeight;
+  const s = Math.min(1, MAX_IMG_PX / Math.max(w, h));
+  const c = document.createElement('canvas');
+  c.width = Math.round(w * s); c.height = Math.round(h * s);
+  const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(bmp, 0, 0, c.width, c.height);
+  return new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error('Gagal memproses foto.')), 'image/jpeg', IMG_QUALITY));
+}
+
+async function handleFiles(pid, fileList){
+  const p = P.find(x => x.id === pid); if(!p || p.busy) return;
+  if(!ghToken()){ toast('Sambungkan GitHub dulu.'); $('ghPanel').hidden = false; $('ghPanel').scrollIntoView({ behavior:'smooth' }); return; }
+  const free = MAX_MEDIA - p.media.length;
+  if(free <= 0){ toast('Maksimal ' + MAX_MEDIA + ' foto/video per produk.'); return; }
+  let files = [...fileList];
+  if(files.length > free){ toast('Hanya ' + free + ' file pertama yang diproses (maksimal ' + MAX_MEDIA + ').'); files = files.slice(0, free); }
+
+  p.busy = true; p.err = ''; renderCard(p);
+  const added = [], errors = [];
+  for(let n = 0; n < files.length; n++){
+    const f = files[n];
+    p.work = `Mengunggah ${n + 1}/${files.length}…`; renderCard(p);
+    try {
+      let blob, ext;
+      if(f.type.indexOf('image/') === 0){ blob = await resizeImage(f); ext = 'jpg'; }
+      else if(f.type === 'video/mp4' || f.type === 'video/webm'){
+        if(f.size > MAX_VIDEO_MB * 1048576) throw new Error('Video "' + f.name + '" lebih dari ' + MAX_VIDEO_MB + ' MB. Kecilkan dulu atau unggah ke YouTube lalu pakai Tambah link video.');
+        blob = f; ext = f.type === 'video/webm' ? 'webm' : 'mp4';
+      } else throw new Error('Format "' + f.name + '" tidak didukung. Pakai foto (JPG/PNG), MP4, atau WebM.');
+      const path = `${MEDIA_DIR}/${slug(p.id)}-${Date.now().toString(36)}${n}.${ext}`;
+      await ghPut(path, await toB64(blob), 'Unggah media produk ' + p.id);
+      PREV[path] = URL.createObjectURL(blob);
+      added.push(path);
+    } catch(e){ errors.push(e.message); }
+  }
+  if(added.length){
+    p.work = 'Menyimpan…'; renderCard(p);
+    const before = p.media.slice();
+    p.media = p.media.concat(added);
+    if(await persist(p, before)) toast(added.length + ' file terunggah. Tampil di toko ±1 menit lagi.');
+    else errors.push('File sudah ada di repo tetapi belum tercatat di produk. Coba lagi dengan tombol Muat ulang.');
+  }
+  if(errors.length) p.err = errors.join(' ');
+  p.busy = false; p.work = ''; renderCard(p);
+}
+
+/* ================= Aksi: link video ================= */
+async function addLink(pid){
+  const p = P.find(x => x.id === pid); if(!p || p.busy) return;
+  const v = await ask({
+    title: 'Tambah link video', text: 'Tempel link YouTube, atau link file video/foto langsung (https://…mp4).',
+    body: '<div class="field"><input type="url" id="linkIn" placeholder="https://youtu.be/…"></div>',
+    buttons: [{ label:'Batal', cls:'ghost', value:null }, { label:'Tambahkan', value:'ok', validate: () => {
+      const s = $('linkIn').value.trim();
+      if(!/^https:\/\/[^\s|]+$/.test(s)) return 'Link harus diawali https:// dan tanpa spasi.';
+      const k = kindOf(s);
+      if(k.t === 'img' && !/\.(jpe?g|png|webp)(\?.*)?$/i.test(s)) return 'Link tidak dikenali. Pakai link YouTube, Google Drive (file), atau file .mp4/.webm/.jpg.';
+      return '';
+    } }]
+  });
+  if(v !== 'ok') return;
+  const link = $('linkIn').value.trim();
+  p.busy = true; p.err = ''; p.work = 'Menyimpan…'; renderCard(p);
+  const before = p.media.slice(); p.media = p.media.concat([link]);
+  if(await persist(p, before)) toast('Link ditambahkan');
+  p.busy = false; p.work = ''; renderCard(p);
+}
+
+/* ================= Aksi: urutan & hapus ================= */
+async function moveMedia(pid, i, dir){
+  const p = P.find(x => x.id === pid); if(!p || p.busy) return;
+  const j = i + dir; if(j < 0 || j >= p.media.length) return;
+  p.busy = true; p.err = ''; p.work = 'Menyimpan…';
+  const before = p.media.slice();
+  [p.media[i], p.media[j]] = [p.media[j], p.media[i]]; renderCard(p);
+  await persist(p, before);
+  p.busy = false; p.work = ''; renderCard(p);
+}
+function usedElsewhere(path, exceptId){
+  return OTHER.indexOf(path) !== -1 || P.some(x => x.id !== exceptId && x.media.indexOf(path) !== -1);
+}
+async function deleteMedia(pid, i){
+  const p = P.find(x => x.id === pid); if(!p || p.busy) return;
+  const item = p.media[i], repo = isRepoPath(item);
+  const buttons = [{ label:'Batal', cls:'ghost', value:null }, { label: repo ? 'Lepas dari produk' : 'Hapus', value:'detach' }];
+  if(repo && ghToken()) buttons.push({ label:'Hapus permanen', cls:'danger', value:'purge' });
+  const text = !repo ? 'Link ini akan dilepas dari produk.'
+    : 'Pilih "Lepas dari produk" untuk menyimpan file di repo, atau "Hapus permanen" untuk menghapusnya dari repo juga.' +
+      (usedElsewhere(item, pid) ? ' (File ini juga dipakai di tempat lain, jadi tidak akan dihapus dari repo.)' : '');
+  const v = await ask({ title: 'Hapus media ini?', text, buttons });
+  if(!v) return;
+
+  p.busy = true; p.err = ''; p.work = 'Menghapus…'; renderCard(p);
+  const before = p.media.slice();
+  p.media.splice(i, 1);
+  const ok = await persist(p, before);
+  if(ok && v === 'purge' && !usedElsewhere(item, pid)){
+    try { await ghDelete(item); delete PREV[item]; toast('Media dihapus dari produk dan repo'); }
+    catch(e){ p.err = 'Terlepas dari produk, tetapi file di repo belum terhapus: ' + e.message; }
+  } else if(ok) toast('Media dilepas dari produk');
+  p.busy = false; p.work = ''; renderCard(p);
+}
+
+/* ================= Event ================= */
+$('plist').addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if(!b || b.disabled) return;
+  const id = b.dataset.id, i = Number(b.dataset.i);
+  switch(b.dataset.act){
+    case 'pick': pickFor = id; $('filePick').value = ''; $('filePick').click(); break;
+    case 'link': addLink(id); break;
+    case 'left': moveMedia(id, i, -1); break;
+    case 'right': moveMedia(id, i, 1); break;
+    case 'del': deleteMedia(id, i); break;
   }
 });
+$('filePick').addEventListener('change', e => {
+  if(pickFor && e.target.files.length) handleFiles(pickFor, e.target.files);
+});
 
-/* ================= Hapus ================= */
-function hapus(row){
-  const D = DATA[cur], r = D.rows.find(x => x._row === row); if(!r) return;
-  const nama = r.nama || r.judul || r[D.headers[0]] || ('baris ' + row);
-  editing = { row, orig: r[D.headers[0]], hapus: true };
-  $('mTitle').textContent = 'Hapus ' + SKEMA[cur].satuan + '?';
-  $('mFields').innerHTML = `<p class="full" style="grid-column:1/-1;font-size:.92rem">“${esc(nama)}” akan dihapus permanen dari sheet ${esc(cur)}. Untuk sekadar menyembunyikan, pilih Ubah lalu matikan "Tampil / aktif".</p>`;
-  $('mErr').textContent = ''; $('mSave').disabled = false; $('mSave').textContent = 'Ya, hapus';
-  $('ov').classList.add('open'); $('modal').classList.add('open');
-}
 /* ================= Mulai ================= */
-if(Admin.guard()){ render(); muat('Produk'); URUT.slice(1).forEach(n => muat0(n)); }
-function muat0(n){ Admin.get({ action:'tabel', sheet:n }).then(d => { DATA[n] = { headers:d.headers, rows:d.rows }; renderTabs(); if(n === cur) render(); }).catch(() => {}); }
+if(Admin.guard()) muat();
 </script>
 </body>
 </html>
