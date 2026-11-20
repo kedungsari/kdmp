@@ -112,11 +112,14 @@ button{font-family:inherit}
 /* ===== Agen & Produk ===== */
 .products{padding-top:22px;padding-bottom:56px}
 .tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:22px}
-.tab{
-  border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);
-  padding:8px 18px;border-radius:100px;font-weight:600;font-size:.88rem;cursor:pointer;
+.tabs:empty{display:none}
+.filter select{
+  -webkit-appearance:none;appearance:none;width:min(280px,100%);
+  border:1.5px solid var(--line);border-radius:100px;color:var(--teal-dark);font:inherit;font-weight:600;font-size:.92rem;
+  padding:10px 44px 10px 20px;cursor:pointer;
+  background:var(--paper) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'><path d='M1 1.5l6 6 6-6' fill='none' stroke='%230A4252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right 18px center;
 }
-.tab.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.filter select:hover{border-color:var(--teal)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.3rem}
 .card{background:var(--paper);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;position:relative}
 .card .slider{background:linear-gradient(135deg,#DCE9B8,#B7CF6A)}
@@ -331,7 +334,7 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbwx3G_z3jgiBlN5sVLLoeUN
 const CACHE_KEY = 'kdmp_data_v1';
 const CART_KEY  = 'kdmp_cart_v1';
 const AGENT_KEY = 'kdmp_agen_v1';
-const CAT_LABEL = { sayur:'🥬 Sayur & Kebun', olahan:'🍪 Olahan Pangan', ikan:'🐟 Perikanan', ternak:'🐐 Peternakan', kerajinan:'🧵 Kerajinan', lain:'🎁 Lain-lain' };
+const CAT_LABEL = { sayur:'Sayur & Kebun', olahan:'Olahan Pangan', ikan:'Perikanan', ternak:'Peternakan', kerajinan:'Kerajinan', lain:'Lain-lain' };
 const STATUS_LABEL = { baru:'Baru', promo:'Promo', habis:'Stok Habis' };
 
 let DATA = { produk:[], agen:[], testimoni:[], banner:[] };
@@ -496,10 +499,12 @@ function renderBanner(){
 /* ================= Produk ================= */
 function renderTabs(){
   const cats = [...new Set(DATA.produk.map(p => p.cat))];
-  if(cats.length < 2){ $('tabs').innerHTML = ''; return; }
-  $('tabs').innerHTML =
-    `<button class="tab${activeCat==='semua'?' on':''}" data-cat="semua">🧺 Semua</button>` +
-    cats.map(c => `<button class="tab${activeCat===c?' on':''}" data-cat="${esc(c)}">${esc(CAT_LABEL[c] || c)}</button>`).join('');
+  if(cats.length < 2){ activeCat = 'semua'; $('tabs').innerHTML = ''; return; }
+  if(activeCat !== 'semua' && cats.indexOf(activeCat) === -1) activeCat = 'semua';
+  $('tabs').innerHTML = `<label class="filter"><select id="catSelect" aria-label="Pilih kategori produk">
+      <option value="semua"${activeCat === 'semua' ? ' selected' : ''}>Semua Produk</option>` +
+    cats.map(c => `<option value="${esc(c)}"${activeCat === c ? ' selected' : ''}>${esc(CAT_LABEL[c] || c)}</option>`).join('') +
+    `</select></label>`;
 }
 function renderProducts(){
   const list = activeCat === 'semua' ? DATA.produk : DATA.produk.filter(p => p.cat === activeCat);
@@ -523,9 +528,9 @@ function renderProducts(){
     </article>`;
   }).join('');
 }
-$('tabs').addEventListener('click', e => {
-  const b = e.target.closest('.tab'); if(!b) return;
-  activeCat = b.dataset.cat; renderTabs(); renderProducts();
+$('tabs').addEventListener('change', e => {
+  if(e.target.id !== 'catSelect') return;
+  activeCat = e.target.value; renderProducts();
 });
 $('grid').addEventListener('click', e => {
   const b = e.target.closest('.add'); if(!b || b.disabled) return;
