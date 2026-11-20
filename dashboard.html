@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Dashboard — KDMP Kalurahan Kedungsari</title>
+<meta name="theme-color" content="#0E5A6E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --paper:#fff; --ink:#1F2A2E; --ink-soft:#5B676B;
+  --teal:#0E5A6E; --teal-dark:#0A4252; --lime:#A3B91A; --gold:#E8A81C;
+  --line:rgba(14,90,110,.14); --shadow:0 14px 34px -18px rgba(14,90,110,.35);
+  --r-lg:22px; --r-md:16px;
+  --font-display:'Fraunces',Georgia,serif; --font-body:'Work Sans','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px;width:100%}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+.top{background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}
+.top .wrap{padding-top:14px;padding-bottom:14px}
+.brand strong{display:block;font-family:var(--font-display);color:var(--teal);font-size:1.3rem;line-height:1.15}
+.brand p{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+
+#main{flex:1;padding-top:28px;padding-bottom:50px}
+.btn{font:inherit;font-weight:600;font-size:.9rem;border:0;border-radius:999px;padding:.7rem 1.3rem;cursor:pointer;background:var(--teal);color:#fff}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--teal);border:1.5px solid var(--line);padding:.45rem .95rem;font-size:.82rem}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.login{max-width:380px;margin:30px auto 0;background:var(--paper);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:1.6rem}
+.login h1{font-family:var(--font-display);color:var(--teal);font-size:1.4rem}
+.login .intro{font-size:.88rem;color:var(--ink-soft);margin:.3rem 0 1rem}
+.login label{display:block;font-size:.8rem;font-weight:600;margin-bottom:4px}
+.login input{width:100%;font:inherit;padding:.7rem .9rem;border:1.5px solid var(--line);border-radius:12px;background:#fff}
+.login .msg{color:#b3261e;font-size:.85rem;min-height:1.3em;margin:.5rem 0}
+.login .btn{width:100%}
+.group{margin-bottom:2rem}
+.group h2{
+  font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);
+  display:flex;align-items:center;gap:10px;margin-bottom:.9rem
+}
+.group h2::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+
+.tile{
+  display:flex;align-items:center;gap:1rem;background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);
+  padding:1.1rem 1.2rem;text-decoration:none;color:inherit;border:1.5px solid transparent;
+  transition:transform .2s,border-color .2s
+}
+.tile:hover{transform:translateY(-3px);border-color:var(--teal)}
+.tile .ico{
+  flex-shrink:0;width:52px;height:52px;border-radius:15px;background:#E5EDDC;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem
+}
+.tile .txt{flex:1;min-width:0}
+.tile h3{font-size:1rem;font-weight:700;color:var(--teal-dark);line-height:1.25}
+.tile p{font-size:.8rem;color:var(--ink-soft);margin-top:2px}
+.tile .go{flex-shrink:0;color:var(--teal);font-weight:700;font-size:1.1rem}
+
+footer{text-align:left;font-size:.78rem;color:var(--ink-soft);padding:1.2rem 0 1.6rem;border-top:1px solid var(--line)}
+@media (max-width:640px){ .grid{grid-template-columns:1fr} .brand strong{font-size:1.15rem} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand"><strong>Dashboard</strong><p>KDMP Kalurahan Kedungsari</p></div>
+    <button class="btn ghost" id="logoutBtn" type="button" hidden>Keluar</button>
+  </div>
+</header>
+
+<main class="wrap" id="loginView">
+  <form class="login" id="loginForm" autocomplete="off">
+    <h1>Masuk Admin</h1>
+    <p class="intro">Masukkan kata sandi admin. Cukup sekali; semua halaman admin akan ikut terbuka.</p>
+    <label for="pwd">Kata sandi</label>
+    <input type="password" id="pwd" required autofocus>
+    <p class="msg" id="loginMsg" role="alert"></p>
+    <button class="btn" id="loginBtn" type="submit">Masuk</button>
+    <p style="margin-top:.9rem;text-align:center"><a href="./" style="font-size:.82rem;color:var(--ink-soft)">← Kembali ke toko</a></p>
+  </form>
+</main>
+
+<main class="wrap" id="main" hidden></main>
+
+<footer><div class="wrap">&copy; <span id="year"></span> KDMP Kalurahan Kedungsari</div></footer>
+
+<script src="admin.js"></script>
+<script>
+/* ================= Daftar tombol =================
+   Cara menambah tombol: salin satu baris { ... } lalu ubah isinya.
+     grup  : nama kelompok (tombol dengan grup sama dikumpulkan)
+     icon  : emoji
+     judul : tulisan utama di tombol
+     ket   : keterangan singkat (boleh dikosongkan)
+     url   : alamat tujuan. Alamat relatif ('kelolaMedia.html') = halaman di situs ini;
+             alamat lengkap (https://...) otomatis dibuka di tab baru.
+             Kalau url dikosongkan (''), tombol tidak ditampilkan.
+   Urutan tombol dan kelompok mengikuti urutan di bawah ini. */
+const LINKS = [
+  { grup:'Toko',          icon:'🛒', judul:'Halaman Toko',         ket:'Tampilan yang dilihat pembeli',                  url:'./' },
+
+  { grup:'Halaman Admin', icon:'🗂️', judul:'Kelola Data',          ket:'Tambah, ubah, hapus: Produk, Agen, Banner, Testimoni', url:'kelolaData.html' },
+  { grup:'Halaman Admin', icon:'📊', judul:'Laporan Penjualan',    ket:'Penjualan per rentang tanggal, agen & produk, CSV', url:'laporanPenjualan.html' },
+  { grup:'Halaman Admin', icon:'📤', judul:'Upload Foto & Video',  ket:'Unggah file ke folder repo pilihan (produk, banner, logo…)', url:'uploadFoto.html' },
+  { grup:'Halaman Admin', icon:'🖼️', judul:'Kelola Foto & Video',  ket:'Unggah dan atur media produk',                   url:'kelolaMedia.html' },
+
+  { grup:'Data & Sistem', icon:'📗', judul:'Google Sheets',        ket:'Produk, agen, testimoni, banner, pesanan',       url:'' },   // tempel link spreadsheet di sini
+  { grup:'Data & Sistem', icon:'⚙️', judul:'Apps Script',          ket:'Kode backend (Code.gs) dan pengaturan deploy',   url:'' },   // tempel link editor Apps Script di sini
+  { grup:'Data & Sistem', icon:'🐙', judul:'Repo GitHub',          ket:'Seluruh file situs (kedungsari/kdmp)',           url:'https://github.com/kedungsari/kdmp' },
+];
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function render(){
+  const shown = LINKS.filter(l => l.url && String(l.url).trim());
+  const groups = [];
+  shown.forEach(l => {
+    let g = groups.find(x => x.nama === l.grup);
+    if(!g){ g = { nama: l.grup, items: [] }; groups.push(g); }
+    g.items.push(l);
+  });
+  document.getElementById('main').innerHTML = groups.map(g => `
+    <section class="group">
+      <h2>${esc(g.nama)}</h2>
+      <div class="grid">
+        ${g.items.map(l => {
+          const ext = /^https?:\/\//i.test(l.url);
+          return `<a class="tile" href="${esc(l.url)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>
+            <span class="ico" aria-hidden="true">${esc(l.icon || '🔗')}</span>
+            <span class="txt"><h3>${esc(l.judul)}</h3>${l.ket ? `<p>${esc(l.ket)}</p>` : ''}</span>
+            <span class="go" aria-hidden="true">${ext ? '↗' : '→'}</span>
+          </a>`;
+        }).join('')}
+      </div>
+    </section>`).join('') || '<p style="color:var(--ink-soft)">Belum ada tombol. Isi daftar LINKS di file dashboard.html.</p>';
+}
+
+/* ================= Gerbang kata sandi (satu kali di sini) ================= */
+const $ = id => document.getElementById(id);
+function nextPage(){
+  const n = new URLSearchParams(location.search).get('next') || '';
+  return (/^[A-Za-z0-9_-]+\.html$/.test(n) && n !== 'dashboard.html') ? n : '';
+}
+function showTiles(){
+  $('loginView').hidden = true; $('main').hidden = false; $('logoutBtn').hidden = false;
+  render();
+}
+function showLogin(msg){
+  $('main').hidden = true; $('main').innerHTML = ''; $('logoutBtn').hidden = true; $('loginView').hidden = false;
+  $('loginMsg').textContent = msg || '';
+  $('loginBtn').disabled = false; $('loginBtn').textContent = 'Masuk';
+}
+async function masuk(pwd, fromSession){
+  $('loginBtn').disabled = true; $('loginBtn').textContent = 'Memeriksa…'; $('loginMsg').textContent = '';
+  const lama = Admin.token();
+  Admin.setToken(pwd);
+  try {
+    await Admin.get({ action:'cek' }, { stay:true });
+    const n = nextPage();
+    if(n){ location.replace(n); return; }
+    showTiles();
+  } catch(e){
+    if(e.auth || !fromSession) Admin.clear(); else Admin.setToken(lama);
+    showLogin(fromSession && e.auth ? '' : e.message);
+  }
+}
+$('loginForm').addEventListener('submit', e => { e.preventDefault(); masuk($('pwd').value, false); });
+$('logoutBtn').addEventListener('click', () => { Admin.clear(); $('pwd').value = ''; showLogin(''); });
+if(Admin.token()) masuk(Admin.token(), true);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
