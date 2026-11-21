@@ -73,15 +73,16 @@ button{font-family:inherit}
 .brand-text strong{display:block;font-family:var(--font-display);color:var(--brand);font-size:1.25rem;line-height:1.15;overflow-wrap:anywhere}
 .brand-text p{font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;line-height:1.3;margin-top:2px;overflow-wrap:anywhere}
 .cart-btn{
-  position:relative;flex-shrink:0;width:46px;height:46px;border-radius:50%;background:var(--brand);color:#fff;
-  border:1.5px solid var(--brand);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 18px -8px rgba(158,11,20,.7);transition:transform .2s,background .2s
+  position:relative;flex-shrink:0;width:46px;height:46px;border-radius:50%;background:#fff;color:var(--brand);
+  border:2px solid var(--brand);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 18px -8px rgba(158,11,20,.55);transition:transform .2s,box-shadow .2s
 }
-.cart-btn:hover{transform:translateY(-2px);background:var(--brand-dark)}
+.cart-btn svg{width:24px;height:24px;fill:currentColor;display:block}
+.cart-btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px -8px rgba(158,11,20,.75)}
 .cart-btn .cnt{
-  position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:50%;
-  background:#fff;color:var(--brand-dark);font-size:.72rem;font-weight:800;
-  display:flex;align-items:center;justify-content:center;border:2px solid var(--brand)
+  position:absolute;top:-8px;right:-8px;min-width:22px;height:22px;border-radius:50%;
+  background:var(--brand);color:#fff;font-size:.72rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;border:2px solid #fff
 }
 
 /* ===== Slider dasar (banner & media produk) ===== */
@@ -178,21 +179,21 @@ button{font-family:inherit}
 .testi{padding-top:10px;padding-bottom:60px}
 .sec-title{font-family:var(--font-display);color:var(--brand);font-size:clamp(1.5rem,3vw,2rem);text-align:left;margin-bottom:4px}
 .sec-sub{font-size:.88rem;color:var(--ink-soft);margin-bottom:22px}
-.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem;align-items:start}
-.cm{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1rem 1.05rem 1.05rem}
-.cm-row{display:flex;gap:.7rem;align-items:flex-start}
-.av{flex-shrink:0;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;background:#F1E4E4;color:var(--brand-dark)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:.8rem;align-items:start}
+.cm{background:var(--paper);border-radius:14px;box-shadow:0 8px 22px -16px rgba(120,10,16,.4);border:1px solid var(--line);padding:.7rem .8rem .75rem}
+.cm-row{display:flex;gap:.55rem;align-items:flex-start}
+.av{flex-shrink:0;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;background:#F1E4E4;color:var(--brand-dark)}
 .av.agen{background:var(--brand);color:#fff}
-.bub{flex:1;min-width:0;background:#F7F0EF;border-radius:4px 16px 16px 16px;padding:.6rem .85rem}
-.bub strong{display:block;font-size:.84rem;color:var(--ink)}
-.bub p{font-size:.92rem;margin-top:2px;overflow-wrap:anywhere}
-.cm-shot{display:block;width:100%;border:none;padding:0;background:none;cursor:zoom-in;margin-top:.55rem;border-radius:10px;overflow:hidden;aspect-ratio:4/3}
+.bub{flex:1;min-width:0;background:#F7F0EF;border-radius:4px 14px 14px 14px;padding:.45rem .75rem}
+.bub strong{display:block;font-size:.76rem;color:var(--ink)}
+.bub p{font-size:.82rem;line-height:1.45;margin-top:1px;overflow-wrap:anywhere}
+.cm-shot{display:block;width:100%;border:none;padding:0;background:none;cursor:zoom-in;margin-top:.45rem;border-radius:8px;overflow:hidden;aspect-ratio:21/9}
 .cm-shot img{width:100%;height:100%;object-fit:cover;object-position:top center}
-.reply{display:flex;gap:.7rem;align-items:flex-start;margin:.75rem 0 0 1.2rem;padding-left:.9rem;border-left:2px solid rgba(208,18,27,.3)}
-.reply .av{width:32px;height:32px;font-size:.82rem}
+.reply{display:flex;gap:.55rem;align-items:flex-start;margin:.5rem 0 0 .9rem;padding-left:.7rem;border-left:2px solid rgba(208,18,27,.25)}
+.reply .av{width:26px;height:26px;font-size:.7rem}
 .reply .bub{background:#FDECEC}
 .reply .bub strong{color:var(--brand-dark)}
-.tag-agen{display:inline-block;margin-left:6px;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--brand);color:#fff;padding:2px 7px;border-radius:100px;vertical-align:middle}
+.tag-agen{display:inline-block;margin-left:6px;font-size:.55rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--brand);color:#fff;padding:2px 7px;border-radius:100px;vertical-align:middle}
 
 /* ===== Footer ===== */
 footer{background:var(--brand-dark);color:rgba(255,255,255,.75);text-align:left;font-size:.82rem;padding:1.4rem 0 5.5rem}
@@ -277,7 +278,7 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
 @media (max-width:640px){
   .brand img{height:42px;max-width:70px}
   .brand-text strong{font-size:1.05rem}
-  .testi-grid{grid-template-columns:1fr;gap:.9rem}
+  .testi-grid{grid-template-columns:1fr;gap:.7rem}
   .banner .slide{aspect-ratio:4/3}
   .grid{grid-template-columns:1fr}
 }
@@ -295,7 +296,7 @@ footer a{color:rgba(255,255,255,.45);text-decoration:none}
         <p id="brandSub">Kalurahan Kedungsari</p>
       </div>
     </div>
-    <button class="cart-btn" id="cartBtn" aria-label="Buka keranjang belanja">🛒<span class="cnt" id="cnt">0</span></button>
+    <button class="cart-btn" id="cartBtn" aria-label="Buka keranjang belanja"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span class="cnt" id="cnt">0</span></button>
   </div>
 </header>
 
