@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Pengaturan Toko — KDMP Kalurahan Kedungsari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --paper:#fff; --ink:#1F2A2E; --ink-soft:#5B676B;
+  --teal:#0E5A6E; --teal-dark:#0A4252; --lime:#A3B91A; --gold:#E8A81C; --red:#B5382A; --ok:#2E7D32;
+  --line:rgba(14,90,110,.14); --shadow:0 14px 34px -18px rgba(14,90,110,.35);
+  --r-lg:22px; --r-md:14px; --r-sm:10px;
+  --font-display:'Fraunces',Georgia,serif; --font-body:'Work Sans','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button{font-family:inherit}
+
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.brand strong{display:block;font-family:var(--font-display);color:var(--teal);font-size:1.25rem;line-height:1.15}
+.brand p{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.top-actions{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:100px;
+  padding:10px 20px;font-weight:700;font-size:.88rem;cursor:pointer;background:var(--teal);color:#fff;text-decoration:none;transition:background .2s
+}
+.btn:hover{background:var(--teal-dark)}
+.btn:disabled{background:#c9cfd1;color:#6b7478;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--teal-dark);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:rgba(14,90,110,.08)}
+.btn.sm{padding:8px 16px;font-size:.82rem}
+
+.msg{font-size:.85rem;margin-top:.7rem;min-height:1.2em}
+.msg.err{color:var(--red)} .msg.ok{color:var(--ok)}
+.app{padding-top:20px;padding-bottom:70px}
+.panel{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin-bottom:1.2rem}
+.panel h2{font-family:var(--font-display);color:var(--teal);font-size:1.15rem;margin-bottom:.4rem}
+.panel h3{font-size:.95rem;margin:1.3rem 0 .4rem;color:var(--teal-dark)}
+.note{font-size:.84rem;color:var(--ink-soft);margin-bottom:.9rem}
+.h{font-size:.78rem;color:var(--ink-soft);margin-top:6px}
+
+/* Status sekarang */
+.status{display:flex;gap:1rem;align-items:center}
+.status .dot{flex-shrink:0;width:16px;height:16px;border-radius:50%;background:#b5b5a8}
+.status.buka .dot{background:#3F9142;box-shadow:0 0 0 5px rgba(63,145,66,.2)}
+.status.tutup .dot{background:var(--red);box-shadow:0 0 0 5px rgba(181,56,42,.18)}
+.status h2{margin:0;font-size:1.3rem}
+.status p{font-size:.86rem;color:var(--ink-soft)}
+
+/* Saklar tiga posisi */
+.seg{display:inline-flex;border:1.5px solid var(--teal);border-radius:100px;overflow:hidden;max-width:100%}
+.seg button{border:0;background:var(--paper);color:var(--teal-dark);font-weight:700;font-size:.86rem;padding:10px 20px;cursor:pointer;border-right:1.5px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button:hover:not(:disabled):not([aria-checked="true"]){background:rgba(14,90,110,.07)}
+.seg button[aria-checked="true"]{background:var(--teal);color:#fff}
+.seg button[data-v="buka"][aria-checked="true"]{background:var(--ok)}
+.seg button[data-v="tutup"][aria-checked="true"]{background:var(--red)}
+.seg button:disabled{cursor:wait;opacity:.7}
+.seg.big button{padding:12px 24px;font-size:.92rem}
+
+.arow{display:flex;gap:.8rem;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:.85rem 0;border-top:1px solid var(--line)}
+.arow:first-child{border-top:0;padding-top:.2rem}
+.arow .nm strong{display:block;font-size:.98rem}
+.arow .nm small{color:var(--ink-soft);font-size:.78rem}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:100px;margin-left:6px;vertical-align:middle;background:#EEF3EA;color:var(--teal-dark)}
+.tag.tutup{background:#F6E1DD;color:var(--red)}
+.tag.off{background:#ECECE6;color:var(--ink-soft)}
+
+/* Formulir */
+.days{display:flex;gap:.45rem;flex-wrap:wrap}
+.days label{position:relative}
+.days input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.days span{display:inline-flex;align-items:center;justify-content:center;min-width:48px;padding:8px 12px;border-radius:100px;border:1.5px solid var(--line);font-weight:700;font-size:.84rem;color:var(--ink-soft);background:var(--paper)}
+.days input:checked + span{background:var(--teal);border-color:var(--teal);color:#fff}
+.days input:focus-visible + span{outline:3px solid var(--gold);outline-offset:2px}
+.times{display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-end;margin-top:.9rem}
+.field label.l{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:.3rem}
+.field input[type=time],.field textarea{
+  padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);font:inherit;font-size:.95rem;background:var(--bg);color:var(--ink)
+}
+.field input[type=time]:disabled{opacity:.5}
+.field textarea{width:100%;min-height:96px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--teal);background:#fff}
+.chk{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.9rem;margin-top:.9rem}
+.chk input{width:18px;height:18px;accent-color:var(--teal)}
+.opt{display:flex;gap:.7rem;align-items:flex-start;padding:.75rem .9rem;border:1.5px solid var(--line);border-radius:var(--r-sm);margin-bottom:.6rem;cursor:pointer;background:var(--paper)}
+.opt:has(input:checked){border-color:var(--teal);background:rgba(14,90,110,.05)}
+.opt input{margin-top:4px;accent-color:var(--teal);width:17px;height:17px;flex-shrink:0}
+.opt b{display:block;font-size:.92rem}
+.opt span{font-size:.82rem;color:var(--ink-soft)}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin:.3rem 0 .9rem}
+.chips button{border:1.5px solid var(--line);background:var(--paper);border-radius:100px;padding:4px 11px;font-size:.78rem;font-weight:700;color:var(--teal-dark);cursor:pointer;font-family:ui-monospace,Menlo,monospace}
+.chips button:hover{border-color:var(--teal)}
+.preview{background:#FBF3DC;border:1.5px solid rgba(232,168,28,.55);border-radius:var(--r-sm);padding:.65rem .85rem;font-size:.84rem;margin:.5rem 0 1.1rem}
+.preview small{display:block;font-weight:700;color:var(--ink-soft);margin-bottom:2px;font-size:.7rem;letter-spacing:.05em;text-transform:uppercase}
+.savebar{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:1.2rem}
+.savebar .msg{margin:0}
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,10px);background:var(--teal-dark);color:#fff;padding:12px 22px;border-radius:100px;
+  font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:300;pointer-events:none;max-width:calc(100vw - 40px);text-align:center
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:640px){
+  .brand strong{font-size:1.05rem}
+  .seg{display:flex;width:100%}
+  .seg button{flex:1;padding:11px 6px;font-size:.82rem}
+  .arow .seg{margin-top:.2rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand"><strong>Pengaturan Toko</strong><p>KDMP Kalurahan Kedungsari</p></div>
+    <div class="top-actions">
+      <a class="btn ghost sm" href="dashboard.html">← Dashboard</a>
+      <button class="btn ghost sm" id="logoutBtn" type="button">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap app">
+  <p class="msg err" id="loadErr" role="alert" hidden></p>
+
+  <section class="panel status" id="statusPanel" aria-live="polite">
+    <span class="dot" aria-hidden="true"></span>
+    <div><h2 id="stJudul">Memuat…</h2><p id="stKet"></p></div>
+  </section>
+
+  <section class="panel">
+    <h2>Saklar toko</h2>
+    <p class="note">Berlaku untuk semua agen, kecuali agen yang diatur sendiri di bawah. Perubahan langsung tersimpan.</p>
+    <div class="seg big" id="segToko" role="radiogroup" aria-label="Saklar toko">
+      <button type="button" role="radio" data-v="auto" aria-checked="false">Otomatis</button>
+      <button type="button" role="radio" data-v="buka" aria-checked="false">Paksa buka</button>
+      <button type="button" role="radio" data-v="tutup" aria-checked="false">Paksa tutup</button>
+    </div>
+    <p class="h" id="segTokoKet"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Saklar per agen</h2>
+    <p class="note">“Ikut toko” mengikuti saklar toko di atas. “Buka” atau “Tutup” menggantikan saklar toko untuk agen itu saja, misalnya satu agen libur sementara sedangkan yang lain tetap melayani.</p>
+    <div id="agenList"></div>
+  </section>
+
+  <form class="panel" id="fJadwal" novalidate>
+    <h2>Jam operasional</h2>
+    <p class="note">Dipakai saat saklar toko di mode <b>Otomatis</b>. Waktu mengikuti WIB.</p>
+    <div class="days" id="days" role="group" aria-label="Hari buka"></div>
+    <div class="times">
+      <div class="field"><label class="l" for="jamBuka">Jam buka</label><input type="time" id="jamBuka"></div>
+      <div class="field"><label class="l" for="jamTutup">Jam tutup</label><input type="time" id="jamTutup"></div>
+    </div>
+    <label class="chk"><input type="checkbox" id="jam24"> Buka 24 jam pada hari yang dipilih</label>
+    <p class="h">Jam tutup lebih awal dari jam buka dianggap lewat tengah malam (mis. 20.00–02.00).</p>
+
+    <h3>Saat toko tutup</h3>
+    <label class="opt"><input type="radio" name="aturan" value="kunci"><div><b>Dikunci (hanya melihat)</b><span>Pembeli bisa melihat produk dan mengisi keranjang, tetapi tombol checkout tidak aktif.</span></div></label>
+    <label class="opt"><input type="radio" name="aturan" value="preorder"><div><b>Boleh pre-order lewat WhatsApp</b><span>Checkout tetap jalan dan berlabel pre-order. Pesan WhatsApp ke agen memuat catatan untuk diproses saat toko buka.</span></div></label>
+
+    <h3>Pesan untuk pembeli</h3>
+    <p class="note" style="margin-bottom:.3rem">Tampil sebagai spanduk di atas toko dan di keranjang. Ketuk kode di bawah untuk menyisipkannya; kode otomatis diganti isinya.</p>
+    <div class="chips" id="chips">
+      <button type="button" data-ph="{jadwal}" title="Kalimat lengkap jadwal, mis. Kami melayani setiap hari pukul 07.00–21.00 WIB. Kosong bila tutup manual.">{jadwal}</button>
+      <button type="button" data-ph="{jam}" title="Jam layanan, mis. 07.00–21.00 WIB">{jam}</button>
+      <button type="button" data-ph="{hari}" title="Hari layanan, mis. setiap hari">{hari}</button>
+      <button type="button" data-ph="{nama}" title="Nama agen">{nama}</button>
+    </div>
+    <div class="field">
+      <label class="l" for="pesanKunci">Pesan saat dikunci</label>
+      <textarea id="pesanKunci" maxlength="500"></textarea>
+      <div class="preview"><small>Contoh tampilan</small><span id="pvKunci"></span></div>
+    </div>
+    <div class="field">
+      <label class="l" for="pesanPreorder">Pesan saat pre-order</label>
+      <textarea id="pesanPreorder" maxlength="500"></textarea>
+      <div class="preview"><small>Contoh tampilan</small><span id="pvPre"></span></div>
+    </div>
+    <p class="h">Kode {jadwal} otomatis kosong bila toko ditutup manual lewat saklar, karena jam buka kembali belum diketahui.</p>
+
+    <div class="savebar">
+      <button class="btn" id="saveBtn" type="submit">Simpan pengaturan</button>
+      <p class="msg" id="saveMsg" role="status"></p>
+    </div>
+  </form>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+<script>
+/* ================= Pengaturan Toko =================
+   Data tersimpan di sheet "Pengaturan" (dan kolom "mode" di sheet Agen) lewat Apps Script.
+   Fungsi jam di bagian "Hitung jam" sama persis dengan yang ada di index.html. */
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let toastTimer;
+function toast(t){ const e = $('toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => e.classList.remove('show'), 3200); }
+
+let S = null;        // pengaturan toko dari server
+let AG = [];         // agen { kode, nama, aktif, mode }
+let sibuk = false;   // sedang menyimpan saklar
+const URUT_HARI = [1,2,3,4,5,6,0];   // tampil Senin ... Minggu
+
+/* ================= Hitung jam (salinan dari index.html) ================= */
+const NAMA_HARI = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const toMin = s => { const m = /^(\d{1,2}):(\d{2})$/.exec(String(s || '')); return m ? (+m[1]) * 60 + (+m[2]) : 0; };
+const fmtJam = s => String(s).replace(':', '.');
+function wibNow(){ const d = new Date(Date.now() + 7 * 3600 * 1000); return { day: d.getUTCDay(), min: d.getUTCHours() * 60 + d.getUTCMinutes() }; }
+function jadwalBuka(t, w){
+  const hari = (t.hari && t.hari.length) ? t.hari : [0,1,2,3,4,5,6];
+  const hariIni = hari.indexOf(w.day) !== -1;
+  if(t.jam24) return hariIni;
+  const b = toMin(t.jamBuka), e = toMin(t.jamTutup);
+  if(b === e) return hariIni;
+  if(b < e) return hariIni && w.min >= b && w.min < e;
+  if(w.min >= b) return hariIni;
+  if(w.min < e) return hari.indexOf((w.day + 6) % 7) !== -1;
+  return false;
+}
+function hariText(hari){
+  const h = (hari && hari.length) ? hari : [0,1,2,3,4,5,6];
+  const idx = Array.from(new Set(h)).map(d => (d + 6) % 7).sort((a, b) => a - b);
+  if(idx.length >= 7) return 'setiap hari';
+  const grup = [];
+  idx.forEach(i => { const g = grup[grup.length - 1]; if(g && g[1] === i - 1) g[1] = i; else grup.push([i, i]); });
+  const nama = i => NAMA_HARI[(i + 1) % 7];
+  const teks = grup.map(g => g[0] === g[1] ? nama(g[0]) : (g[1] - g[0] === 1 ? nama(g[0]) + ' dan ' + nama(g[1]) : nama(g[0]) + '–' + nama(g[1])));
+  return teks.length > 1 ? teks.slice(0, -1).join(', ') + ' dan ' + teks[teks.length - 1] : teks[0];
+}
+const jamText = t => t.jam24 ? '24 jam' : fmtJam(t.jamBuka) + '–' + fmtJam(t.jamTutup) + ' WIB';
+const jadwalText = t => 'Kami melayani ' + hariText(t.hari) + (t.jam24 ? ' selama 24 jam.' : ' pukul ' + jamText(t) + '.');
+function isiPesan(tpl, t, tampilJadwal, nama){
+  return String(tpl || '')
+    .replace(/\{jadwal\}/g, tampilJadwal ? jadwalText(t) : '')
+    .replace(/\{jam\}/g, jamText(t)).replace(/\{hari\}/g, hariText(t.hari))
+    .replace(/\{nama\}/g, nama || 'toko')
+    .replace(/\s{2,}/g, ' ').trim();
+}
+
+/* Status efektif (agenMode: '' | 'buka' | 'tutup') */
+function efektif(agenMode){
+  if(agenMode === 'buka')  return { open:true,  sebab:'saklar agen: Buka' };
+  if(agenMode === 'tutup') return { open:false, sebab:'saklar agen: Tutup' };
+  if(S.modeToko === 'buka')  return { open:true,  sebab:'saklar toko dipaksa Buka' };
+  if(S.modeToko === 'tutup') return { open:false, sebab:'saklar toko dipaksa Tutup' };
+  return { open: jadwalBuka(S, wibNow()), sebab:'sesuai jam operasional' };
+}
+
+/* ================= Tampilan ================= */
+function renderStatus(){
+  if(!S) return;
+  const e = efektif(''), w = wibNow();
+  const jam = String(Math.floor(w.min / 60)).padStart(2, '0') + '.' + String(w.min % 60).padStart(2, '0');
+  $('statusPanel').className = 'panel status ' + (e.open ? 'buka' : 'tutup');
+  $('stJudul').textContent = 'Toko ' + (e.open ? 'BUKA' : 'TUTUP') + ' sekarang';
+  $('stKet').textContent = e.sebab.charAt(0).toUpperCase() + e.sebab.slice(1) + '. Sekarang ' + NAMA_HARI[w.day] + ', ' + jam + ' WIB.';
+}
+function setSeg(el, v){ el.querySelectorAll('button').forEach(b => b.setAttribute('aria-checked', String(b.dataset.v === v))); }
+function renderToko(){
+  setSeg($('segToko'), S.modeToko);
+  $('segTokoKet').textContent = {
+    auto: 'Toko buka dan tutup sendiri sesuai jam operasional di bawah.',
+    buka: 'Toko dianggap buka terus, jam operasional diabaikan.',
+    tutup: 'Toko ditutup sampai saklar dikembalikan (cocok untuk libur).'
+  }[S.modeToko];
+}
+function renderAgen(){
+  if(!AG.length){ $('agenList').innerHTML = '<p class="note">Belum ada agen di sheet Agen.</p>'; return; }
+  $('agenList').innerHTML = AG.map(a => {
+    const e = efektif(a.mode), v = a.mode || 'ikut';
+    return `<div class="arow" data-k="${esc(a.kode)}">
+      <div class="nm"><strong>${esc(a.nama)}<span class="tag${e.open ? '' : ' tutup'}">${e.open ? 'Buka' : 'Tutup'}</span>${a.aktif ? '' : '<span class="tag off">Tidak aktif</span>'}</strong><small>${esc(a.kode)}</small></div>
+      <div class="seg" role="radiogroup" aria-label="Saklar ${esc(a.nama)}">
+        <button type="button" role="radio" data-v="ikut" aria-checked="${v === 'ikut'}">Ikut toko</button>
+        <button type="button" role="radio" data-v="buka" aria-checked="${v === 'buka'}">Buka</button>
+        <button type="button" role="radio" data-v="tutup" aria-checked="${v === 'tutup'}">Tutup</button>
+      </div></div>`;
+  }).join('');
+}
+function isiForm(){
+  $('days').innerHTML = URUT_HARI.map(d => `<label><input type="checkbox" value="${d}" ${S.hari.indexOf(d) !== -1 ? 'checked' : ''}><span>${NAMA_HARI[d].slice(0, 3)}</span></label>`).join('');
+  $('jamBuka').value = S.jamBuka; $('jamTutup').value = S.jamTutup; $('jam24').checked = !!S.jam24;
+  document.querySelectorAll('input[name=aturan]').forEach(r => { r.checked = r.value === S.aturan; });
+  $('pesanKunci').value = S.pesanKunci; $('pesanPreorder').value = S.pesanPreorder;
+  cekJam24(); preview();
+}
+function cekJam24(){ const x = $('jam24').checked; $('jamBuka').disabled = x; $('jamTutup').disabled = x; }
+function formJadwal(){
+  return {
+    hari: Array.from(document.querySelectorAll('#days input:checked')).map(i => +i.value),
+    jamBuka: $('jamBuka').value, jamTutup: $('jamTutup').value, jam24: $('jam24').checked,
+    aturan: (document.querySelector('input[name=aturan]:checked') || {}).value || 'kunci',
+    pesanKunci: $('pesanKunci').value, pesanPreorder: $('pesanPreorder').value
+  };
+}
+function preview(){
+  const f = formJadwal(), contoh = AG.length ? AG[0].nama : 'Bu Agen';
+  const t = { hari: f.hari, jamBuka: f.jamBuka || '07:00', jamTutup: f.jamTutup || '21:00', jam24: f.jam24 };
+  $('pvKunci').textContent = isiPesan(f.pesanKunci, t, true, contoh);
+  $('pvPre').textContent = isiPesan(f.pesanPreorder, t, true, contoh);
+}
+function renderSemua(){ renderStatus(); renderToko(); renderAgen(); isiForm(); }
+
+/* ================= Muat & simpan ================= */
+async function muat(){
+  $('loadErr').hidden = true;
+  try {
+    const d = await Admin.get({ action:'pengaturan' });
+    S = d.toko; AG = d.agen; renderSemua();
+  } catch(e){
+    if(e.auth) return;
+    $('loadErr').hidden = false; $('loadErr').textContent = e.message + ' — muat ulang halaman untuk mencoba lagi.';
+  }
+}
+function kunciSaklar(x){ sibuk = x; document.querySelectorAll('.seg button').forEach(b => { b.disabled = x; }); }
+
+$('segToko').addEventListener('click', async e => {
+  const b = e.target.closest('button[data-v]'); if(!b || sibuk || !S || b.dataset.v === S.modeToko) return;
+  const lama = S.modeToko;
+  S.modeToko = b.dataset.v; renderStatus(); renderToko(); renderAgen(); kunciSaklar(true);
+  try {
+    const d = await Admin.post({ action:'simpanPengaturan', toko:{ modeToko: S.modeToko } });
+    S.modeToko = d.toko.modeToko; toast('Saklar toko tersimpan');
+  } catch(err){ S.modeToko = lama; if(!err.auth) toast(err.message); }
+  kunciSaklar(false); renderStatus(); renderToko(); renderAgen();
+});
+$('agenList').addEventListener('click', async e => {
+  const b = e.target.closest('button[data-v]'); if(!b || sibuk) return;
+  const a = AG.find(x => x.kode === b.closest('.arow').dataset.k); if(!a) return;
+  const baru = b.dataset.v === 'ikut' ? '' : b.dataset.v;
+  if(baru === a.mode) return;
+  const lama = a.mode;
+  a.mode = baru; renderAgen(); kunciSaklar(true);
+  try {
+    await Admin.post({ action:'simpanPengaturan', agen:{ [a.kode]: b.dataset.v } });
+    toast('Saklar ' + a.nama + ' tersimpan');
+  } catch(err){ a.mode = lama; if(!err.auth) toast(err.message); }
+  kunciSaklar(false); renderAgen();
+});
+
+['input', 'change'].forEach(ev => $('fJadwal').addEventListener(ev, () => { cekJam24(); preview(); }));
+$('chips').addEventListener('click', e => {
+  const b = e.target.closest('button[data-ph]'); if(!b) return;
+  const ta = document.activeElement && document.activeElement.tagName === 'TEXTAREA' ? document.activeElement : $('pesanKunci');
+  const s = ta.selectionStart == null ? ta.value.length : ta.selectionStart, f = ta.selectionEnd == null ? s : ta.selectionEnd;
+  ta.value = ta.value.slice(0, s) + b.dataset.ph + ta.value.slice(f);
+  ta.focus(); ta.setSelectionRange(s + b.dataset.ph.length, s + b.dataset.ph.length); preview();
+});
+$('chips').addEventListener('mousedown', e => e.preventDefault());   // jaga fokus & posisi kursor di kolom pesan
+
+$('fJadwal').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = formJadwal(), m = $('saveMsg');
+  m.className = 'msg err';
+  if(!f.hari.length){ m.textContent = 'Pilih minimal satu hari buka.'; return; }
+  if(!f.jam24 && (!f.jamBuka || !f.jamTutup)){ m.textContent = 'Isi jam buka dan jam tutup.'; return; }
+  if(!f.jam24 && f.jamBuka === f.jamTutup){ m.textContent = 'Jam buka dan jam tutup tidak boleh sama. Pilih "Buka 24 jam" bila buka sepanjang hari.'; return; }
+  if(!f.pesanKunci.trim() || !f.pesanPreorder.trim()){ m.textContent = 'Kedua pesan tidak boleh kosong.'; return; }
+  if(f.jam24){ delete f.jamBuka; delete f.jamTutup; }
+  m.className = 'msg'; m.textContent = 'Menyimpan…'; $('saveBtn').disabled = true;
+  try {
+    const d = await Admin.post({ action:'simpanPengaturan', toko: f });
+    S = d.toko; renderSemua();
+    m.className = 'msg ok'; m.textContent = '✓ Tersimpan. Berlaku di toko begitu halamannya dimuat ulang.';
+  } catch(err){ if(!err.auth){ m.className = 'msg err'; m.textContent = err.message; } }
+  $('saveBtn').disabled = false;
+});
+
+$('logoutBtn').addEventListener('click', () => Admin.logout());
+setInterval(() => { if(S && !sibuk){ renderStatus(); renderAgen(); } }, 30000);
+
+if(Admin.guard()) muat();
+</script>
+</body>
+</html>
