@@ -21,7 +21,7 @@
    ===================================================================== */
 (function () {
   'use strict';
-  var API_URL = 'https://script.google.com/macros/s/AKfycbwO1URBelVznZVdyy0fDgqmUqYXfHPNAM1us4-HP-N6o-n2Q40h64n_iPigVcXSJvmI/exec';
+  var API_URL = 'https://script.google.com/macros/s/AKfycbxpKkd2f10r8NYpFKGVjEw_6GYzzAr02aXpScL5e24Y3YM47YQo_EI2Hv83N-Oehec/exec';
   var KEY = 'kdmp_admin_token';
 
   function token() { try { return sessionStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
