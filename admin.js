@@ -119,7 +119,7 @@
     if (r.peran === 'admin' && izin && (r.izin || []).indexOf(izin) === -1) { location.replace('dashboard.html'); return false; }
     get({ action: 'cek' }, { stay: true }).then(function (d) {
       simpanPeran(d);
-      var ok = d.peran === 'owner' || (izin && (d.izin || []).indexOf(izin) !== -1);
+      var ok = d.peran === 'owner' || (d.peran === 'agen' && izin === 'pesanan') || (izin && (d.izin || []).indexOf(izin) !== -1);
       if (!ok) location.replace('dashboard.html');
     }).catch(function (e) { if (e && e.auth) toDashboard(true); });
     return true;
