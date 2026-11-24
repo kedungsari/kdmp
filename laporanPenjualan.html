@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Laporan Penjualan — KDMP Kalurahan Kedungsari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --paper:#fff; --ink:#1F2A2E; --ink-soft:#5B676B;
+  --teal:#0E5A6E; --teal-dark:#0A4252; --lime:#A3B91A; --gold:#E8A81C; --red:#B5382A;
+  --line:rgba(14,90,110,.14); --shadow:0 14px 34px -18px rgba(14,90,110,.35);
+  --r-lg:22px; --r-md:14px; --r-sm:10px;
+  --font-display:'Fraunces',Georgia,serif; --font-body:'Work Sans','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.brand strong{display:block;font-family:var(--font-display);color:var(--teal);font-size:1.25rem;line-height:1.15}
+.brand p{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.top-actions{display:flex;gap:.6rem;align-items:center}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:100px;
+  padding:10px 20px;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer;background:var(--teal);color:#fff;text-decoration:none;
+  transition:background .2s
+}
+.btn:hover{background:var(--teal-dark)}
+.btn:disabled{background:#c9cfd1;color:#6b7478;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--teal-dark);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:rgba(14,90,110,.08)}
+.btn.sm{padding:8px 16px;font-size:.82rem}
+
+/* Login */
+.login{max-width:380px;margin:64px auto;background:var(--paper);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:2rem 1.8rem}
+.login h1{font-family:var(--font-display);color:var(--teal);font-size:1.5rem;margin-bottom:.3rem}
+.login p.intro{color:var(--ink-soft);font-size:.9rem;margin-bottom:1.2rem}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:.3rem}
+.field input,.field select{
+  width:100%;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);
+  font:inherit;font-size:.92rem;background:var(--bg);color:var(--ink)
+}
+.field input:focus,.field select:focus{outline:none;border-color:var(--teal);background:#fff}
+.msg{font-size:.85rem;margin:.8rem 0 0;min-height:1.2em}
+.msg.err{color:var(--red)}
+.login .btn{width:100%;margin-top:1rem}
+
+/* Laporan */
+.app{padding-top:22px;padding-bottom:60px}
+.filters{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;align-items:end;
+  background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.1rem 1.2rem;margin-bottom:1.2rem
+}
+.presets{display:flex;gap:.4rem;flex-wrap:wrap;margin:-.2rem 0 .9rem}
+.presets button{font:inherit;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);cursor:pointer}
+.presets button:hover{border-color:var(--teal)}
+.filters .btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.6rem}
+.stat{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.1rem 1.3rem}
+.stat span{font-size:.78rem;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.stat strong{display:block;font-family:var(--font-display);font-size:1.6rem;color:var(--teal-dark);margin-top:.2rem}
+h2.sec{font-family:var(--font-display);color:var(--teal);font-size:1.3rem;margin:1.8rem 0 .8rem}
+.tbl-wrap{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;background:#EEF3EA;color:var(--teal-dark);font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;padding:.7rem .9rem;white-space:nowrap}
+td{padding:.65rem .9rem;border-top:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;white-space:nowrap}
+td small{display:block;color:var(--ink-soft);font-size:.76rem}
+tfoot td{font-weight:700;background:#F7FAF4}
+.empty{padding:2rem;text-align:center;color:var(--ink-soft)}
+.note{font-size:.8rem;color:var(--ink-soft);margin-top:.6rem}
+.status{font-size:.85rem;color:var(--ink-soft);margin-bottom:.8rem}
+
+@media (max-width:640px){
+  .brand strong{font-size:1.05rem}
+  .login{margin:32px auto}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand">
+      <strong>Laporan Penjualan</strong>
+      <p>KDMP Kalurahan Kedungsari</p>
+    </div>
+    <div class="top-actions">
+      <a class="btn ghost sm" href="dashboard.html">← Dashboard</a>
+      <button class="btn ghost sm" id="logoutBtn" type="button">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Laporan ===== -->
+<main class="wrap app" id="appView">
+  <div class="filters">
+    <div class="field"><label for="fFrom">Dari tanggal</label><input type="date" id="fFrom"></div>
+    <div class="field"><label for="fTo">Sampai tanggal</label><input type="date" id="fTo"></div>
+    <div class="field"><label for="fAgen">Agen</label><select id="fAgen"><option value="">Semua agen</option></select></div>
+    <div class="field"><label for="fKomisi">Komisi agen (%)</label><input type="number" id="fKomisi" min="0" max="100" step="0.1" placeholder="0"></div>
+    <div class="btns">
+      <button class="btn ghost sm" id="reloadBtn" type="button">↻ Muat ulang</button>
+      <button class="btn sm" id="csvBtn" type="button">⬇ Unduh CSV</button>
+    </div>
+  </div>
+
+  <div class="presets" id="presets" aria-label="Rentang cepat">
+    <button type="button" data-r="today">Hari ini</button>
+    <button type="button" data-r="7">7 hari</button>
+    <button type="button" data-r="30">30 hari</button>
+    <button type="button" data-r="month">Bulan ini</button>
+    <button type="button" data-r="all">Semua</button>
+  </div>
+
+  <p class="status" id="statusLine"></p>
+
+  <div class="stats">
+    <div class="stat"><span>Total Penjualan</span><strong id="sTotal">Rp 0</strong></div>
+    <div class="stat"><span>Jumlah Pesanan</span><strong id="sOrders">0</strong></div>
+    <div class="stat"><span>Rata-rata / Pesanan</span><strong id="sAvg">Rp 0</strong></div>
+  </div>
+
+  <h2 class="sec">Rekap per Agen</h2>
+  <div class="tbl-wrap" id="tblAgen"></div>
+
+  <h2 class="sec">Rekap per Produk</h2>
+  <div class="tbl-wrap" id="tblProduk"></div>
+
+  <h2 class="sec">Rincian Transaksi</h2>
+  <div class="tbl-wrap" id="tblDetail"></div>
+  <p class="note" id="detailNote"></p>
+</main>
+
+<script src="admin.js"></script>
+<script>
+const MAX_DETAIL = 1000;
+let ALL = [];   // semua baris dari Sheets
+let VIEW = [];  // baris setelah filter
+
+const $ = id => document.getElementById(id);
+const rp = n => 'Rp ' + Math.round(Number(n) || 0).toLocaleString('id-ID');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TZ = 'Asia/Jakarta';
+
+function dayKey(iso){
+  const d = new Date(iso);
+  if(isNaN(d)) return '';
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year:'numeric', month:'2-digit', day:'2-digit' }).formatToParts(d);
+  const g = t => p.find(x => x.type === t).value;
+  return g('year') + '-' + g('month') + '-' + g('day');
+}
+function fmtTime(iso){
+  const d = new Date(iso);
+  if(isNaN(d)) return String(iso);
+  return d.toLocaleString('id-ID', { timeZone: TZ, day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+function orderKey(r){ return r.idPesanan || (r.tanggal + '|' + r.buyerNama); }
+
+/* ================= Ambil data ================= */
+async function fetchReport(){
+  const d = await Admin.get({ action:'laporan' });   // login & token ditangani admin.js
+  return d.data || [];
+}
+async function muat(){
+  $('statusLine').textContent = 'Memuat…';
+  try { ALL = await fetchReport(); buildAgenOptions(); render(); }
+  catch(e){ if(!e.auth) $('statusLine').innerHTML = '<span style="color:#b3261e">' + esc(e.message) + '</span> — tekan "Muat ulang" untuk mencoba lagi.'; }
+}
+$('logoutBtn').addEventListener('click', () => Admin.logout());
+$('reloadBtn').addEventListener('click', muat);
+
+/* ================= Filter ================= */
+function buildAgenOptions(){
+  const sel = $('fAgen'), cur = sel.value;
+  const map = new Map();
+  ALL.forEach(r => { const k = r.agenKode || r.agenNama || '-'; if(!map.has(k)) map.set(k, r.agenNama || k); });
+  sel.innerHTML = '<option value="">Semua agen</option>' +
+    [...map.entries()].map(([k, n]) => `<option value="${esc(k)}">${esc(n)}</option>`).join('');
+  if(cur && map.has(cur)) sel.value = cur;
+}
+$('presets').addEventListener('click', e => {
+  const b = e.target.closest('[data-r]'); if(!b) return;
+  const r = b.dataset.r, today = dayKey(new Date().toISOString());
+  const geser = n => dayKey(new Date(Date.now() - n * 86400000).toISOString());
+  let from = '', to = '';
+  if(r === 'today'){ from = to = today; }
+  else if(r === 'month'){ from = today.slice(0, 8) + '01'; to = today; }
+  else if(r !== 'all'){ from = geser(+r - 1); to = today; }
+  $('fFrom').value = from; $('fTo').value = to; render();
+});
+['fFrom','fTo','fAgen','fKomisi'].forEach(id => $(id).addEventListener('input', render));
+
+function applyFilter(){
+  const from = $('fFrom').value, to = $('fTo').value, agen = $('fAgen').value;
+  VIEW = ALL.filter(r => {
+    if(String(r.status || '').toLowerCase() === 'batal') return false;   // pesanan Batal tidak dihitung
+    const dk = dayKey(r.tanggal);
+    if(from && dk && dk < from) return false;
+    if(to && dk && dk > to) return false;
+    if(agen && (r.agenKode || r.agenNama || '-') !== agen) return false;
+    return true;
+  });
+}
+
+/* ================= Tampilan ================= */
+function tableHtml(head, rows, foot){
+  if(!rows.length) return '<div class="empty">Belum ada data.</div>';
+  return `<table><thead><tr>${head.map(h => `<th class="${h.num ? 'num' : ''}">${esc(h.t)}</th>`).join('')}</tr></thead>
+    <tbody>${rows.join('')}</tbody>${foot ? `<tfoot>${foot}</tfoot>` : ''}</table>`;
+}
+
+function render(){
+  applyFilter();
+  const komisi = Math.max(0, Number($('fKomisi').value) || 0);
+
+  const grand = VIEW.reduce((s, r) => s + r.total, 0);
+  const orders = new Set(VIEW.map(orderKey)).size;
+  $('sTotal').textContent = rp(grand);
+  $('sOrders').textContent = orders.toLocaleString('id-ID');
+  $('sAvg').textContent = rp(orders ? grand / orders : 0);
+  const nBatal = ALL.filter(r => String(r.status || '').toLowerCase() === 'batal').length;
+  $('statusLine').textContent = ALL.length
+    ? `Menampilkan ${VIEW.length} dari ${ALL.length} baris item.` + (nBatal ? ` (${nBatal} baris berstatus Batal tidak dihitung)` : '')
+    : 'Belum ada transaksi tercatat.';
+
+  /* Rekap per agen */
+  const ag = new Map();
+  VIEW.forEach(r => {
+    const k = r.agenKode || r.agenNama || '-';
+    if(!ag.has(k)) ag.set(k, { nama: r.agenNama || k, orders: new Set(), total: 0 });
+    const o = ag.get(k); o.orders.add(orderKey(r)); o.total += r.total;
+  });
+  const agRows = [...ag.values()].sort((a, b) => b.total - a.total);
+  const agHead = [{t:'Agen'}, {t:'Pesanan', num:1}, {t:'Total Penjualan', num:1}].concat(komisi > 0 ? [{t:`Komisi ${komisi}%`, num:1}] : []);
+  $('tblAgen').innerHTML = tableHtml(agHead,
+    agRows.map(a => `<tr><td>${esc(a.nama)}</td><td class="num">${a.orders.size}</td><td class="num">${rp(a.total)}</td>${komisi > 0 ? `<td class="num">${rp(a.total * komisi / 100)}</td>` : ''}</tr>`),
+    agRows.length ? `<tr><td>Total</td><td class="num">${orders}</td><td class="num">${rp(grand)}</td>${komisi > 0 ? `<td class="num">${rp(grand * komisi / 100)}</td>` : ''}</tr>` : '');
+
+  /* Rekap per produk */
+  const pr = new Map();
+  VIEW.forEach(r => {
+    const k = r.nama + '|' + r.satuan;
+    if(!pr.has(k)) pr.set(k, { nama: r.nama, satuan: r.satuan, qty: 0, total: 0 });
+    const o = pr.get(k); o.qty += r.jumlah; o.total += r.total;
+  });
+  const prRows = [...pr.values()].sort((a, b) => b.total - a.total);
+  $('tblProduk').innerHTML = tableHtml([{t:'Produk'}, {t:'Terjual', num:1}, {t:'Total', num:1}],
+    prRows.map(p => `<tr><td>${esc(p.nama)}</td><td class="num">${p.qty.toLocaleString('id-ID')} ${esc(p.satuan)}</td><td class="num">${rp(p.total)}</td></tr>`));
+
+  /* Rincian (terbaru di atas) */
+  const sorted = VIEW.slice().sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+  const shown = sorted.slice(0, MAX_DETAIL);
+  $('tblDetail').innerHTML = tableHtml(
+    [{t:'Waktu'}, {t:'Agen'}, {t:'Pembeli'}, {t:'Produk'}, {t:'Jumlah', num:1}, {t:'Total', num:1}],
+    shown.map(r => `<tr>
+      <td>${esc(fmtTime(r.tanggal))}</td>
+      <td>${esc(r.agenNama || r.agenKode)}</td>
+      <td>${esc(r.buyerNama)}<small>${esc([r.buyerHp, r.buyerAlamat].filter(x => x && x !== '-').join(' · '))}</small></td>
+      <td>${esc(r.nama)}<small>${rp(r.harga)} / ${esc(r.satuan)}</small></td>
+      <td class="num">${r.jumlah.toLocaleString('id-ID')} ${esc(r.satuan)}</td>
+      <td class="num">${rp(r.total)}</td></tr>`));
+  $('detailNote').textContent = sorted.length > MAX_DETAIL
+    ? `Hanya ${MAX_DETAIL} transaksi terbaru yang ditampilkan di sini. Unduh CSV untuk data lengkap.` : '';
+}
+
+/* ================= Unduh CSV (format Excel Indonesia: pemisah titik koma) ================= */
+function csvCell(v){
+  if(typeof v === 'number') return String(v);
+  let s = String(v == null ? '' : v);
+  if(/^([=+@\t\r]|-.)/.test(s)) s = "'" + s; // cegah isi sel dianggap rumus
+  return '"' + s.replace(/"/g, '""') + '"';
+}
+$('csvBtn').addEventListener('click', () => {
+  if(!VIEW.length){ alert('Tidak ada data untuk diunduh.'); return; }
+  const head = ['Waktu','ID Pesanan','Kode Agen','Nama Agen','Pembeli','No HP','Alamat','Produk','Jumlah','Satuan','Harga Satuan','Total'];
+  const rows = VIEW.slice().sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal)).map(r =>
+    [fmtTime(r.tanggal), r.idPesanan, r.agenKode, r.agenNama, r.buyerNama, r.buyerHp, r.buyerAlamat, r.nama, r.jumlah, r.satuan, r.harga, r.total].map(csvCell).join(';'));
+  const csv = '﻿' + head.map(csvCell).join(';') + '\r\n' + rows.join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type:'text/csv;charset=utf-8' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'laporan-penjualan-' + dayKey(new Date().toISOString()) + '.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+/* ================= Mulai ================= */
+if(Admin.guardIzin('pesanan')) muat();
+</script>
+</body>
+</html>
