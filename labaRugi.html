@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Laporan Rugi Laba — KDMP Kalurahan Kedungsari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --paper:#fff; --ink:#1F2A2E; --ink-soft:#5B676B;
+  --teal:#0E5A6E; --teal-dark:#0A4252; --lime:#A3B91A; --gold:#E8A81C; --red:#B5382A; --green:#2E7D32;
+  --line:rgba(14,90,110,.14); --shadow:0 14px 34px -18px rgba(14,90,110,.35);
+  --r-lg:22px; --r-md:14px; --r-sm:10px;
+  --font-display:'Fraunces',Georgia,serif; --font-body:'Work Sans','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.brand strong{display:block;font-family:var(--font-display);color:var(--teal);font-size:1.25rem;line-height:1.15}
+.brand p{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.top-actions{display:flex;gap:.6rem;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:100px;padding:10px 20px;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer;background:var(--teal);color:#fff;text-decoration:none;transition:background .2s}
+.btn:hover{background:var(--teal-dark)}
+.btn.ghost{background:transparent;color:var(--teal-dark);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:rgba(14,90,110,.08)}
+.btn.sm{padding:8px 16px;font-size:.82rem}
+.btn.xs{padding:4px 10px;font-size:.72rem}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:.3rem}
+.field input,.field select{width:100%;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);font:inherit;font-size:.92rem;background:var(--bg);color:var(--ink)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--teal);background:#fff}
+
+.app{padding-top:22px;padding-bottom:60px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.9rem;align-items:end;background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.1rem 1.2rem;margin-bottom:.9rem}
+.filters .btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.presets{display:flex;gap:.4rem;flex-wrap:wrap;margin:0 0 .9rem}
+.presets button{font:inherit;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);cursor:pointer}
+.presets button:hover{border-color:var(--teal)}
+/* pilihan item */
+details.dd{position:relative}
+details.dd summary{list-style:none;cursor:pointer;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);background:var(--bg);font-size:.92rem;display:flex;justify-content:space-between;gap:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+details.dd summary::-webkit-details-marker{display:none}
+details.dd summary::after{content:"▾";color:var(--ink-soft)}
+details.dd[open] summary{border-color:var(--teal);background:#fff}
+.dd-panel{position:absolute;left:0;top:calc(100% + 6px);z-index:60;width:min(340px,86vw);background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow);padding:.7rem}
+.dd-panel input[type=search]{width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);font:inherit;font-size:.86rem;margin-bottom:.5rem}
+.dd-tools{display:flex;gap:.4rem;margin-bottom:.4rem}
+.dd-list{max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+.dd-list label{display:flex;gap:.5rem;align-items:center;font-size:.86rem;padding:4px 6px;border-radius:6px;cursor:pointer;font-weight:500;color:var(--ink);margin:0}
+.dd-list label:hover{background:#EEF3EA}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.2rem}
+.stat{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1rem 1.2rem}
+.stat span{font-size:.74rem;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.stat strong{display:block;font-family:var(--font-display);font-size:1.45rem;color:var(--teal-dark);margin-top:.15rem}
+.stat.big strong{font-size:1.7rem}
+.pos{color:var(--green)!important}.neg{color:var(--red)!important}
+.warnbox{background:#FFF6DC;border:1.5px solid rgba(232,168,28,.55);border-radius:var(--r-md);padding:.8rem 1rem;font-size:.88rem;margin-bottom:1.1rem}
+h2.sec{font-family:var(--font-display);color:var(--teal);font-size:1.3rem;margin:1.8rem 0 .8rem}
+.tbl-wrap{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;background:#EEF3EA;color:var(--teal-dark);font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;padding:.7rem .9rem;white-space:nowrap}
+td{padding:.65rem .9rem;border-top:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;white-space:nowrap}
+td small{display:block;color:var(--ink-soft);font-size:.76rem}
+tfoot td{font-weight:700;background:#F7FAF4}
+tr.nohpp td{background:#FFFBEC}
+td input.hpp{width:110px;padding:6px 8px;border-radius:8px;border:1.5px solid var(--line);font:inherit;font-size:.85rem;text-align:right;background:var(--bg)}
+td input.hpp:focus{outline:none;border-color:var(--teal);background:#fff}
+td input.hpp.saving{opacity:.5}
+.empty{padding:2rem;text-align:center;color:var(--ink-soft)}
+.note{font-size:.8rem;color:var(--ink-soft);margin-top:.6rem}
+.status{font-size:.85rem;color:var(--ink-soft);margin-bottom:.8rem}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,10px);background:var(--teal-dark);color:#fff;padding:12px 22px;border-radius:100px;font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:400;pointer-events:none;max-width:calc(100vw - 40px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:640px){.brand strong{font-size:1.05rem}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand">
+      <strong>Laporan Rugi Laba</strong>
+      <p>KDMP Kalurahan Kedungsari</p>
+    </div>
+    <div class="top-actions">
+      <a class="btn ghost sm" href="dashboard.html">← Dashboard</a>
+      <button class="btn ghost sm" id="logoutBtn" type="button">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap app">
+  <div class="filters">
+    <div class="field"><label for="fFrom">Dari tanggal</label><input type="date" id="fFrom"></div>
+    <div class="field"><label for="fTo">Sampai tanggal</label><input type="date" id="fTo"></div>
+    <div class="field"><label for="fAgen">Agen</label><select id="fAgen"><option value="">Semua agen</option></select></div>
+    <div class="field"><label>Item</label>
+      <details class="dd" id="ddItem">
+        <summary id="ddSum">Semua item</summary>
+        <div class="dd-panel">
+          <input type="search" id="ddQ" placeholder="Cari item…" aria-label="Cari item">
+          <div class="dd-tools"><button class="btn ghost xs" id="ddAll" type="button">Pilih semua</button><button class="btn ghost xs" id="ddNone" type="button">Kosongkan</button></div>
+          <div class="dd-list" id="ddList"></div>
+        </div>
+      </details>
+    </div>
+    <div class="field"><label for="fSt">Status pesanan</label>
+      <select id="fSt"><option value="">Semua (tanpa Batal)</option><option value="selesai">Hanya Selesai</option><option value="kirim">Dikirim + Selesai</option></select></div>
+    <div class="btns">
+      <button class="btn ghost sm" id="reloadBtn" type="button">↻ Muat ulang</button>
+      <button class="btn sm" id="csvBtn" type="button">⬇ Unduh CSV</button>
+    </div>
+  </div>
+  <div class="presets" id="presets">
+    <button type="button" data-r="today">Hari ini</button>
+    <button type="button" data-r="7">7 hari</button>
+    <button type="button" data-r="30">30 hari</button>
+    <button type="button" data-r="month">Bulan ini</button>
+    <button type="button" data-r="all">Semua</button>
+  </div>
+
+  <p class="status" id="statusLine"></p>
+  <div class="warnbox" id="warn" hidden></div>
+
+  <div class="stats">
+    <div class="stat"><span>Penjualan</span><strong id="sSales">Rp 0</strong></div>
+    <div class="stat"><span>HPP (modal)</span><strong id="sHpp">Rp 0</strong></div>
+    <div class="stat big"><span>Laba kotor</span><strong id="sLaba">Rp 0</strong></div>
+    <div class="stat"><span>Margin</span><strong id="sMargin">0%</strong></div>
+    <div class="stat"><span>Jumlah pesanan</span><strong id="sOrders">0</strong></div>
+  </div>
+
+  <h2 class="sec">Per Item</h2>
+  <div class="tbl-wrap" id="tblItem"></div>
+  <label class="note" style="display:flex;gap:.5rem;align-items:flex-start;margin-top:.8rem"><input type="checkbox" id="timpaLama" style="margin-top:.2rem"><span><b>Koreksi:</b> terapkan perubahan HPP juga ke <b>transaksi lama</b> produk itu. Biarkan kosong untuk pemakaian biasa (harga suplier naik): transaksi lama tetap memakai HPP-nya saat itu, hanya pesanan baru yang memakai HPP baru. Centang hanya bila HPP sebelumnya salah ketik.</span></label>
+  <p class="note">Kolom <b>HPP produk kini</b> bisa diisi langsung dan tersimpan ke kolom <b>hpp</b> sheet Produk. Pengisian pertama otomatis mengisi transaksi lama yang HPP-nya masih kosong. Item yang tidak ada di sheet Produk tidak bisa diisi dari sini.</p>
+
+  <h2 class="sec">Per Agen</h2>
+  <div class="tbl-wrap" id="tblAgen"></div>
+
+  <h2 class="sec">Per Hari</h2>
+  <div class="tbl-wrap" id="tblHari"></div>
+
+  <h2 class="sec">Rincian Transaksi</h2>
+  <div class="tbl-wrap" id="tblDetail"></div>
+  <p class="note" id="detailNote"></p>
+  <p class="note"><b>Cara hitung:</b> Laba kotor = Penjualan − HPP, hanya untuk item yang HPP-nya sudah terisi. HPP <b>dikunci saat pesanan dibuat</b> (kolom HPP di sheet Pesanan), jadi laba transaksi lama tidak berubah ketika harga suplier berubah. Ongkos kirim tidak dihitung. Pesanan berstatus Batal tidak ikut. Belum termasuk biaya operasional.</p>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+<script>
+const MAX_DETAIL = 1000;
+const TZ = 'Asia/Jakarta';
+let ALL = [], PROD = [], VIEW = [], ITEMS = [];
+let SEL = new Set();   // item terpilih (kunci huruf kecil)
+let hppMap = new Map();
+
+const $ = id => document.getElementById(id);
+const rp = n => (n < 0 ? '−' : '') + 'Rp ' + Math.abs(Math.round(Number(n) || 0)).toLocaleString('id-ID');
+const num = n => (Number(n) || 0).toLocaleString('id-ID', { maximumFractionDigits: 3 });
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s || '').replace(/\s+/g, ' ').trim().toLowerCase();
+let toastTimer;
+function toast(t){ const e = $('toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => e.classList.remove('show'), 2400); }
+function dayKey(iso){
+  const d = new Date(iso); if(isNaN(d)) return '';
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year:'numeric', month:'2-digit', day:'2-digit' }).formatToParts(d);
+  const g = t => p.find(x => x.type === t).value;
+  return g('year') + '-' + g('month') + '-' + g('day');
+}
+const fmtTime = iso => { const d = new Date(iso); return isNaN(d) ? String(iso) : d.toLocaleString('id-ID', { timeZone: TZ, day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }); };
+const fmtDay = k => { const [y,m,d] = k.split('-'); return d + '/' + m + '/' + y; };
+const orderKey = r => r.idPesanan || (r.tanggal + '|' + r.buyerNama);
+const pctText = (laba, dasar) => dasar > 0 ? (laba / dasar * 100).toLocaleString('id-ID', { maximumFractionDigits: 1 }) + '%' : '—';
+const cls = n => n > 0 ? 'pos' : (n < 0 ? 'neg' : '');
+
+/* ================= Muat data ================= */
+async function muat(){
+  $('statusLine').textContent = 'Memuat…';
+  try {
+    const d = await Admin.get({ action:'labaData' });
+    const semuaDulu = !ITEMS.length || SEL.size === ITEMS.length;
+    ALL = d.data || []; PROD = d.produk || [];
+    hppMap = new Map(PROD.map(p => [norm(p.nama), p]));
+    const m = new Map(); ALL.forEach(r => { const k = norm(r.nama); if(k && !m.has(k)) m.set(k, r.nama); });
+    ITEMS = [...m.entries()].map(([k, n]) => ({ k, n })).sort((a, b) => a.n.localeCompare(b.n));
+    if(semuaDulu) SEL = new Set(ITEMS.map(i => i.k)); else SEL = new Set([...SEL].filter(k => m.has(k)));
+    buildAgen(); buildItemList(); render();
+  } catch(e){ if(!e.auth) $('statusLine').innerHTML = '<span style="color:#b3261e">' + esc(e.message) + '</span>'; }
+}
+$('logoutBtn').addEventListener('click', () => Admin.logout());
+$('reloadBtn').addEventListener('click', muat);
+
+/* ================= Filter ================= */
+function buildAgen(){
+  const sel = $('fAgen'), cur = sel.value, m = new Map();
+  ALL.forEach(r => { const k = r.agenKode || r.agenNama || '-'; if(!m.has(k)) m.set(k, r.agenNama || k); });
+  sel.innerHTML = '<option value="">Semua agen</option>' + [...m.entries()].map(([k, n]) => `<option value="${esc(k)}">${esc(n)}</option>`).join('');
+  if(cur && m.has(cur)) sel.value = cur;
+}
+function buildItemList(){
+  const q = norm($('ddQ').value);
+  $('ddList').innerHTML = ITEMS.filter(i => !q || i.k.includes(q)).map(i =>
+    `<label><input type="checkbox" data-k="${esc(i.k)}"${SEL.has(i.k) ? ' checked' : ''}> ${esc(i.n)}</label>`).join('') || '<div class="note">Tidak ada item.</div>';
+  $('ddSum').textContent = !ITEMS.length ? 'Semua item' : (SEL.size === ITEMS.length ? 'Semua item (' + ITEMS.length + ')' : (SEL.size ? SEL.size + ' item dipilih' : 'Tidak ada item'));
+}
+$('ddList').addEventListener('change', e => {
+  const c = e.target.closest('input[data-k]'); if(!c) return;
+  c.checked ? SEL.add(c.dataset.k) : SEL.delete(c.dataset.k);
+  $('ddSum').textContent = SEL.size === ITEMS.length ? 'Semua item (' + ITEMS.length + ')' : (SEL.size ? SEL.size + ' item dipilih' : 'Tidak ada item');
+  render();
+});
+$('ddQ').addEventListener('input', buildItemList);
+$('ddAll').addEventListener('click', () => { SEL = new Set(ITEMS.map(i => i.k)); buildItemList(); render(); });
+$('ddNone').addEventListener('click', () => { SEL = new Set(); buildItemList(); render(); });
+document.addEventListener('click', e => { const d = $('ddItem'); if(d.open && !d.contains(e.target)) d.open = false; });
+$('presets').addEventListener('click', e => {
+  const b = e.target.closest('[data-r]'); if(!b) return;
+  const r = b.dataset.r, today = dayKey(new Date().toISOString());
+  const geser = n => dayKey(new Date(Date.now() - n * 86400000).toISOString());
+  let from = '', to = '';
+  if(r === 'today'){ from = to = today; } else if(r === 'month'){ from = today.slice(0, 8) + '01'; to = today; } else if(r !== 'all'){ from = geser(+r - 1); to = today; }
+  $('fFrom').value = from; $('fTo').value = to; render();
+});
+['fFrom','fTo','fAgen','fSt'].forEach(id => $(id).addEventListener('input', render));
+
+function applyFilter(){
+  const from = $('fFrom').value, to = $('fTo').value, agen = $('fAgen').value, st = $('fSt').value;
+  VIEW = ALL.filter(r => {
+    const s = String(r.status || '').toLowerCase();
+    if(s === 'batal') return false;
+    if(st === 'selesai' && s !== 'selesai') return false;
+    if(st === 'kirim' && s !== 'selesai' && s !== 'dikirim') return false;
+    const dk = dayKey(r.tanggal);
+    if(from && dk && dk < from) return false;
+    if(to && dk && dk > to) return false;
+    if(agen && (r.agenKode || r.agenNama || '-') !== agen) return false;
+    if(!SEL.has(norm(r.nama))) return false;
+    return true;
+  }).map(r => {
+    // HPP dikunci saat transaksi (kolom HPP sheet Pesanan). Cadangan: HPP produk saat ini, untuk baris yang belum terkunci.
+    const p = hppMap.get(norm(r.nama));
+    const sat = (r.hpp != null) ? r.hpp : ((p && p.hpp != null) ? p.hpp : null);
+    const hpp = sat == null ? null : sat * r.jumlah;
+    return Object.assign({}, r, { hppTotal: hpp, laba: hpp == null ? null : r.total - hpp });
+  });
+}
+
+/* ================= Tampilan ================= */
+function tableHtml(head, rows, foot){
+  if(!rows.length) return '<div class="empty">Belum ada data.</div>';
+  return `<table><thead><tr>${head.map(h => `<th class="${h.num ? 'num' : ''}">${esc(h.t)}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody>${foot ? `<tfoot>${foot}</tfoot>` : ''}</table>`;
+}
+function ringkas(rows){   // jumlahkan; laba & margin hanya dari baris ber-HPP
+  const o = { sales:0, hpp:0, laba:0, salesHpp:0, salesTanpa:0, orders:new Set() };
+  rows.forEach(r => {
+    o.sales += r.total; o.orders.add(orderKey(r));
+    if(r.hppTotal == null) o.salesTanpa += r.total;
+    else { o.hpp += r.hppTotal; o.laba += r.laba; o.salesHpp += r.total; }
+  });
+  return o;
+}
+function render(){
+  applyFilter();
+  const t = ringkas(VIEW);
+  $('sSales').textContent = rp(t.sales);
+  $('sHpp').textContent = rp(t.hpp);
+  $('sLaba').textContent = rp(t.laba); $('sLaba').className = cls(t.laba);
+  $('sMargin').textContent = pctText(t.laba, t.salesHpp); $('sMargin').className = cls(t.laba);
+  $('sOrders').textContent = t.orders.size.toLocaleString('id-ID');
+  $('statusLine').textContent = ALL.length ? `Menampilkan ${VIEW.length} baris item dari ${ALL.length}.` : 'Belum ada transaksi tercatat.';
+  const tanpa = new Set(VIEW.filter(r => r.hppTotal == null).map(r => norm(r.nama)));
+  $('warn').hidden = !tanpa.size;
+  if(tanpa.size) $('warn').innerHTML = `⚠️ <b>${tanpa.size} item belum punya HPP</b> (penjualan ${rp(t.salesTanpa)}). Item ini tidak ikut dihitung di HPP, laba, dan margin. Isi kolom HPP/satuan pada tabel Per Item (baris berlatar kuning).`;
+
+  /* Per item */
+  const im = new Map();
+  VIEW.forEach(r => {
+    const k = norm(r.nama);
+    if(!im.has(k)) im.set(k, { nama:r.nama, satuan:r.satuan, qty:0, rows:[] });
+    const o = im.get(k); o.qty += r.jumlah; o.rows.push(r);
+  });
+  const iRows = [...im.entries()].map(([k, o]) => Object.assign({ k }, o, ringkas(o.rows))).sort((a, b) => b.sales - a.sales);
+  $('tblItem').innerHTML = tableHtml(
+    [{t:'Item'}, {t:'Terjual', num:1}, {t:'Penjualan', num:1}, {t:'HPP produk kini', num:1}, {t:'HPP rata-rata', num:1}, {t:'Total HPP', num:1}, {t:'Laba', num:1}, {t:'Margin', num:1}],
+    iRows.map(o => {
+      const p = hppMap.get(o.k), ada = o.salesHpp > 0, kini = p && p.hpp != null;
+      const qtyHpp = o.rows.filter(r => r.hppTotal != null).reduce((q, r) => q + r.jumlah, 0);
+      const cell = p ? `<input class="hpp" type="number" min="0" step="any" inputmode="decimal" data-id="${esc(p.id)}" data-k="${esc(o.k)}" value="${kini ? p.hpp : ''}" placeholder="isi HPP" aria-label="HPP ${esc(o.nama)}">` : '<small>tidak ada di Produk</small>';
+      return `<tr class="${o.salesTanpa > 0 ? 'nohpp' : ''}"><td>${esc(o.nama)}</td>
+        <td class="num">${num(o.qty)} ${esc(o.satuan)}</td><td class="num">${rp(o.sales)}</td>
+        <td class="num">${cell}</td>
+        <td class="num">${ada && qtyHpp ? rp(o.hpp / qtyHpp) : '—'}</td>
+        <td class="num">${ada ? rp(o.hpp) : '—'}</td>
+        <td class="num ${cls(o.laba)}">${ada ? rp(o.laba) : '—'}</td>
+        <td class="num ${cls(o.laba)}">${ada ? pctText(o.laba, o.salesHpp) : '—'}</td></tr>`;
+    }),
+    iRows.length ? `<tr><td>Total</td><td></td><td class="num">${rp(t.sales)}</td><td></td><td></td><td class="num">${rp(t.hpp)}</td><td class="num ${cls(t.laba)}">${rp(t.laba)}</td><td class="num ${cls(t.laba)}">${pctText(t.laba, t.salesHpp)}</td></tr>` : '');
+
+  /* Per agen */
+  const am = new Map();
+  VIEW.forEach(r => { const k = r.agenKode || r.agenNama || '-'; if(!am.has(k)) am.set(k, { nama:r.agenNama || k, rows:[] }); am.get(k).rows.push(r); });
+  const aRows = [...am.values()].map(o => Object.assign({ nama:o.nama }, ringkas(o.rows))).sort((a, b) => b.sales - a.sales);
+  $('tblAgen').innerHTML = tableHtml(
+    [{t:'Agen'}, {t:'Pesanan', num:1}, {t:'Penjualan', num:1}, {t:'HPP', num:1}, {t:'Laba', num:1}, {t:'Margin', num:1}],
+    aRows.map(o => `<tr><td>${esc(o.nama)}${o.salesTanpa ? `<small>${rp(o.salesTanpa)} tanpa HPP</small>` : ''}</td><td class="num">${o.orders.size}</td><td class="num">${rp(o.sales)}</td><td class="num">${rp(o.hpp)}</td><td class="num ${cls(o.laba)}">${rp(o.laba)}</td><td class="num ${cls(o.laba)}">${pctText(o.laba, o.salesHpp)}</td></tr>`));
+
+  /* Per hari */
+  const hm = new Map();
+  VIEW.forEach(r => { const k = dayKey(r.tanggal) || '-'; if(!hm.has(k)) hm.set(k, []); hm.get(k).push(r); });
+  const hRows = [...hm.entries()].sort((a, b) => a[0] < b[0] ? 1 : -1).slice(0, 90).map(([k, rows]) => Object.assign({ k }, ringkas(rows)));
+  $('tblHari').innerHTML = tableHtml(
+    [{t:'Tanggal'}, {t:'Pesanan', num:1}, {t:'Penjualan', num:1}, {t:'HPP', num:1}, {t:'Laba', num:1}],
+    hRows.map(o => `<tr><td>${esc(o.k === '-' ? '-' : fmtDay(o.k))}</td><td class="num">${o.orders.size}</td><td class="num">${rp(o.sales)}</td><td class="num">${rp(o.hpp)}</td><td class="num ${cls(o.laba)}">${rp(o.laba)}</td></tr>`));
+
+  /* Rincian */
+  const sorted = VIEW.slice().sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+  $('tblDetail').innerHTML = tableHtml(
+    [{t:'Waktu'}, {t:'Agen'}, {t:'Item'}, {t:'Jumlah', num:1}, {t:'Penjualan', num:1}, {t:'HPP', num:1}, {t:'Laba', num:1}],
+    sorted.slice(0, MAX_DETAIL).map(r => `<tr><td>${esc(fmtTime(r.tanggal))}<small>${esc(r.idPesanan)}</small></td><td>${esc(r.agenNama || r.agenKode)}</td>
+      <td>${esc(r.nama)}<small>${rp(r.harga)} / ${esc(r.satuan)}</small></td><td class="num">${num(r.jumlah)} ${esc(r.satuan)}</td>
+      <td class="num">${rp(r.total)}</td><td class="num">${r.hppTotal == null ? '—' : rp(r.hppTotal)}</td><td class="num ${cls(r.laba)}">${r.laba == null ? '—' : rp(r.laba)}</td></tr>`));
+  $('detailNote').textContent = sorted.length > MAX_DETAIL ? `Hanya ${MAX_DETAIL} transaksi terbaru yang ditampilkan di sini. Unduh CSV untuk data lengkap.` : '';
+}
+
+/* ================= Isi HPP langsung ================= */
+$('tblItem').addEventListener('change', async e => {
+  const i = e.target.closest('input.hpp'); if(!i) return;
+  i.classList.add('saving'); i.disabled = true;
+  try {
+    const r = await Admin.post({ action:'simpanHpp', id:i.dataset.id, hpp:i.value, terapkanLama: $('timpaLama').checked });
+    toast('HPP tersimpan ✔' + (r.terkunci ? ' · ' + r.terkunci + ' baris transaksi diperbarui' : ''));
+    $('timpaLama').checked = false;
+    await muat();
+  } catch(err){ if(!err.auth){ toast(err.message); i.classList.remove('saving'); i.disabled = false; } }
+});
+
+/* ================= Unduh CSV ================= */
+function csvCell(v){
+  if(typeof v === 'number') return String(v);
+  let s = String(v == null ? '' : v);
+  if(/^([=+@\t\r]|-.)/.test(s)) s = "'" + s;
+  return '"' + s.replace(/"/g, '""') + '"';
+}
+$('csvBtn').addEventListener('click', () => {
+  if(!VIEW.length){ alert('Tidak ada data untuk diunduh.'); return; }
+  const head = ['Waktu','ID Pesanan','Kode Agen','Nama Agen','Item','Jumlah','Satuan','Harga Jual','Penjualan','HPP Total','Laba'];
+  const rows = VIEW.slice().sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal)).map(r =>
+    [fmtTime(r.tanggal), r.idPesanan, r.agenKode, r.agenNama, r.nama, r.jumlah, r.satuan, r.harga, r.total, r.hppTotal == null ? '' : r.hppTotal, r.laba == null ? '' : r.laba].map(csvCell).join(';'));
+  const csv = '﻿' + head.map(csvCell).join(';') + '\r\n' + rows.join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type:'text/csv;charset=utf-8' }));
+  const a = document.createElement('a'); a.href = url; a.download = 'laba-rugi-' + dayKey(new Date().toISOString()) + '.csv';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+/* ================= Mulai ================= */
+if(Admin.guardIzin('keuangan')) muat();
+</script>
+</body>
+</html>

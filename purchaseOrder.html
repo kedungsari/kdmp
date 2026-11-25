@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Purchase Order — KDMP Kalurahan Kedungsari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --paper:#fff; --ink:#1F2A2E; --ink-soft:#5B676B;
+  --teal:#0E5A6E; --teal-dark:#0A4252; --lime:#A3B91A; --gold:#E8A81C; --red:#B5382A;
+  --line:rgba(14,90,110,.14); --shadow:0 14px 34px -18px rgba(14,90,110,.35);
+  --r-lg:22px; --r-md:14px; --r-sm:10px;
+  --font-display:'Fraunces',Georgia,serif; --font-body:'Work Sans','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.brand strong{display:block;font-family:var(--font-display);color:var(--teal);font-size:1.25rem;line-height:1.15}
+.brand p{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.top-actions{display:flex;gap:.6rem;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:100px;padding:10px 20px;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer;background:var(--teal);color:#fff;text-decoration:none;transition:background .2s}
+.btn:hover{background:var(--teal-dark)}
+.btn:disabled{background:#c9cfd1;color:#6b7478;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--teal-dark);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:rgba(14,90,110,.08)}
+.btn.danger{background:var(--red)}
+.btn.ghost.danger{background:transparent;color:var(--red);border-color:var(--red)}
+.btn.sm{padding:7px 14px;font-size:.8rem}
+.btn.xs{padding:5px 11px;font-size:.74rem}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:.3rem}
+.field input,.field select,.field textarea{width:100%;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);font:inherit;font-size:.92rem;background:var(--bg);color:var(--ink)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);background:#fff}
+.msg{font-size:.85rem;min-height:1.2em}
+.msg.err{color:var(--red)}
+
+.app{padding-top:22px;padding-bottom:60px}
+.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;align-items:end;background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.1rem 1.2rem;margin-bottom:.9rem}
+.presets{display:flex;gap:.4rem;flex-wrap:wrap;margin:0 0 .9rem}
+.presets button{font:inherit;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);cursor:pointer}
+.presets button:hover{border-color:var(--teal)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:1.2rem}
+.stat{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1rem 1.2rem}
+.stat span{font-size:.76rem;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.stat strong{display:block;font-family:var(--font-display);font-size:1.45rem;color:var(--teal-dark);margin-top:.15rem}
+.tbl-wrap{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;background:#EEF3EA;color:var(--teal-dark);font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;padding:.7rem .9rem;white-space:nowrap}
+td{padding:.65rem .9rem;border-top:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;white-space:nowrap}
+td small{display:block;color:var(--ink-soft);font-size:.76rem}
+td.act{white-space:nowrap;text-align:right}
+td.act .btn{margin-left:4px}
+tfoot td{font-weight:700;background:#F7FAF4}
+.empty{padding:2rem;text-align:center;color:var(--ink-soft)}
+.status-line{font-size:.85rem;color:var(--ink-soft);margin-bottom:.8rem}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:#EEF3EA;color:var(--teal-dark);margin-left:6px;vertical-align:middle}
+td select.st{font:inherit;font-size:.8rem;font-weight:600;padding:5px 8px;border-radius:99px;border:1.5px solid var(--line);background:#fff;color:var(--teal-dark);cursor:pointer}
+select.st[data-s="Draft"]{background:#F1F1F1}
+select.st[data-s="Dipesan"]{background:#FFF6DC}
+select.st[data-s="Diterima"]{background:#E4F3DF}
+select.st[data-s="Batal"]{background:#FBE4E0;color:var(--red)}
+
+/* Modal */
+.ov{position:fixed;inset:0;background:rgba(20,30,34,.5);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.ov.open{display:flex}
+.dlg{background:var(--paper);border-radius:var(--r-lg);box-shadow:0 30px 60px -20px rgba(0,0,0,.4);width:min(900px,100%);margin:auto;padding:1.4rem 1.5rem 1.2rem}
+.dlg.small{width:min(440px,100%)}
+.dlg h3{font-family:var(--font-display);color:var(--teal);font-size:1.3rem;margin-bottom:.9rem}
+.dlg p.txt{font-size:.92rem;margin-bottom:1rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin-bottom:.8rem}
+.items-wrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:var(--r-sm);margin:.3rem 0 .6rem}
+.items-wrap table{min-width:640px}
+.items-wrap td{padding:.35rem .4rem;vertical-align:middle}
+.items-wrap th{padding:.5rem .5rem}
+.items-wrap input,.items-wrap select{width:100%;padding:7px 8px;border-radius:8px;border:1.5px solid var(--line);font:inherit;font-size:.86rem;background:var(--bg)}
+.items-wrap input:focus,.items-wrap select:focus{outline:none;border-color:var(--teal);background:#fff}
+.items-wrap .c-name{min-width:170px}.items-wrap .c-qty{width:90px}.items-wrap .c-unit{width:90px}.items-wrap .c-price{width:120px}.items-wrap .c-sup{min-width:150px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:.8rem}
+.foot .r{display:flex;gap:.6rem;flex-wrap:wrap}
+.total-line{font-weight:700;font-size:1rem}
+.chkrow{display:flex;gap:.5rem;align-items:flex-start;font-size:.85rem;margin:.5rem 0}
+.chkrow input{margin-top:.25rem}
+.chkrow small{display:block;color:var(--ink-soft);font-size:.76rem}
+.stchk{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center;font-size:.85rem}
+.stchk label{display:flex;gap:.3rem;align-items:center;cursor:pointer}
+.hint{font-size:.8rem;color:var(--ink-soft);margin:.4rem 0}
+.hint.warn{color:#8a5a00;background:#FFF6DC;border-radius:var(--r-sm);padding:.5rem .7rem}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,10px);background:var(--teal-dark);color:#fff;padding:12px 22px;border-radius:100px;font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:400;pointer-events:none;max-width:calc(100vw - 40px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:640px){.brand strong{font-size:1.05rem}.dlg{padding:1.1rem 1rem}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand">
+      <strong>Purchase Order</strong>
+      <p>KDMP Kalurahan Kedungsari</p>
+    </div>
+    <div class="top-actions">
+      <a class="btn ghost sm" href="dashboard.html">← Dashboard</a>
+      <button class="btn ghost sm" id="logoutBtn" type="button">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap app">
+  <div class="toolbar">
+    <button class="btn" id="genBtn" type="button">🧾 Buat PO dari Pesanan</button>
+    <button class="btn ghost" id="addBtn" type="button">+ PO Manual</button>
+    <button class="btn ghost" id="supBtn" type="button">🏭 Kelola Suplier</button>
+    <button class="btn ghost" id="reloadBtn" type="button">↻ Muat ulang</button>
+  </div>
+
+  <div class="filters">
+    <div class="field"><label for="fFrom">Dari tanggal</label><input type="date" id="fFrom"></div>
+    <div class="field"><label for="fTo">Sampai tanggal</label><input type="date" id="fTo"></div>
+    <div class="field"><label for="fSup">Suplier</label><select id="fSup"><option value="">Semua suplier</option></select></div>
+    <div class="field"><label for="fSt">Status</label>
+      <select id="fSt"><option value="">Semua status</option><option>Draft</option><option>Dipesan</option><option>Diterima</option><option>Batal</option></select></div>
+    <div class="field"><label for="fQ">Cari</label><input type="search" id="fQ" placeholder="No PO, suplier, produk…"></div>
+  </div>
+  <div class="presets" id="presets">
+    <button type="button" data-r="today">Hari ini</button>
+    <button type="button" data-r="7">7 hari</button>
+    <button type="button" data-r="30">30 hari</button>
+    <button type="button" data-r="month">Bulan ini</button>
+    <button type="button" data-r="all">Semua</button>
+  </div>
+
+  <p class="status-line" id="statusLine"></p>
+  <div class="stats">
+    <div class="stat"><span>Jumlah PO</span><strong id="sCount">0</strong></div>
+    <div class="stat"><span>Nilai PO (tanpa Batal)</span><strong id="sTotal">Rp 0</strong></div>
+    <div class="stat"><span>Belum diterima</span><strong id="sOpen">0</strong></div>
+  </div>
+  <div class="tbl-wrap" id="tbl"></div>
+</main>
+
+<!-- ===== Form PO ===== -->
+<div class="ov" id="poOv">
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="poTitle">
+    <h3 id="poTitle">PO Baru</h3>
+    <div class="grid2">
+      <div class="field"><label for="pSup">Suplier *</label><select id="pSup"></select></div>
+      <div class="field"><label for="pSt">Status</label><select id="pSt"><option>Draft</option><option>Dipesan</option><option>Diterima</option><option>Batal</option></select></div>
+      <div class="field"><label for="pCat">Catatan (opsional)</label><input id="pCat" maxlength="300" placeholder="mis. kirim sebelum Jumat"></div>
+    </div>
+    <div class="items-wrap"><table>
+      <thead><tr><th>Produk</th><th>Jumlah</th><th>Satuan</th><th>Harga beli</th><th class="num">Subtotal</th><th></th></tr></thead>
+      <tbody id="pItems"></tbody>
+    </table></div>
+    <button class="btn ghost sm" id="pAddItem" type="button">+ Tambah item</button>
+    <label class="chkrow"><input type="checkbox" id="pHpp"><span>Perbarui HPP produk dengan harga beli ini<small>Hanya untuk produk yang namanya ada di sheet Produk dan harganya lebih dari 0. HPP dipakai Laporan Rugi Laba.</small></span></label>
+    <p class="msg err" id="pErr" role="alert"></p>
+    <div class="foot">
+      <span class="total-line">Total: <span id="pTotal">Rp 0</span></span>
+      <div class="r"><button class="btn ghost" id="pCancel" type="button">Batal</button><button class="btn" id="pSave" type="button">Simpan PO</button></div>
+    </div>
+  </div>
+</div>
+<datalist id="prodList"></datalist>
+
+<!-- ===== Buat PO dari pesanan ===== -->
+<div class="ov" id="genOv">
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="genTitle">
+    <h3 id="genTitle">Buat PO dari Pesanan</h3>
+    <div class="grid2">
+      <div class="field"><label for="gFrom">Pesanan dari tanggal</label><input type="date" id="gFrom"></div>
+      <div class="field"><label for="gTo">Sampai tanggal</label><input type="date" id="gTo"></div>
+      <div class="field"><label for="gAgen">Agen</label><select id="gAgen"><option value="">Semua agen</option></select></div>
+    </div>
+    <div class="stchk" id="gSt">
+      <b style="font-size:.8rem;color:var(--ink-soft)">Status pesanan:</b>
+      <label><input type="checkbox" value="Baru" checked> Baru</label>
+      <label><input type="checkbox" value="Diproses" checked> Diproses</label>
+      <label><input type="checkbox" value="Dikirim"> Dikirim</label>
+      <label><input type="checkbox" value="Selesai"> Selesai</label>
+    </div>
+    <p class="hint">Pesanan <b>Batal</b> tidak ikut. Pilih rentang yang belum pernah dibuatkan PO agar tidak dobel. Jumlah, harga beli, dan suplier bisa diubah sebelum PO dibuat.</p>
+    <p class="status-line" id="gStatus"></p>
+    <div class="field" style="max-width:340px;margin-bottom:.5rem" id="gBulk" hidden>
+      <label for="gBulkSup">Atur suplier untuk semua yang dicentang</label>
+      <select id="gBulkSup"></select>
+    </div>
+    <div class="items-wrap"><table>
+      <thead><tr><th style="width:34px"><input type="checkbox" id="gAll" checked aria-label="Pilih semua"></th><th>Produk</th><th>Jumlah</th><th>Satuan</th><th>Harga beli</th><th>Suplier</th><th class="num">Subtotal</th></tr></thead>
+      <tbody id="gItems"></tbody>
+    </table></div>
+    <p class="msg err" id="gErr" role="alert"></p>
+    <div class="foot">
+      <span class="total-line" id="gSum"></span>
+      <div class="r"><button class="btn ghost" id="gCancel" type="button">Tutup</button><button class="btn" id="gMake" type="button">Buat PO (Draft)</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Suplier ===== -->
+<div class="ov" id="supOv">
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="supTitle">
+    <h3 id="supTitle">Suplier</h3>
+    <div class="tbl-wrap" id="supTbl" style="box-shadow:none;border:1.5px solid var(--line)"></div>
+    <h3 style="font-size:1.05rem;margin:1.1rem 0 .6rem" id="supFormTitle">Tambah suplier</h3>
+    <div class="grid2">
+      <div class="field"><label for="sNama">Nama *</label><input id="sNama" maxlength="80" autocomplete="off"></div>
+      <div class="field"><label for="sHp">No HP / WA *</label><input id="sHp" type="tel" placeholder="08xxxxxxxxxx" autocomplete="off"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label for="sAlamat">Alamat *</label><input id="sAlamat" maxlength="250" autocomplete="off"></div>
+      <div class="field"><label for="sCat">Catatan</label><input id="sCat" maxlength="200" placeholder="mis. produk yang dijual"></div>
+    </div>
+    <p class="msg err" id="sErr" role="alert"></p>
+    <div class="foot">
+      <button class="btn ghost" id="sReset" type="button">Kosongkan form</button>
+      <div class="r"><button class="btn ghost" id="sClose" type="button">Tutup</button><button class="btn" id="sSave" type="button">Simpan suplier</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Konfirmasi hapus ===== -->
+<div class="ov" id="delOv">
+  <div class="dlg small" role="alertdialog" aria-modal="true" aria-labelledby="delTitle">
+    <h3 id="delTitle">Hapus?</h3>
+    <p class="txt" id="delTxt"></p>
+    <p class="msg err" id="delErr" role="alert"></p>
+    <div class="foot"><span></span><div class="r"><button class="btn ghost" id="delNo" type="button">Batal</button><button class="btn danger" id="delYes" type="button">Ya, hapus</button></div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+<script>
+const TOKO = 'KDMP Kalurahan Kedungsari';
+const TZ = 'Asia/Jakarta';
+let RAW = [], PO = [], SUP = [], PROD = [], VIEW = [];
+
+const $ = id => document.getElementById(id);
+const rp = n => 'Rp ' + Math.round(Number(n) || 0).toLocaleString('id-ID');
+const num = n => (Number(n) || 0).toLocaleString('id-ID', { maximumFractionDigits: 3 });
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let toastTimer;
+function toast(t){ const e = $('toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => e.classList.remove('show'), 2600); }
+function dayKey(iso){
+  const d = new Date(iso); if(isNaN(d)) return '';
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year:'numeric', month:'2-digit', day:'2-digit' }).formatToParts(d);
+  const g = t => p.find(x => x.type === t).value;
+  return g('year') + '-' + g('month') + '-' + g('day');
+}
+const fmtDate = iso => { const d = new Date(iso); return isNaN(d) ? String(iso) : d.toLocaleDateString('id-ID', { timeZone: TZ, day:'2-digit', month:'short', year:'numeric' }); };
+const fmtDay = k => { const [y,m,d] = k.split('-'); return d + '/' + m + '/' + y; };
+const hariIni = () => dayKey(new Date().toISOString());
+const geser = n => dayKey(new Date(Date.now() - n * 86400000).toISOString());
+const norm = s => String(s || '').replace(/\s+/g, ' ').trim().toLowerCase();
+const showErr = (id, m) => { $(id).textContent = m || ''; };
+function openOv(id){ $(id).classList.add('open'); }
+function closeOv(id){ $(id).classList.remove('open'); }
+document.addEventListener('keydown', e => { if(e.key === 'Escape') document.querySelectorAll('.ov.open').forEach(o => o.classList.remove('open')); });
+
+/* ================= Muat data ================= */
+function kelompok(rows){
+  const m = new Map();
+  rows.forEach(r => {
+    if(!m.has(r.id)) m.set(r.id, { id:r.id, tanggal:r.tanggal, sid:r.sid, suplier:r.suplier, alamat:r.alamat, hp:r.hp, status:r.status, catatan:r.catatan, sumber:r.sumber, items:[], total:0 });
+    const o = m.get(r.id);
+    o.items.push({ produk:r.produk, qty:r.qty, satuan:r.satuan, harga:r.harga, subtotal:r.subtotal });
+    o.total += r.subtotal;
+  });
+  return [...m.values()].sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal) || (a.id < b.id ? 1 : -1));
+}
+async function muat(){
+  $('statusLine').textContent = 'Memuat…';
+  try {
+    const d = await Admin.get({ action:'po' });
+    RAW = d.po || []; SUP = d.suplier || []; PROD = d.produk || [];
+    PO = kelompok(RAW);
+    $('prodList').innerHTML = PROD.map(p => `<option value="${esc(p.nama)}"></option>`).join('');
+    buildSupFilter(); render();
+  } catch(e){ if(!e.auth) $('statusLine').innerHTML = '<span style="color:#b3261e">' + esc(e.message) + '</span>'; }
+}
+$('logoutBtn').addEventListener('click', () => Admin.logout());
+$('reloadBtn').addEventListener('click', muat);
+
+/* ================= Daftar PO ================= */
+function buildSupFilter(){
+  const cur = $('fSup').value;
+  const names = new Map();
+  PO.forEach(p => names.set(p.sid, p.suplier));
+  SUP.forEach(s => names.set(s.id, s.nama));
+  $('fSup').innerHTML = '<option value="">Semua suplier</option>' + [...names.entries()].map(([k, n]) => `<option value="${esc(k)}">${esc(n)}</option>`).join('');
+  if(cur && names.has(cur)) $('fSup').value = cur;
+}
+$('presets').addEventListener('click', e => {
+  const b = e.target.closest('[data-r]'); if(!b) return;
+  const r = b.dataset.r, t = hariIni();
+  let from = '', to = '';
+  if(r === 'today'){ from = to = t; } else if(r === 'month'){ from = t.slice(0, 8) + '01'; to = t; } else if(r !== 'all'){ from = geser(+r - 1); to = t; }
+  $('fFrom').value = from; $('fTo').value = to; render();
+});
+['fFrom','fTo','fSup','fSt','fQ'].forEach(id => $(id).addEventListener('input', render));
+
+function render(){
+  const from = $('fFrom').value, to = $('fTo').value, sup = $('fSup').value, st = $('fSt').value, q = norm($('fQ').value);
+  VIEW = PO.filter(p => {
+    const dk = dayKey(p.tanggal);
+    if(from && dk && dk < from) return false;
+    if(to && dk && dk > to) return false;
+    if(sup && p.sid !== sup) return false;
+    if(st && p.status !== st) return false;
+    if(q && !norm([p.id, p.suplier, p.catatan].concat(p.items.map(i => i.produk)).join(' ')).includes(q)) return false;
+    return true;
+  });
+  const aktif = VIEW.filter(p => p.status !== 'Batal');
+  $('sCount').textContent = VIEW.length;
+  $('sTotal').textContent = rp(aktif.reduce((s, p) => s + p.total, 0));
+  $('sOpen').textContent = VIEW.filter(p => p.status === 'Draft' || p.status === 'Dipesan').length;
+  $('statusLine').textContent = PO.length ? `Menampilkan ${VIEW.length} dari ${PO.length} PO.` : '';
+  if(!VIEW.length){ $('tbl').innerHTML = `<div class="empty">${PO.length ? 'Tidak ada PO yang cocok dengan filter.' : 'Belum ada PO. Klik “Buat PO dari Pesanan” atau “+ PO Manual”.'}</div>`; return; }
+  $('tbl').innerHTML = `<table><thead><tr><th>PO</th><th>Suplier</th><th>Item</th><th class="num">Total</th><th>Status</th><th></th></tr></thead><tbody>` +
+    VIEW.map(p => {
+      const ringkas = p.items.slice(0, 2).map(i => esc(i.produk) + ' ×' + num(i.qty)).join(', ') + (p.items.length > 2 ? ' +' + (p.items.length - 2) + ' lagi' : '');
+      return `<tr>
+        <td>${esc(p.id)}<small>${esc(fmtDate(p.tanggal))}${p.sumber === 'Pesanan' ? '<span class="tag">dari pesanan</span>' : ''}</small></td>
+        <td>${esc(p.suplier)}<small>${esc(p.hp)}</small></td>
+        <td>${p.items.length} item<small>${ringkas}</small></td>
+        <td class="num">${rp(p.total)}</td>
+        <td><select class="st" data-s="${esc(p.status)}" data-id="${esc(p.id)}" aria-label="Status ${esc(p.id)}">${['Draft','Dipesan','Diterima','Batal'].map(s => `<option${s === p.status ? ' selected' : ''}>${s}</option>`).join('')}</select></td>
+        <td class="act">
+          <button class="btn ghost xs" data-a="cetak" data-id="${esc(p.id)}">🖨 Cetak</button>
+          <button class="btn ghost xs" data-a="wa" data-id="${esc(p.id)}">💬 WA</button>
+          <button class="btn ghost xs" data-a="ubah" data-id="${esc(p.id)}">Ubah</button>
+          <button class="btn ghost danger xs" data-a="hapus" data-id="${esc(p.id)}">Hapus</button>
+        </td></tr>`;
+    }).join('') + '</tbody></table>';
+}
+const byId = id => PO.find(p => p.id === id);
+$('tbl').addEventListener('click', e => {
+  const b = e.target.closest('[data-a]'); if(!b) return;
+  const p = byId(b.dataset.id); if(!p) return;
+  if(b.dataset.a === 'cetak') cetakPO(p);
+  else if(b.dataset.a === 'wa') kirimWa(p);
+  else if(b.dataset.a === 'ubah') openForm(p);
+  else if(b.dataset.a === 'hapus') askDelete({ jenis:'po', p });
+});
+$('tbl').addEventListener('change', async e => {
+  const s = e.target.closest('select.st'); if(!s) return;
+  s.disabled = true;
+  try { await Admin.post({ action:'statusPO', id:s.dataset.id, status:s.value }); const p = byId(s.dataset.id); if(p) p.status = s.value; s.dataset.s = s.value; toast('Status diperbarui'); render(); }
+  catch(err){ if(!err.auth) toast(err.message); muat(); }
+  s.disabled = false;
+});
+
+/* ================= Form PO (tambah / ubah) ================= */
+let editing = null, F = [];   // F = item yang sedang diedit
+function supOptions(selected){
+  let list = SUP.filter(s => s.aktif || s.id === selected);
+  return '<option value="">— pilih suplier —</option>' + list.map(s => `<option value="${esc(s.id)}"${s.id === selected ? ' selected' : ''}>${esc(s.nama)}</option>`).join('') + '<option value="__baru">+ Suplier baru…</option>';
+}
+function openForm(p, preset){
+  editing = p || null;
+  $('poTitle').textContent = p ? 'Ubah ' + p.id : 'PO Baru';
+  let sid = p ? p.sid : '';
+  if(p && !SUP.some(s => s.id === sid)){   // suplier sudah dihapus: tampilkan dari data PO
+    SUP = SUP.concat([{ id:sid, nama:p.suplier + ' (terhapus)', alamat:p.alamat, hp:p.hp, aktif:true, _gone:true }]);
+  }
+  $('pSup').innerHTML = supOptions(sid);
+  $('pSt').value = p ? p.status : 'Draft';
+  $('pCat').value = p ? p.catatan : '';
+  F = p ? p.items.map(i => ({ produk:i.produk, qty:i.qty, satuan:i.satuan, harga:i.harga })) : [{ produk:'', qty:'', satuan:'', harga:'' }];
+  $('pHpp').checked = false; showErr('pErr'); $('pSave').disabled = false; $('pSave').textContent = 'Simpan PO';
+  renderItems(); openOv('poOv');
+}
+function renderItems(){
+  $('pItems').innerHTML = F.map((it, i) => `<tr>
+    <td><input class="c-name" list="prodList" data-i="${i}" data-f="produk" value="${esc(it.produk)}" placeholder="Nama produk" autocomplete="off"></td>
+    <td><input class="c-qty" type="number" min="0" step="any" data-i="${i}" data-f="qty" value="${esc(it.qty)}"></td>
+    <td><input class="c-unit" data-i="${i}" data-f="satuan" value="${esc(it.satuan)}" maxlength="20"></td>
+    <td><input class="c-price" type="number" min="0" step="any" data-i="${i}" data-f="harga" value="${esc(it.harga)}"></td>
+    <td class="num" id="sub${i}">${rp((Number(it.qty) || 0) * (Number(it.harga) || 0))}</td>
+    <td><button class="btn ghost danger xs" type="button" data-rm="${i}" aria-label="Hapus item">✕</button></td></tr>`).join('');
+  hitungTotal();
+}
+function hitungTotal(){ $('pTotal').textContent = rp(F.reduce((s, it) => s + (Number(it.qty) || 0) * (Number(it.harga) || 0), 0)); }
+$('pItems').addEventListener('input', e => {
+  const t = e.target, i = +t.dataset.i; if(isNaN(i) || !F[i]) return;
+  F[i][t.dataset.f] = t.value;
+  if(t.dataset.f === 'produk'){
+    const pr = PROD.find(x => norm(x.nama) === norm(t.value));
+    if(pr){
+      const row = t.closest('tr');
+      if(!F[i].satuan){ F[i].satuan = pr.satuan; row.querySelector('[data-f=satuan]').value = pr.satuan; }
+      if(!F[i].harga && pr.hpp){ F[i].harga = pr.hpp; row.querySelector('[data-f=harga]').value = pr.hpp; }
+    }
+  }
+  const s = $('sub' + i); if(s) s.textContent = rp((Number(F[i].qty) || 0) * (Number(F[i].harga) || 0));
+  hitungTotal();
+});
+$('pItems').addEventListener('click', e => {
+  const b = e.target.closest('[data-rm]'); if(!b) return;
+  F.splice(+b.dataset.rm, 1); if(!F.length) F.push({ produk:'', qty:'', satuan:'', harga:'' }); renderItems();
+});
+$('pAddItem').addEventListener('click', () => { F.push({ produk:'', qty:'', satuan:'', harga:'' }); renderItems(); const r = $('pItems').querySelector('tr:last-child input'); if(r) r.focus(); });
+$('pSup').addEventListener('change', () => { if($('pSup').value === '__baru'){ $('pSup').value = ''; openSup(true); } });
+$('addBtn').addEventListener('click', () => openForm(null));
+$('pCancel').addEventListener('click', () => closeOv('poOv'));
+$('pSave').addEventListener('click', async () => {
+  const sid = $('pSup').value;
+  if(!sid || sid === '__baru') return showErr('pErr', 'Pilih suplier dulu.');
+  const items = F.map(it => ({ produk:String(it.produk).trim(), qty:Number(it.qty), satuan:String(it.satuan).trim(), harga:Number(it.harga) || 0 }));
+  for(let i = 0; i < items.length; i++){
+    if(!items[i].produk) return showErr('pErr', 'Item ' + (i + 1) + ': isi nama produk.');
+    if(!(items[i].qty > 0)) return showErr('pErr', 'Item ' + (i + 1) + ': jumlah harus lebih dari 0.');
+  }
+  showErr('pErr'); $('pSave').disabled = true; $('pSave').textContent = 'Menyimpan…';
+  try {
+    const r = await Admin.post({ action:'simpanPO', id: editing ? editing.id : '', count: editing ? editing.items.length : 0, updateHpp: $('pHpp').checked,
+      po:{ sid, status:$('pSt').value, catatan:$('pCat').value, sumber: editing ? editing.sumber : 'Manual', items } });
+    closeOv('poOv'); toast(editing ? 'PO diperbarui ✔' : 'PO dibuat ✔' + (r.hppUbah ? ' · HPP ' + r.hppUbah + ' produk diperbarui' : '')); muat();
+  } catch(e){ if(e.auth) return; $('pSave').disabled = false; $('pSave').textContent = 'Simpan PO'; showErr('pErr', e.message); }
+});
+
+/* ================= Hapus ================= */
+let delTarget = null;
+function askDelete(t){
+  delTarget = t; showErr('delErr'); $('delYes').disabled = false;
+  if(t.jenis === 'po'){ $('delTitle').textContent = 'Hapus PO?'; $('delTxt').textContent = `${t.p.id} untuk ${t.p.suplier} (${t.p.items.length} item, ${rp(t.p.total)}) akan dihapus dari sheet PO. Tidak bisa dibatalkan.`; }
+  else { $('delTitle').textContent = 'Hapus suplier?'; $('delTxt').textContent = `Suplier ${t.s.nama} akan dihapus dari daftar. PO yang sudah dibuat tetap utuh.`; }
+  openOv('delOv');
+}
+$('delNo').addEventListener('click', () => closeOv('delOv'));
+$('delYes').addEventListener('click', async () => {
+  if(!delTarget) return;
+  $('delYes').disabled = true;
+  try {
+    if(delTarget.jenis === 'po') await Admin.post({ action:'hapusPO', id:delTarget.p.id, count:delTarget.p.items.length });
+    else await Admin.post({ action:'hapusSuplier', id:delTarget.s.id });
+    closeOv('delOv'); toast('Terhapus 🗑️'); const wasSup = delTarget.jenis === 'sup'; delTarget = null;
+    await muat(); if(wasSup){ renderSup(); }
+  } catch(e){ if(e.auth) return; $('delYes').disabled = false; showErr('delErr', e.message); }
+});
+
+/* ================= Suplier ================= */
+let supEdit = null, afterSup = false;
+function openSup(fromForm){
+  afterSup = !!fromForm; resetSupForm(); renderSup(); openOv('supOv');
+  if(fromForm) setTimeout(() => $('sNama').focus(), 50);
+}
+function renderSup(){
+  const list = SUP.filter(s => !s._gone);
+  $('supTbl').innerHTML = list.length
+    ? `<table><thead><tr><th>Nama</th><th>Alamat</th><th>No HP</th><th></th></tr></thead><tbody>` + list.map(s => `<tr>
+        <td>${esc(s.nama)}${s.catatan ? `<small>${esc(s.catatan)}</small>` : ''}</td><td>${esc(s.alamat)}</td><td>${esc(s.hp)}</td>
+        <td class="act"><button class="btn ghost xs" data-se="${esc(s.id)}">Ubah</button><button class="btn ghost danger xs" data-sd="${esc(s.id)}">Hapus</button></td></tr>`).join('') + '</tbody></table>'
+    : '<div class="empty">Belum ada suplier. Isi form di bawah.</div>';
+}
+function resetSupForm(){ supEdit = null; ['sNama','sHp','sAlamat','sCat'].forEach(i => $(i).value = ''); $('supFormTitle').textContent = 'Tambah suplier'; showErr('sErr'); $('sSave').disabled = false; $('sSave').textContent = 'Simpan suplier'; }
+$('supTbl').addEventListener('click', e => {
+  const be = e.target.closest('[data-se]'), bd = e.target.closest('[data-sd]');
+  if(be){ const s = SUP.find(x => x.id === be.dataset.se); if(!s) return; supEdit = s; $('sNama').value = s.nama; $('sHp').value = s.hp; $('sAlamat').value = s.alamat; $('sCat').value = s.catatan || ''; $('supFormTitle').textContent = 'Ubah suplier'; showErr('sErr'); $('sNama').focus(); }
+  if(bd){ const s = SUP.find(x => x.id === bd.dataset.sd); if(s) askDelete({ jenis:'sup', s }); }
+});
+$('supBtn').addEventListener('click', () => openSup(false));
+$('sReset').addEventListener('click', resetSupForm);
+$('sClose').addEventListener('click', () => closeOv('supOv'));
+$('sSave').addEventListener('click', async () => {
+  const nama = $('sNama').value.trim(), hp = $('sHp').value.trim(), alamat = $('sAlamat').value.trim();
+  if(!nama || !alamat || !hp) return showErr('sErr', 'Nama, alamat, dan no HP wajib diisi.');
+  showErr('sErr'); $('sSave').disabled = true; $('sSave').textContent = 'Menyimpan…';
+  try {
+    const r = await Admin.post({ action:'simpanSuplier', id: supEdit ? supEdit.id : '', nama, alamat, hp, catatan:$('sCat').value, aktif:true });
+    toast('Suplier tersimpan ✔'); resetSupForm();
+    await muat(); renderSup();
+    if(afterSup){   // dibuka dari form PO: langsung pilih suplier yang baru
+      closeOv('supOv'); $('pSup').innerHTML = supOptions(r.id); afterSup = false;
+    }
+  } catch(e){ if(e.auth) return; $('sSave').disabled = false; $('sSave').textContent = 'Simpan suplier'; showErr('sErr', e.message); }
+});
+
+/* ================= Buat PO dari pesanan ================= */
+let SALES = null, G = [];   // SALES = baris penjualan mentah, G = baris agregat
+function lastBySupplier(){   // produk -> { sid, harga } dari PO terbaru (selain Batal)
+  const m = new Map();
+  RAW.filter(r => r.status !== 'Batal').slice().sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal)).forEach(r => {
+    const k = norm(r.produk);
+    if(!m.has(k)) m.set(k, { sid:r.sid, harga:r.harga });
+  });
+  return m;
+}
+async function openGen(){
+  $('gFrom').value = geser(6); $('gTo').value = hariIni(); showErr('gErr'); $('gMake').disabled = false; $('gMake').textContent = 'Buat PO (Draft)';
+  G = []; renderGen(); openOv('genOv');
+  $('gStatus').textContent = 'Memuat pesanan…';
+  try {
+    const d = await Admin.get({ action:'poPenjualan' }); SALES = d.data || [];
+    const ag = new Map(); SALES.forEach(r => { const k = r.agenKode || r.agenNama || '-'; if(!ag.has(k)) ag.set(k, r.agenNama || k); });
+    $('gAgen').innerHTML = '<option value="">Semua agen</option>' + [...ag.entries()].map(([k, n]) => `<option value="${esc(k)}">${esc(n)}</option>`).join('');
+    hitungGen();
+  } catch(e){ if(!e.auth) $('gStatus').innerHTML = '<span style="color:#b3261e">' + esc(e.message) + '</span>'; }
+}
+function hitungGen(){
+  if(!SALES) return;
+  const from = $('gFrom').value, to = $('gTo').value, agen = $('gAgen').value;
+  const sts = [...$('gSt').querySelectorAll('input:checked')].map(i => i.value.toLowerCase());
+  const m = new Map(); let nOrd = new Set();
+  SALES.forEach(r => {
+    const st = String(r.status || 'Baru').toLowerCase() || 'baru';
+    if(sts.indexOf(st || 'baru') === -1) return;
+    const dk = dayKey(r.tanggal);
+    if(from && dk && dk < from) return;
+    if(to && dk && dk > to) return;
+    if(agen && (r.agenKode || r.agenNama || '-') !== agen) return;
+    nOrd.add(r.idPesanan);
+    const k = norm(r.nama) + '|' + norm(r.satuan);
+    if(!m.has(k)) m.set(k, { nama:r.nama, satuan:r.satuan, qty:0 });
+    m.get(k).qty += r.jumlah;
+  });
+  const last = lastBySupplier();
+  G = [...m.values()].sort((a, b) => a.nama.localeCompare(b.nama)).map(x => {
+    const pr = PROD.find(p => norm(p.nama) === norm(x.nama)), l = last.get(norm(x.nama));
+    const sid = (l && SUP.some(s => s.id === l.sid && s.aktif)) ? l.sid : '';
+    return { nama:x.nama, satuan:x.satuan, qty:x.qty, harga: (pr && pr.hpp) ? pr.hpp : (l ? l.harga : ''), sid, pilih:true };
+  });
+  $('gStatus').textContent = G.length ? `${G.length} produk dari ${nOrd.size} pesanan.` : 'Tidak ada pesanan pada rentang dan status ini.';
+  renderGen();
+}
+function renderGen(){
+  $('gBulk').hidden = !G.length;
+  $('gBulkSup').innerHTML = '<option value="">— pilih suplier —</option>' + SUP.filter(s => s.aktif && !s._gone).map(s => `<option value="${esc(s.id)}">${esc(s.nama)}</option>`).join('');
+  $('gItems').innerHTML = G.length ? G.map((g, i) => `<tr>
+    <td><input type="checkbox" data-gi="${i}" data-gf="pilih"${g.pilih ? ' checked' : ''} aria-label="Pilih ${esc(g.nama)}"></td>
+    <td>${esc(g.nama)}</td>
+    <td><input class="c-qty" type="number" min="0" step="any" data-gi="${i}" data-gf="qty" value="${esc(g.qty)}"></td>
+    <td>${esc(g.satuan)}</td>
+    <td><input class="c-price" type="number" min="0" step="any" data-gi="${i}" data-gf="harga" value="${esc(g.harga)}" placeholder="0"></td>
+    <td><select class="c-sup" data-gi="${i}" data-gf="sid"><option value="">— pilih —</option>${SUP.filter(s => s.aktif && !s._gone).map(s => `<option value="${esc(s.id)}"${s.id === g.sid ? ' selected' : ''}>${esc(s.nama)}</option>`).join('')}</select></td>
+    <td class="num" id="gs${i}">${rp((Number(g.qty) || 0) * (Number(g.harga) || 0))}</td></tr>`).join('')
+    : '<tr><td colspan="7" class="empty">Belum ada data.</td></tr>';
+  sumGen();
+}
+function sumGen(){
+  const pilih = G.filter(g => g.pilih);
+  const sup = new Set(pilih.filter(g => g.sid).map(g => g.sid));
+  const tot = pilih.reduce((s, g) => s + (Number(g.qty) || 0) * (Number(g.harga) || 0), 0);
+  $('gSum').textContent = pilih.length ? `${pilih.length} item → ${sup.size} PO · ${rp(tot)}` : '';
+  $('gAll').checked = G.length > 0 && G.every(g => g.pilih);
+}
+$('gItems').addEventListener('input', e => {
+  const t = e.target, i = +t.dataset.gi; if(isNaN(i) || !G[i]) return;
+  if(t.dataset.gf === 'pilih') G[i].pilih = t.checked;
+  else G[i][t.dataset.gf] = t.value;
+  const s = $('gs' + i); if(s) s.textContent = rp((Number(G[i].qty) || 0) * (Number(G[i].harga) || 0));
+  sumGen();
+});
+$('gAll').addEventListener('change', e => { G.forEach(g => g.pilih = e.target.checked); renderGen(); });
+$('gBulkSup').addEventListener('change', e => {
+  const v = e.target.value; if(!v) return;
+  G.forEach(g => { if(g.pilih) g.sid = v; }); renderGen(); e.target.value = '';
+});
+['gFrom','gTo','gAgen'].forEach(id => $(id).addEventListener('input', hitungGen));
+$('gSt').addEventListener('change', hitungGen);
+$('genBtn').addEventListener('click', openGen);
+$('gCancel').addEventListener('click', () => closeOv('genOv'));
+$('gMake').addEventListener('click', async () => {
+  const pilih = G.filter(g => g.pilih);
+  if(!pilih.length) return showErr('gErr', 'Centang minimal satu item.');
+  for(const g of pilih){
+    if(!(Number(g.qty) > 0)) return showErr('gErr', `Jumlah "${g.nama}" harus lebih dari 0.`);
+    if(!g.sid) return showErr('gErr', `Pilih suplier untuk "${g.nama}".`);
+  }
+  const grup = new Map();
+  pilih.forEach(g => { if(!grup.has(g.sid)) grup.set(g.sid, []); grup.get(g.sid).push({ produk:g.nama, qty:Number(g.qty), satuan:g.satuan, harga:Number(g.harga) || 0 }); });
+  showErr('gErr'); $('gMake').disabled = true;
+  const cat = `Dari pesanan ${fmtDay($('gFrom').value || '0000-00-00')} s/d ${fmtDay($('gTo').value || '0000-00-00')}`.replace('00/00/0000', '…');
+  let n = 0;
+  try {
+    for(const [sid, items] of grup){
+      $('gMake').textContent = `Membuat PO ${n + 1}/${grup.size}…`;
+      await Admin.post({ action:'simpanPO', id:'', count:0, updateHpp:false, po:{ sid, status:'Draft', catatan:cat, sumber:'Pesanan', items } });
+      n++;
+    }
+    closeOv('genOv'); toast(n + ' PO (Draft) dibuat ✔'); muat();
+  } catch(e){
+    if(e.auth) return;
+    $('gMake').disabled = false; $('gMake').textContent = 'Buat PO (Draft)';
+    showErr('gErr', (n ? n + ' PO sudah terbuat (cek daftar PO agar tidak dobel). ' : '') + e.message);
+    if(n) muat();
+  }
+});
+
+/* ================= Cetak & WhatsApp ================= */
+const PO_CSS = `@page{size:A4;margin:16mm}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;color:#111;font-size:12px;line-height:1.45}
+h1{font-size:22px;letter-spacing:.08em;margin:0}.top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #111;padding-bottom:10px;margin-bottom:14px}
+.top .r{text-align:right;font-size:12px}.cols{display:flex;gap:24px;margin-bottom:14px}.cols>div{flex:1}.cols b{display:block;font-size:11px;text-transform:uppercase;color:#555;margin-bottom:2px}
+table{width:100%;border-collapse:collapse;margin-top:6px}th{background:#eee;text-align:left;font-size:11px;text-transform:uppercase;padding:6px 8px;border:1px solid #999}
+td{padding:6px 8px;border:1px solid #999;vertical-align:top}td.n,th.n{text-align:right;white-space:nowrap}tfoot td{font-weight:bold;background:#f6f6f6}
+.cat{margin-top:12px;font-size:12px}.sign{display:flex;justify-content:space-between;margin-top:48px}.sign div{width:38%;text-align:center}.sign .l{height:64px;border-bottom:1px solid #111;margin-bottom:4px}`;
+function poHtml(p){
+  const rows = p.items.map((i, n) => `<tr><td>${n + 1}</td><td>${esc(i.produk)}</td><td class="n">${num(i.qty)}</td><td>${esc(i.satuan)}</td><td class="n">${rp(i.harga)}</td><td class="n">${rp(i.subtotal)}</td></tr>`).join('');
+  return `<div class="top"><div><h1>PURCHASE ORDER</h1><div>${esc(TOKO)}</div></div>
+    <div class="r"><b>No. ${esc(p.id)}</b><br>Tanggal: ${esc(fmtDate(p.tanggal))}<br>Status: ${esc(p.status)}</div></div>
+    <div class="cols"><div><b>Kepada (Suplier)</b>${esc(p.suplier)}<br>${esc(p.alamat)}<br>HP/WA: ${esc(p.hp)}</div>
+    <div><b>Dari</b>${esc(TOKO)}</div></div>
+    <table><thead><tr><th style="width:30px">No</th><th>Produk</th><th class="n">Jumlah</th><th>Satuan</th><th class="n">Harga</th><th class="n">Subtotal</th></tr></thead><tbody>${rows}</tbody>
+    <tfoot><tr><td colspan="5" class="n">TOTAL</td><td class="n">${rp(p.total)}</td></tr></tfoot></table>
+    ${p.catatan ? `<div class="cat"><b>Catatan:</b> ${esc(p.catatan)}</div>` : ''}
+    <div class="sign"><div><div class="l"></div>Dipesan oleh</div><div><div class="l"></div>Suplier</div></div>`;
+}
+function cetakPO(p){
+  const f = document.createElement('iframe');
+  f.setAttribute('aria-hidden', 'true');
+  f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+  document.body.appendChild(f);
+  const doc = f.contentWindow.document;
+  doc.open(); doc.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + esc(p.id) + '</title><style>' + PO_CSS + '</style></head><body>' + poHtml(p) + '</body></html>'); doc.close();
+  setTimeout(() => {
+    try { f.contentWindow.focus(); f.contentWindow.print(); } catch(e){ toast('Gagal membuka jendela cetak.'); }
+    setTimeout(() => f.remove(), 60000);
+  }, 300);
+}
+function kirimWa(p){
+  const hp = String(p.hp || '').replace(/\D/g, '');
+  if(!hp){ toast('Nomor suplier belum ada.'); return; }
+  let t = `Halo ${p.suplier}, kami dari ${TOKO} ingin memesan (No. ${p.id}):\n`;
+  p.items.forEach((i, n) => { t += `${n + 1}. ${i.produk} × ${num(i.qty)} ${i.satuan}${i.harga ? ' (' + rp(i.harga) + ')' : ''}\n`; });
+  t += `\nTotal: ${rp(p.total)}` + (p.catatan ? `\nCatatan: ${p.catatan}` : '') + '\n\nMohon konfirmasi ketersediaan dan waktu pengiriman. Terima kasih 🙏';
+  const url = 'https://wa.me/' + hp + '?text=' + encodeURIComponent(t);
+  const w = window.open(url, '_blank', 'noopener');
+  if(!w) location.href = url;
+}
+
+/* ================= Mulai ================= */
+if(Admin.guardIzin('pembelian')) muat();
+</script>
+</body>
+</html>
