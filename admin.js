@@ -27,7 +27,7 @@
    ===================================================================== */
 (function () {
   'use strict';
-  var API_URL = 'https://script.google.com/macros/s/AKfycbzftkRdQyRU6nAcjMCDGYtM4jCPe88OXprCuYOWjVEA42b68YMMFcs8fvD0OZe1k6M/exec';
+  var API_URL = 'https://script.google.com/macros/s/AKfycbyhko7h5bZb1VcdXowV6ZdnnZM8mgb3n2Nt7BwDJqKAmhJp1APt7vDVElE3pRbRk6Ly/exec';
   var KEY = 'kdmp_admin_token';
   var K_ACT = 'kdmp_admin_act';     // waktu aktivitas terakhir pengguna
   var K_BEAT = 'kdmp_admin_beat';   // waktu terakhir halaman admin masih terbuka
