@@ -27,7 +27,7 @@
    ===================================================================== */
 (function () {
   'use strict';
-  var API_URL = 'https://script.google.com/macros/s/AKfycbwDg1JKfCe3pd0-mwovmj5ozT3hpyDQCYCGpkJ2DkMq3yMJWpLDgtj-6hAO0966RUgU/exec';
+  var API_URL = 'https://script.google.com/macros/s/AKfycbzftkRdQyRU6nAcjMCDGYtM4jCPe88OXprCuYOWjVEA42b68YMMFcs8fvD0OZe1k6M/exec';
   var KEY = 'kdmp_admin_token';
   var K_ACT = 'kdmp_admin_act';     // waktu aktivitas terakhir pengguna
   var K_BEAT = 'kdmp_admin_beat';   // waktu terakhir halaman admin masih terbuka
@@ -110,12 +110,12 @@
   function logout() { clear(); location.replace('dashboard.html'); }
   function simpanPeran(d) { setRole({ peran: d.peran, kode: d.kode, nama: d.nama, bolehHapus: d.bolehHapus, izin: d.izin || [] }); }
   // Peran DIPERIKSA ULANG ke server (bukan hanya percaya data di browser), jadi sesi yang diakali tetap terpental.
-  // guardIzin('foto'|'data'|'pengaturan'|'pesanan'): owner selalu boleh; admin pembantu bila punya izin itu; agen hanya 'pesanan'.
+  // guardIzin('foto'|'data'|'pengaturan'|'pesanan'|'target'): owner selalu boleh; admin pembantu bila punya izin itu; agen hanya 'pesanan' (dan 'target' bila diberi izin melihat target).
   // guardOwner(): khusus admin utama.
   function guardIzin(izin) {
     if (!guard()) return false;
     var r = role();
-    if (r.peran === 'agen' && izin !== 'pesanan') { location.replace('dashboard.html'); return false; }
+    if (r.peran === 'agen' && izin !== 'pesanan' && !(izin === 'target' && (r.izin || []).indexOf('target') !== -1)) { location.replace('dashboard.html'); return false; }
     if (r.peran === 'admin' && izin && (r.izin || []).indexOf(izin) === -1) { location.replace('dashboard.html'); return false; }
     get({ action: 'cek' }, { stay: true }).then(function (d) {
       simpanPeran(d);
