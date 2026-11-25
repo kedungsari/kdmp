@@ -210,6 +210,8 @@ const SKEMA = {
 };
 const URUT = ['Produk','Agen','Banner','Testimoni'];
 
+// Selisih nomor urutan untuk Produk/Banner BARU: nomor baru = nomor terbesar yang ada + angka ini. Ubah sesuai selera (mis. 30, 40, 50).
+const LANGKAH_URUTAN = 10;
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rp = n => 'Rp ' + Math.round(Number(n) || 0).toLocaleString('id-ID');
@@ -330,7 +332,7 @@ function bukaForm(row){
   }
   if(!r && S.urutNum){
     const us = D.rows.filter(x => x.urutan !== '' && x.urutan != null).map(x => Number(x.urutan)).filter(x => !isNaN(x));
-    v.urutan = (us.length ? Math.max.apply(null, us) : 0) + 10;
+    v.urutan = (us.length ? Math.max.apply(null, us) : 0) + LANGKAH_URUTAN;
   }
   $('mTitle').textContent = (r ? 'Ubah ' : 'Tambah ') + S.satuan;
   const ada = S.fields.filter(f => D.headers.indexOf(f.name) !== -1);
