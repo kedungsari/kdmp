@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Target &amp; Capaian — KDMP Kalurahan Kedungsari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --paper:#fff; --ink:#1F2A2E; --ink-soft:#5B676B;
+  --teal:#0E5A6E; --teal-dark:#0A4252; --lime:#A3B91A; --gold:#E8A81C; --red:#B5382A; --green:#2E7D32;
+  --line:rgba(14,90,110,.14); --shadow:0 14px 34px -18px rgba(14,90,110,.35);
+  --r-lg:22px; --r-md:14px; --r-sm:10px;
+  --font-display:'Fraunces',Georgia,serif; --font-body:'Work Sans','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.brand strong{display:block;font-family:var(--font-display);color:var(--teal);font-size:1.25rem;line-height:1.15}
+.brand p{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.top-actions{display:flex;gap:.6rem;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:100px;padding:10px 20px;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer;background:var(--teal);color:#fff;text-decoration:none;transition:background .2s}
+.btn:hover{background:var(--teal-dark)}
+.btn.ghost{background:transparent;color:var(--teal-dark);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:rgba(14,90,110,.08)}
+.btn.sm{padding:8px 16px;font-size:.82rem}
+.btn.xs{padding:4px 10px;font-size:.72rem}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:.3rem}
+.field input,.field select{width:100%;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);font:inherit;font-size:.92rem;background:var(--bg);color:var(--ink)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--teal);background:#fff}
+
+.app{padding-top:22px;padding-bottom:60px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.9rem;align-items:end;background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.1rem 1.2rem;margin-bottom:.9rem}
+.filters .btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.presets{display:flex;gap:.4rem;flex-wrap:wrap;margin:0 0 .9rem}
+.presets button{font:inherit;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);color:var(--teal-dark);cursor:pointer}
+.presets button:hover{border-color:var(--teal)}
+/* pilihan item */
+details.dd{position:relative}
+details.dd summary{list-style:none;cursor:pointer;padding:10px 12px;border-radius:var(--r-sm);border:1.5px solid var(--line);background:var(--bg);font-size:.92rem;display:flex;justify-content:space-between;gap:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+details.dd summary::-webkit-details-marker{display:none}
+details.dd summary::after{content:"▾";color:var(--ink-soft)}
+details.dd[open] summary{border-color:var(--teal);background:#fff}
+.dd-panel{position:absolute;left:0;top:calc(100% + 6px);z-index:60;width:min(340px,86vw);background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow);padding:.7rem}
+.dd-panel input[type=search]{width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);font:inherit;font-size:.86rem;margin-bottom:.5rem}
+.dd-tools{display:flex;gap:.4rem;margin-bottom:.4rem}
+.dd-list{max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+.dd-list label{display:flex;gap:.5rem;align-items:center;font-size:.86rem;padding:4px 6px;border-radius:6px;cursor:pointer;font-weight:500;color:var(--ink);margin:0}
+.dd-list label:hover{background:#EEF3EA}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.2rem}
+.stat{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1rem 1.2rem}
+.stat span{font-size:.74rem;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.stat strong{display:block;font-family:var(--font-display);font-size:1.45rem;color:var(--teal-dark);margin-top:.15rem}
+.stat.big strong{font-size:1.7rem}
+.pos{color:var(--green)!important}.neg{color:var(--red)!important}
+.warnbox{background:#FFF6DC;border:1.5px solid rgba(232,168,28,.55);border-radius:var(--r-md);padding:.8rem 1rem;font-size:.88rem;margin-bottom:1.1rem}
+h2.sec{font-family:var(--font-display);color:var(--teal);font-size:1.3rem;margin:1.8rem 0 .8rem}
+.tbl-wrap{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;background:#EEF3EA;color:var(--teal-dark);font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;padding:.7rem .9rem;white-space:nowrap}
+td{padding:.65rem .9rem;border-top:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;white-space:nowrap}
+td small{display:block;color:var(--ink-soft);font-size:.76rem}
+tfoot td{font-weight:700;background:#F7FAF4}
+tr.nohpp td{background:#FFFBEC}
+td input.hpp{width:110px;padding:6px 8px;border-radius:8px;border:1.5px solid var(--line);font:inherit;font-size:.85rem;text-align:right;background:var(--bg)}
+td input.hpp:focus{outline:none;border-color:var(--teal);background:#fff}
+td input.hpp.saving{opacity:.5}
+.empty{padding:2rem;text-align:center;color:var(--ink-soft)}
+.note{font-size:.8rem;color:var(--ink-soft);margin-top:.6rem}
+.status{font-size:.85rem;color:var(--ink-soft);margin-bottom:.8rem}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,10px);background:var(--teal-dark);color:#fff;padding:12px 22px;border-radius:100px;font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:400;pointer-events:none;max-width:calc(100vw - 40px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:640px){.brand strong{font-size:1.05rem}}
+
+.sel{display:flex;gap:.8rem;align-items:end;margin-bottom:1rem;flex-wrap:wrap}
+.sel .field{min-width:200px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:1rem}
+.card{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);padding:1.1rem 1.2rem}
+.card h3{font-family:var(--font-display);color:var(--teal);font-size:1.1rem;margin-bottom:.7rem}
+.blk{margin-bottom:1rem}.blk:last-child{margin-bottom:0}
+.blk .lbl{font-size:.74rem;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.blk .row{display:flex;justify-content:space-between;gap:.6rem;font-size:.92rem;margin-top:.25rem}
+.blk .row b{font-family:var(--font-display);font-size:1.15rem;color:var(--teal-dark)}
+.meter{height:10px;border-radius:999px;background:rgba(37,125,224,.14);overflow:hidden;margin:.5rem 0 .3rem}
+.meter i{display:block;height:100%;border-radius:999px;background:#257de0}
+.meter.ok i{background:var(--green)}
+.pc{font-size:.84rem;color:var(--ink-soft)}
+.badge{display:inline-block;font-size:.74rem;font-weight:700;padding:2px 10px;border-radius:999px;margin-left:.3rem}
+.badge.ok{background:#E3F1E4;color:#1F5E23}.badge.warn{background:#FFF1CC;color:#7A5200}.badge.bad{background:#F9E1DD;color:#8E2A1F}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand"><strong>Target &amp; Capaian</strong><p id="who">KDMP Kalurahan Kedungsari</p></div>
+    <div class="top-actions">
+      <a class="btn ghost sm" href="dashboard.html">← Dashboard</a>
+      <button class="btn ghost sm" id="logoutBtn" type="button">Keluar</button>
+    </div>
+  </div>
+</header>
+<main class="wrap app">
+  <div class="sel">
+    <div class="field"><label for="fBulan">Periode</label><select id="fBulan"></select></div>
+    <button class="btn ghost sm" id="reloadBtn" type="button">↻ Muat ulang</button>
+  </div>
+  <p class="status" id="statusLine"></p>
+  <div class="grid2" id="cards"></div>
+  <h2 class="sec">Riwayat per Bulan</h2>
+  <div class="tbl-wrap" id="tbl"></div>
+  <p class="note">Halaman ini hanya untuk dilihat. Capaian = penjualan (tanpa pesanan Batal dan tanpa ongkir); laba kotor dihitung dari harga beli (HPP). Target toko ditetapkan oleh admin.</p>
+</main>
+<script src="admin.js"></script>
+<script>
+const BL = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const $ = id => document.getElementById(id);
+const rp = n => (n < 0 ? '−' : '') + 'Rp ' + Math.abs(Math.round(Number(n) || 0)).toLocaleString('id-ID');
+const pc = (c, t) => t > 0 ? c / t * 100 : null;
+const pt = p => p == null ? '—' : p.toLocaleString('id-ID', { maximumFractionDigits: 1 }) + '%';
+const lbl = per => { const [y, m] = per.split('-'); return BL[+m - 1] + ' ' + y; };
+let D = null;
+function el(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text != null) e.textContent = text; return e; }
+function badge(p){ if(p == null) return null; const b = el('span', 'badge ' + (p >= 100 ? 'ok' : p >= 75 ? 'warn' : 'bad'), p >= 100 ? '✓ Tercapai' : p >= 75 ? '! Hampir' : '✕ Belum'); return b; }
+function blok(judul, t, c){
+  const d = el('div', 'blk'); d.appendChild(el('div', 'lbl', judul));
+  const p = pc(c, t);
+  const r1 = el('div', 'row'); r1.appendChild(el('span', null, 'Target')); r1.appendChild(el('b', null, t > 0 ? rp(t) : '—')); d.appendChild(r1);
+  const r2 = el('div', 'row'); r2.appendChild(el('span', null, 'Tercapai')); r2.appendChild(el('b', null, rp(c))); d.appendChild(r2);
+  const m = el('div', 'meter' + (p != null && p >= 100 ? ' ok' : '')); m.setAttribute('role', 'img'); m.setAttribute('aria-label', judul + ' ' + pt(p));
+  const i = el('i'); i.style.width = (p == null ? 0 : Math.min(100, p)) + '%'; m.appendChild(i); d.appendChild(m);
+  const f = el('div', 'pc', p == null ? 'Belum ada target' : pt(p) + (c >= t ? ' · lebih ' + rp(c - t) : ' · kurang ' + rp(t - c)));
+  const b = badge(p); if(b) f.appendChild(b); d.appendChild(f);
+  return d;
+}
+function kartu(judul, x){
+  const c = el('div', 'card'); c.appendChild(el('h3', null, judul));
+  if(!x){ c.appendChild(el('div', 'empty', 'Belum ada target untuk periode ini.')); return c; }
+  c.appendChild(blok('Omset', x.tO, x.cO)); c.appendChild(blok('Laba kotor', x.tL, x.cL)); return c;
+}
+function tampil(){
+  const per = $('fBulan').value, b = D.bulan.find(x => x.periode === per);
+  const box = $('cards'); box.textContent = '';
+  if(!b){ box.appendChild(el('div', 'empty', 'Belum ada target yang diisi admin.')); $('tbl').textContent = ''; return; }
+  box.appendChild(kartu('Target Toko · ' + lbl(per), b.toko));
+  box.appendChild(kartu('Target Saya · ' + lbl(per), b.saya));
+  $('statusLine').textContent = per === D.sekarang ? 'Bulan berjalan: angka bertambah seiring penjualan.' : '';
+  const t = $('tbl'); t.textContent = '';
+  const tb = el('table'), th = el('thead'), hr = el('tr');
+  [['Periode'],['Target omset saya',1],['Tercapai',1],['%',1],['Target omset toko',1],['Tercapai',1],['%',1]].forEach(h => { const c = el('th', h[1] ? 'num' : '', h[0]); hr.appendChild(c); });
+  th.appendChild(hr); tb.appendChild(th);
+  const bd = el('tbody');
+  D.bulan.forEach(x => {
+    const r = el('tr'); const cell = (txt, num) => r.appendChild(el('td', num ? 'num' : '', txt));
+    cell(lbl(x.periode));
+    cell(x.saya ? rp(x.saya.tO) : '—', 1); cell(x.saya ? rp(x.saya.cO) : '—', 1); cell(x.saya ? pt(pc(x.saya.cO, x.saya.tO)) : '—', 1);
+    cell(x.toko ? rp(x.toko.tO) : '—', 1); cell(x.toko ? rp(x.toko.cO) : '—', 1); cell(x.toko ? pt(pc(x.toko.cO, x.toko.tO)) : '—', 1);
+    bd.appendChild(r);
+  });
+  tb.appendChild(bd); t.appendChild(tb);
+}
+async function muat(){
+  $('statusLine').textContent = 'Memuat…';
+  try {
+    D = await Admin.get({ action:'targetSaya' });
+    $('who').textContent = D.nama ? D.nama + ' · KDMP Kedungsari' : 'KDMP Kalurahan Kedungsari';
+    const cur = $('fBulan').value;
+    $('fBulan').textContent = '';
+    D.bulan.forEach(x => { const o = el('option', null, lbl(x.periode)); o.value = x.periode; $('fBulan').appendChild(o); });
+    const ada = p => D.bulan.some(x => x.periode === p);
+    $('fBulan').value = ada(cur) ? cur : (ada(D.sekarang) ? D.sekarang : (D.bulan[0] ? D.bulan[0].periode : ''));
+    $('statusLine').textContent = ''; tampil();
+  } catch(e){ if(!e.auth) $('statusLine').textContent = e.message; }
+}
+$('fBulan').addEventListener('change', tampil);
+$('reloadBtn').addEventListener('click', muat);
+$('logoutBtn').addEventListener('click', () => Admin.logout());
+if(Admin.guardIzin('target')) muat();
+</script>
+</body>
+</html>
