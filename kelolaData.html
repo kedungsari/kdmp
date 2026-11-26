@@ -175,6 +175,8 @@ const SKEMA = {
       { name:'icon', label:'Ikon (emoji)', hint:'Tampil bila produk belum punya foto.' },
       { name:'harga', label:'Harga (Rp)', type:'number', req:1 },
       { name:'hargaPromo', label:'Harga promo (Rp)', type:'number', hint:'Kosong = tidak promo. Isi bersama status "promo".' },
+      { name:'hpp', label:'HPP / harga beli (Rp)', type:'number', onlyKeu:1, hint:'Harga beli dari suplier per satuan. Hanya terlihat oleh akun berizin Rugi Laba. Perubahan hanya berlaku untuk pesanan baru; transaksi lama tetap memakai HPP-nya saat itu.' },
+      { name:'hppKoreksi', label:'Koreksi: terapkan HPP ini juga ke transaksi lama (centang hanya bila HPP sebelumnya salah ketik)', type:'check', onlyKeu:1, full:1 },
       { name:'status', label:'Status', type:'select', opsi:[['', 'Normal'],['baru','Baru'],['promo','Promo'],['habis','Habis']] },
       { name:'aktif', label:'Tampil / aktif', type:'check' },
       { name:'deskripsi', label:'Deskripsi', type:'list', full:1, hint:'Satu poin per baris.' },
@@ -212,6 +214,15 @@ const URUT = ['Produk','Agen','Banner','Testimoni'];
 
 // Selisih nomor urutan untuk Produk/Banner BARU: nomor baru = nomor terbesar yang ada + angka ini. Ubah sesuai selera (mis. 30, 40, 50).
 const LANGKAH_URUTAN = 10;
+
+/* HPP (harga beli) hanya untuk akun berizin keuangan. Datanya tidak ikut daftar produk; diambil terpisah dari server. */
+let HPP = {};
+const canHpp = () => { const r = Admin.role(); return r.peran === 'owner' || (r.izin || []).indexOf('keuangan') !== -1; };
+const adaField = (f, D) => f.onlyKeu ? (cur === 'Produk' && canHpp()) : D.headers.indexOf(f.name) !== -1;
+async function muatHpp(){
+  if(!canHpp()) return;
+  try { const d = await Admin.get({ action:'labaData' }); HPP = {}; (d.produk || []).forEach(p => { if(p.hpp != null) HPP[String(p.id)] = p.hpp; }); } catch(e){}
+}
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rp = n => 'Rp ' + Math.round(Number(n) || 0).toLocaleString('id-ID');
@@ -335,8 +346,10 @@ function bukaForm(row){
     v.urutan = (us.length ? Math.max.apply(null, us) : 0) + LANGKAH_URUTAN;
   }
   $('mTitle').textContent = (r ? 'Ubah ' : 'Tambah ') + S.satuan;
-  const ada = S.fields.filter(f => D.headers.indexOf(f.name) !== -1);
-  const hilang = S.fields.filter(f => D.headers.indexOf(f.name) === -1).map(f => f.name);
+  if(cur === 'Produk' && r && HPP[String(r.id)] != null) v.hpp = HPP[String(r.id)];
+  v.hppKoreksi = false;   // selalu mulai tidak tercentang (isOn() menganggap kosong = aktif)
+  const ada = S.fields.filter(f => adaField(f, D));
+  const hilang = S.fields.filter(f => !f.onlyKeu && D.headers.indexOf(f.name) === -1).map(f => f.name);
   $('mFields').innerHTML = ada.map(f => fieldHtml(f, v[f.name])).join('');
   $('mErr').textContent = hilang.length ? 'Kolom belum ada di sheet dan tidak akan tersimpan: ' + hilang.join(', ') : '';
   $('mSave').disabled = false; $('mSave').textContent = 'Simpan';
@@ -407,7 +420,7 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') tutupForm(); 
 function ambilForm(){
   const S = SKEMA[cur], D = DATA[cur], out = {};
   S.fields.forEach(f => {
-    if(D.headers.indexOf(f.name) === -1) return;
+    if(!adaField(f, D)) return;
     const t = f.type || 'text', el = $('f_' + f.name);
     if(t === 'tujuan'){
       const m = $('f_link_mode').value;
@@ -441,10 +454,21 @@ $('mForm').addEventListener('submit', async e => {
   for(const f of S.fields){
     if(f.req && data[f.name] !== undefined && data[f.name] === ''){ $('mErr').textContent = `"${f.label}" wajib diisi.`; return; }
   }
+  const hppBaru = data.hpp, koreksi = data.hppKoreksi === true;
+  delete data.hpp; delete data.hppKoreksi;
+  const idProduk = String(data.id || (editing && editing.orig) || '').trim();
   $('mErr').textContent = ''; $('mSave').disabled = true; $('mSave').textContent = 'Menyimpan…';
   try {
     await Admin.post({ action:'simpanBaris', sheet:cur, row: editing ? editing.row : 0, orig: editing ? editing.orig : '', data });
-    tutupForm(); toast('Tersimpan'); await muat(cur);
+    let pesan = 'Tersimpan';
+    if(cur === 'Produk' && canHpp() && hppBaru !== undefined && idProduk){
+      const lama = HPP[idProduk] == null ? '' : String(HPP[idProduk]);
+      if(String(hppBaru) !== lama || koreksi){
+        try { await Admin.post({ action:'simpanHpp', id:idProduk, hpp:hppBaru, terapkanLama:koreksi }); pesan = 'Tersimpan (HPP diperbarui)'; await muatHpp(); }
+        catch(he){ if(he.auth) return; pesan = 'Produk tersimpan, tetapi HPP gagal: ' + he.message; }
+      }
+    }
+    tutupForm(); toast(pesan); await muat(cur);
   } catch(err){
     if(err.auth) return;
     $('mErr').textContent = err.message; $('mSave').disabled = false; $('mSave').textContent = 'Simpan';
@@ -462,7 +486,7 @@ function hapus(row){
   $('ov').classList.add('open'); $('modal').classList.add('open');
 }
 /* ================= Mulai ================= */
-if(Admin.guardIzin('data')){ render(); muat('Produk'); URUT.slice(1).forEach(n => muat0(n)); }
+if(Admin.guardIzin('data')){ render(); muat('Produk'); muatHpp(); URUT.slice(1).forEach(n => muat0(n)); }
 function muat0(n){ Admin.get({ action:'tabel', sheet:n }).then(d => { DATA[n] = { headers:d.headers, rows:d.rows }; renderTabs(); if(n === cur) render(); }).catch(() => {}); }
 </script>
 </body>
