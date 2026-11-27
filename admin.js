@@ -27,7 +27,7 @@
    ===================================================================== */
 (function () {
   'use strict';
-  var API_URL = 'https://script.google.com/macros/s/AKfycbz1itpNew4UnjuIsfK2tD8FEhCeuaj3JsbXFF0JbbrIZehfeCIf-GFZzqDS4ylUYMNH/exec';
+  var API_URL = 'https://script.google.com/macros/s/AKfycbxi9xKzgbRhielyknG6q6FAKWfuMJ8WVghO43vDLwl6WWnYyTUxAXrZ_7Bd5rgzjQVF/exec';
   var KEY = 'kdmp_admin_token';
   var K_ACT = 'kdmp_admin_act';     // waktu aktivitas terakhir pengguna
   var K_BEAT = 'kdmp_admin_beat';   // waktu terakhir halaman admin masih terbuka
@@ -55,6 +55,7 @@
     return t;
   }
   function setToken(t) {
+    try { localStorage.setItem('kdmp_notrack', '1'); } catch (e) {}   // perangkat pengelola tidak dihitung sebagai pengunjung toko
     sput(KEY, t);
     var n = Date.now(); sput(K_ACT, n); sput(K_BEAT, n);
     startTracking();
