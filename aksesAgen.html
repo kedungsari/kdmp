@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Akses Agen — KDMP Kalurahan Kedungsari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE; --paper:#fff; --ink:#1F2A2E; --ink-soft:#5B676B;
+  --teal:#0E5A6E; --teal-dark:#0A4252; --gold:#E8A81C; --red:#B5382A; --green:#2E7D32;
+  --line:rgba(14,90,110,.14); --shadow:0 14px 34px -18px rgba(14,90,110,.35);
+  --r-lg:22px; --r-md:14px; --r-sm:10px;
+  --font-display:'Fraunces',Georgia,serif; --font-body:'Work Sans','Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.brand strong{display:block;font-family:var(--font-display);color:var(--teal);font-size:1.25rem;line-height:1.15}
+.brand p{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.top-actions{display:flex;gap:.6rem;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:100px;padding:10px 20px;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer;background:var(--teal);color:#fff;text-decoration:none;transition:background .2s}
+.btn:hover{background:var(--teal-dark)}
+.btn:disabled{background:#c9cfd1;color:#6b7478;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--teal-dark);border:1.5px solid var(--teal)}
+.btn.ghost:hover{background:rgba(14,90,110,.08)}
+.btn.ghost.danger{color:var(--red);border-color:var(--red)}
+.btn.ghost.danger:hover{background:rgba(181,56,42,.08)}
+.btn.sm{padding:7px 14px;font-size:.8rem}
+.app{padding-top:22px;padding-bottom:60px}
+.lead{font-size:.9rem;color:var(--ink-soft);margin-bottom:1.1rem}
+.status-line{font-size:.85rem;color:var(--ink-soft);margin-bottom:.7rem}
+.tbl-wrap{background:var(--paper);border-radius:var(--r-md);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;background:#EEF3EA;color:var(--teal-dark);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;padding:.7rem .9rem;white-space:nowrap}
+td{padding:.7rem .9rem;border-top:1px solid var(--line);vertical-align:middle}
+td small{display:block;color:var(--ink-soft);font-size:.76rem}
+.badge{display:inline-block;font-size:.74rem;font-weight:700;padding:3px 11px;border-radius:100px;white-space:nowrap}
+.badge.on{background:#E3F2E4;color:var(--green)}
+.badge.off{background:#F7E2DF;color:var(--red)}
+.badge.none{background:#ECEFF0;color:var(--ink-soft)}
+.empty{padding:2rem;text-align:center;color:var(--ink-soft)}
+.field label{display:block;font-size:.78rem;font-weight:600;color:var(--ink-soft);margin-bottom:.25rem}
+.field input[type=text]{width:100%;padding:9px 11px;border-radius:var(--r-sm);border:1.5px solid var(--line);font:inherit;font-size:.95rem;background:var(--bg);color:var(--ink)}
+.field input[type=text]:focus{outline:none;border-color:var(--teal);background:#fff}
+.chk{display:flex;gap:.6rem;align-items:flex-start;margin:.7rem 0;font-size:.9rem;cursor:pointer}
+.chk input{width:19px;height:19px;accent-color:var(--teal);margin-top:2px;flex-shrink:0}
+.chk small{display:block;color:var(--ink-soft);font-size:.78rem}
+.row{display:flex;gap:.5rem}
+.row input{flex:1}
+.ov{position:fixed;inset:0;background:rgba(20,30,34,.5);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.ov.open{display:flex}
+.dlg{background:var(--paper);border-radius:var(--r-lg);box-shadow:0 30px 60px -20px rgba(0,0,0,.4);width:min(480px,100%);margin:auto;padding:1.4rem 1.5rem 1.2rem}
+.dlg h3{font-family:var(--font-display);color:var(--teal);font-size:1.3rem;margin-bottom:.9rem}
+.errmsg{color:var(--red);font-size:.85rem;min-height:1.3em;margin:.4rem 0}
+.foot{display:flex;justify-content:space-between;gap:.6rem;flex-wrap:wrap;margin-top:.6rem}
+.foot .r{display:flex;gap:.6rem;flex-wrap:wrap}
+.hasil{background:#FBF3DC;border:1.5px solid rgba(232,168,28,.55);border-radius:var(--r-md);padding:1rem}
+.hasil .pw{font-family:'Courier New',monospace;font-size:1.4rem;font-weight:700;letter-spacing:.06em;margin:.4rem 0 .6rem;word-break:break-all}
+.hasil p{font-size:.85rem}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,10px);background:var(--teal-dark);color:#fff;padding:12px 22px;border-radius:100px;font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:400;pointer-events:none;max-width:calc(100vw - 40px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:640px){.brand strong{font-size:1.05rem}.dlg{padding:1.1rem 1rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand">
+      <strong>Akses Agen</strong>
+      <p>KDMP Kalurahan Kedungsari</p>
+    </div>
+    <div class="top-actions">
+      <a class="btn ghost sm" href="dashboard.html">← Dashboard</a>
+      <button class="btn ghost sm" id="logoutBtn" type="button">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap app">
+  <p class="lead"><b>Agen</b>: hanya melihat dan mengelola <b>pesanannya sendiri</b>. <b>Admin pembantu</b>: orang yang membantu Anda, izinnya dipilih per fitur (foto, data, pengaturan, pesanan). Semua masuk lewat sandi masing-masing dari perangkat mana pun; halaman Akses ini dan Google Sheets tetap khusus admin utama.</p>
+  <p class="status-line" id="statusLine"></p>
+  <h2 style="font-size:1rem;margin:1rem 0 .4rem">Agen</h2>
+  <div class="tbl-wrap" id="tbl"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin:1.4rem 0 .4rem;gap:8px;flex-wrap:wrap">
+    <h2 style="font-size:1rem;margin:0">Admin pembantu</h2>
+    <button class="btn sm" id="addAdm" type="button">+ Tambah admin pembantu</button>
+  </div>
+  <div class="tbl-wrap" id="tblAdm"></div>
+</main>
+
+<div class="ov" id="ov">
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+    <h3 id="dTitle">Akses</h3>
+
+    <div id="formView">
+      <div class="field" id="boxNama" hidden style="margin-bottom:.7rem">
+        <label for="fNama">Nama admin</label>
+        <input type="text" id="fNama" maxlength="40" autocomplete="off" placeholder="mis. Pak Budi">
+      </div>
+      <label class="chk"><input type="checkbox" id="cAktif"><span>Boleh masuk dashboard<small>Dimatikan = tidak bisa masuk, sandinya tetap tersimpan.</small></span></label>
+      <div id="boxIzin" hidden style="margin:.5rem 0 .2rem">
+        <b style="font-size:.85rem">Izin fitur</b>
+        <label class="chk"><input type="checkbox" data-izin="foto"><span>Foto &amp; video<small>Upload Foto &amp; Video, Kelola Foto &amp; Video (termasuk hapus file di repo).</small></span></label>
+        <label class="chk"><input type="checkbox" data-izin="data"><span>Kelola Data<small>Produk, Agen, Banner, Testimoni.</small></span></label>
+        <label class="chk"><input type="checkbox" data-izin="pengaturan"><span>Pengaturan Toko<small>Buka/tutup toko &amp; agen, jam, pesan pembeli.</small></span></label>
+        <label class="chk"><input type="checkbox" data-izin="pesanan"><span>Pesanan &amp; Laporan<small>Melihat dan mengelola semua pesanan.</small></span></label>
+        <label class="chk"><input type="checkbox" data-izin="pembelian"><span>Purchase Order &amp; Suplier<small>Membuat dan mengelola PO serta data suplier.</small></span></label>
+        <label class="chk"><input type="checkbox" data-izin="keuangan"><span>Laporan Rugi Laba<small>Melihat laba dan mengisi harga beli (HPP) produk.</small></span></label>
+        <label class="chk"><input type="checkbox" data-izin="trafik"><span>Statistik Pengunjung<small>Melihat trafik toko dan produk yang paling sering dilihat (tanpa data pribadi).</small></span></label>
+        <label class="chk"><input type="checkbox" data-izin="hapus"><span>Boleh menghapus pesanan<small>Hanya berlaku bila izin Pesanan aktif.</small></span></label>
+      </div>
+      <label class="chk" id="rowHapus"><input type="checkbox" id="cHapus"><span>Boleh menghapus pesanan<small>Mati = agen hanya bisa melihat, menambah, mengubah dan mencetak.</small></span></label>
+      <label class="chk" id="rowTarget"><input type="checkbox" id="cTarget"><span>Boleh melihat target<small>Agen melihat (hanya baca) target &amp; capaian toko serta miliknya sendiri. Target agen lain tidak terlihat.</small></span></label>
+      <div class="field" style="margin-top:.9rem">
+        <label for="fSandi" id="lSandi">Sandi agen</label>
+        <div class="row">
+          <input type="text" id="fSandi" autocomplete="off" spellcheck="false" placeholder="minimal 6 karakter">
+          <button class="btn ghost sm" id="randBtn" type="button">🎲 Acak</button>
+        </div>
+      </div>
+      <p class="errmsg" id="dErr" role="alert"></p>
+      <div class="foot">
+        <button class="btn ghost danger sm" id="cabutBtn" type="button">Cabut akses &amp; hapus sandi</button>
+        <div class="r">
+          <button class="btn ghost" id="dCancel" type="button">Batal</button>
+          <button class="btn" id="dSave" type="button">Simpan</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="doneView" hidden>
+      <div class="hasil">
+        <p>Sandi baru untuk <b id="rNama"></b>:</p>
+        <div class="pw" id="rPw"></div>
+        <p>Catat atau kirim sekarang. Sandi <b>tidak bisa dilihat lagi</b> setelah jendela ini ditutup (hanya bisa diganti).</p>
+      </div>
+      <div class="foot">
+        <button class="btn ghost" id="rCopy" type="button">Salin sandi</button>
+        <div class="r">
+          <button class="btn" id="rWa" type="button">💬 Kirim ke WA agen</button>
+          <button class="btn ghost" id="rClose" type="button">Selesai</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+<script>
+let AGEN = [], ADM = [];
+let cur = null;      // agen yang sedang diatur
+let hasil = null;    // { nama, wa, sandi } setelah menyimpan sandi baru
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let toastTimer;
+function toast(t){ const el = $('toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2400); }
+
+async function muat(){
+  $('statusLine').textContent = 'Memuat…';
+  try {
+    const d = await Admin.get({ action:'akses' });
+    AGEN = (d.agen || []).map(a => Object.assign({ jenis:'agen' }, a));
+    ADM = (d.admin || []).map(a => Object.assign({ jenis:'admin' }, a));
+    $('statusLine').textContent = AGEN.length ? '' : 'Belum ada agen di sheet Agen.';
+    render();
+  } catch(e){
+    if(e.auth) return;
+    $('tbl').innerHTML = '';
+    $('statusLine').innerHTML = '<span style="color:#b3261e">' + esc(e.message) + '</span>';
+  }
+}
+function badge(a){
+  if(!a.adaSandi) return '<span class="badge none">Belum diatur</span>';
+  return a.aktif ? '<span class="badge on">Boleh masuk</span>' : '<span class="badge off">Nonaktif</span>';
+}
+function render(){
+  renderAdm();
+  if(!AGEN.length){ $('tbl').innerHTML = '<div class="empty">Belum ada agen.</div>'; return; }
+  $('tbl').innerHTML = `<table><thead><tr><th>Agen</th><th>Akses dashboard</th><th>Hapus pesanan</th><th></th></tr></thead><tbody>` +
+    AGEN.map(a => `<tr>
+      <td>${esc(a.nama)}<small>kode: ${esc(a.kode)}</small></td>
+      <td>${badge(a)}</td>
+      <td>${a.adaSandi ? (a.bolehHapus ? 'Boleh' : 'Tidak') : '—'}</td>
+      <td><button class="btn ghost sm" data-kode="${esc(a.kode)}">Atur</button></td></tr>`).join('') + '</tbody></table>';
+}
+const IZIN_LABEL = { foto:'Foto', data:'Data', pengaturan:'Pengaturan', pesanan:'Pesanan', hapus:'Hapus pesanan', pembelian:'PO & Suplier', keuangan:'Rugi Laba', trafik:'Statistik Pengunjung' };
+function renderAdm(){
+  if(!ADM.length){ $('tblAdm').innerHTML = '<div class="empty">Belum ada admin pembantu. Klik “+ Tambah admin pembantu”.</div>'; return; }
+  $('tblAdm').innerHTML = `<table><thead><tr><th>Admin</th><th>Akses dashboard</th><th>Izin</th><th></th></tr></thead><tbody>` +
+    ADM.map(a => `<tr>
+      <td>${esc(a.nama)}<small>kode: ${esc(a.kode)}</small></td>
+      <td>${badge(a)}</td>
+      <td>${a.izin && a.izin.length ? a.izin.map(i => esc(IZIN_LABEL[i] || i)).join(', ') : '—'}</td>
+      <td><button class="btn ghost sm" data-kode="${esc(a.kode)}">Atur</button></td></tr>`).join('') + '</tbody></table>';
+}
+function klikAtur(e){
+  const b = e.target.closest('[data-kode]'); if(!b) return;
+  openDlg(AGEN.concat(ADM).find(a => a.kode === b.dataset.kode));
+}
+$('tbl').addEventListener('click', klikAtur);
+$('tblAdm').addEventListener('click', klikAtur);
+$('addAdm').addEventListener('click', () => openDlg({ jenis:'admin', kode:'', nama:'', izin:['foto'], adaSandi:false, aktif:true, baru:true }));
+
+function openDlg(a){
+  cur = a; hasil = null;
+  const adm = a.jenis === 'admin';
+  $('dTitle').textContent = adm ? (a.baru ? 'Admin pembantu baru' : 'Admin: ' + a.nama) : 'Akses: ' + a.nama;
+  $('boxNama').hidden = !adm; $('boxIzin').hidden = !adm; $('rowHapus').hidden = adm; $('rowTarget').hidden = adm;
+  $('fNama').value = a.nama || '';
+  document.querySelectorAll('[data-izin]').forEach(c => { c.checked = (a.izin || []).indexOf(c.dataset.izin) !== -1; });
+  $('cAktif').checked = a.aktif; $('cHapus').checked = !!a.bolehHapus; $('cTarget').checked = !!a.lihatTarget;
+  $('fSandi').value = '';
+  $('lSandi').textContent = a.adaSandi ? 'Ganti sandi (kosongkan bila tidak diubah)' : (adm ? 'Sandi admin' : 'Sandi agen');
+  $('cabutBtn').hidden = !a.adaSandi;
+  $('dErr').textContent = '';
+  $('dSave').disabled = false; $('dSave').textContent = 'Simpan';
+  $('formView').hidden = false; $('doneView').hidden = true;
+  $('ov').classList.add('open');
+  setTimeout(() => (adm && a.baru ? $('fNama') : $('fSandi')).focus(), 50);
+}
+function closeDlg(){ $('ov').classList.remove('open'); cur = null; hasil = null; $('fSandi').value = ''; $('rPw').textContent = ''; }
+$('dCancel').addEventListener('click', closeDlg);
+$('rClose').addEventListener('click', closeDlg);
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && $('ov').classList.contains('open')) closeDlg(); });
+
+// Sandi acak yang mudah dibaca (tanpa 0/O/1/l/I)
+$('randBtn').addEventListener('click', () => {
+  const abc = 'abcdefghijkmnpqrstuvwxyz23456789', buf = new Uint32Array(8);
+  crypto.getRandomValues(buf);
+  $('fSandi').value = Array.from(buf, n => abc[n % abc.length]).join('');
+});
+
+$('dSave').addEventListener('click', async () => {
+  if(!cur) return;
+  const sandi = $('fSandi').value.trim();
+  const aktif = $('cAktif').checked;
+  const adm = cur.jenis === 'admin';
+  const izin = Array.from(document.querySelectorAll('[data-izin]')).filter(c => c.checked).map(c => c.dataset.izin);
+  const nama = $('fNama').value.trim();
+  if(adm && !nama) return ($('dErr').textContent = 'Isi nama admin.');
+  if(adm && aktif && !izin.length) return ($('dErr').textContent = 'Pilih minimal satu izin fitur.');
+  if(adm && cur.baru && !sandi) return ($('dErr').textContent = 'Isi sandi (atau klik 🎲 Acak).');
+  if(sandi && sandi.length < 6) return ($('dErr').textContent = 'Sandi minimal 6 karakter.');
+  if(aktif && !cur.adaSandi && !sandi) return ($('dErr').textContent = 'Isi sandi dulu (atau klik 🎲 Acak) sebelum mengaktifkan akses.');
+  $('dErr').textContent = ''; $('dSave').disabled = true; $('dSave').textContent = 'Menyimpan…';
+  try {
+    if(adm) await Admin.post({ action:'simpanAdmin', kode:cur.kode, nama, sandi, aktif, izin });
+    else await Admin.post({ action:'simpanAkses', kode:cur.kode, sandi, aktif, bolehHapus:$('cHapus').checked, lihatTarget:$('cTarget').checked });
+    if(sandi){
+      hasil = { nama:adm ? nama : cur.nama, wa:cur.wa, sandi, adm };
+      $('rNama').textContent = hasil.nama; $('rPw').textContent = sandi;
+      $('rWa').hidden = !cur.wa; // admin pembantu: tanpa nomor WA tersimpan, salin sandi lalu kirim manual
+      $('formView').hidden = true; $('doneView').hidden = false;
+    } else { closeDlg(); toast('Pengaturan akses disimpan ✔'); }
+    muat();
+  } catch(e){
+    if(e.auth) return;
+    $('dSave').disabled = false; $('dSave').textContent = 'Simpan'; $('dErr').textContent = e.message;
+  }
+});
+
+// Cabut akses: klik dua kali untuk memastikan
+let cabutTimer;
+$('cabutBtn').addEventListener('click', async () => {
+  if(!cur) return;
+  const b = $('cabutBtn');
+  if(b.dataset.yakin !== '1'){
+    b.dataset.yakin = '1'; b.textContent = 'Yakin? Klik sekali lagi';
+    clearTimeout(cabutTimer); cabutTimer = setTimeout(() => { b.dataset.yakin = ''; b.textContent = 'Cabut akses & hapus sandi'; }, 4000);
+    return;
+  }
+  b.dataset.yakin = ''; b.textContent = 'Cabut akses & hapus sandi';
+  try {
+    await Admin.post({ action:'cabutAkses', kode:cur.kode });
+    closeDlg(); toast('Akses dicabut, sandi dihapus 🗑️'); muat();
+  } catch(e){ if(!e.auth) $('dErr').textContent = e.message; }
+});
+
+$('rCopy').addEventListener('click', async () => {
+  if(!hasil) return;
+  try { await navigator.clipboard.writeText(hasil.sandi); toast('Sandi disalin ✔'); }
+  catch(e){ toast('Salin manual: tekan lama pada sandi'); }
+});
+$('rWa').addEventListener('click', () => {
+  if(!hasil || !hasil.wa) return;
+  const url = new URL('dashboard.html', location.href).href;
+  const teks = `Halo ${hasil.nama}, berikut akses dashboard Anda:\n${url}\nSandi: ${hasil.sandi}\n\nMohon jangan dibagikan ke orang lain. Terima kasih 🙏`;
+  const w = window.open('https://wa.me/' + hasil.wa + '?text=' + encodeURIComponent(teks), '_blank', 'noopener');
+  if(!w) location.href = 'https://wa.me/' + hasil.wa + '?text=' + encodeURIComponent(teks);
+});
+
+$('logoutBtn').addEventListener('click', () => Admin.logout());
+
+if(Admin.guardOwner()) muat();
+</script>
+</body>
+</html>
