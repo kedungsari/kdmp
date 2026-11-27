@@ -349,7 +349,7 @@ footer a.adm:hover,footer a.adm:focus-visible{color:rgba(255,255,255,.7)}
 </main>
 
 <footer>
-  <div class="wrap">&copy; <span id="year"></span> KDKMP Kalurahan Kedungsari · <a class="adm" href="dashboard.html" rel="nofollow">Masuk</a></div>
+  <div class="wrap">&copy; <span id="year"></span> KDKMP Kalurahan Kedungsari · <a class="adm" href="dashboard.html" rel="nofollow">Masuk</a><br><small style="opacity:.6">Kunjungan dihitung secara anonim, tanpa data pribadi.</small></div>
 </footer>
 
 <a class="fab" id="chatFab" href="#" target="_blank" rel="noopener" aria-label="Chat dengan Agen via WhatsApp" hidden>💬 Chat Agen</a>
@@ -400,7 +400,7 @@ footer a.adm:hover,footer a.adm:focus-visible{color:rgba(255,255,255,.7)}
    API_URL : URL Web App Apps Script (Code.gs), berakhiran "/exec".
    Link untuk tiap agen: https://alamat-situs/?agen=kode-agen
    (kode agen = kolom "kode" di sheet Agen). */
-const API_URL = 'https://script.google.com/macros/s/AKfycbz1itpNew4UnjuIsfK2tD8FEhCeuaj3JsbXFF0JbbrIZehfeCIf-GFZzqDS4ylUYMNH/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxi9xKzgbRhielyknG6q6FAKWfuMJ8WVghO43vDLwl6WWnYyTUxAXrZ_7Bd5rgzjQVF/exec';
 
 const CACHE_KEY = 'kdmp_data_v1';
 const CART_KEY  = 'kdmp_cart_v1';
@@ -415,6 +415,7 @@ let activeCat = 'semua';
 let cart = {};
 try { cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}') || {}; } catch(e){ cart = {}; }
 let bannerTimer;
+const TRK = { ev(){}, cards(){} };   // diisi oleh blok statistik kunjungan di bagian bawah
 
 const $ = id => document.getElementById(id);
 const rp = n => 'Rp ' + Number(n).toLocaleString('id-ID');
@@ -581,6 +582,7 @@ function playInline(slide){
 document.addEventListener('click', e => {
   const v = e.target.closest('.slide.vid');
   if(!v) return;
+  const kt = v.closest('.card'); if(kt) TRK.ev('vid', kt.dataset.pid);
   if(v.dataset.kind === 'file') playInline(v);
   else openVideo(v.dataset.kind, v.dataset.ref, v.dataset.title);
 });
@@ -603,6 +605,7 @@ document.addEventListener('scroll', e => {
   if(!t.classList || !t.classList.contains('slides')) return;
   const idx = Math.round(t.scrollLeft / (t.clientWidth || 1));
   t.parentElement.querySelectorAll('.dots i').forEach((d,i) => d.classList.toggle('on', i === idx));
+  if(idx > 0){ const kt = t.closest('.card'); if(kt) TRK.ev('geser', kt.dataset.pid); }
   // geser ke foto lain -> hentikan video yang sedang diputar di kartu ini
   t.querySelectorAll('video').forEach(v => {
     const s = v.closest('.slide');
@@ -683,6 +686,7 @@ function renderProducts(){
     </article>`;
   }).join('');
   layoutGrid();
+  TRK.cards();
 }
 
 /* Tata letak HP ala marketplace: tiap kartu masuk ke kolom yang paling pendek,
@@ -716,6 +720,7 @@ $('tabs').addEventListener('change', e => {
 $('grid').addEventListener('click', e => {
   const b = e.target.closest('.add'); if(!b || b.disabled) return;
   cart[b.dataset.id] = (cart[b.dataset.id] || 0) + 1;
+  TRK.ev('krj', b.dataset.id);
   saveCart(); toast('Ditambahkan ke keranjang 🛒');
 });
 
@@ -916,6 +921,7 @@ $('checkoutBtn').addEventListener('click', async () => {
   if(pre) msg += '\n\n📌 Pesanan ini dikirim saat toko tutup (pre-order). Mohon diproses saat toko buka.';
 
   logOrder(items, buyer, pre);
+  TRK.ev('co', '1');
   const w = window.open(waLink(msg), '_blank', 'noopener');
   if(!w) location.href = waLink(msg);
 
@@ -971,6 +977,82 @@ kirimAntrian();   // kirim ulang pesanan yang belum tercatat dari kunjungan sebe
 // Jam bisa berganti saat halaman dibiarkan terbuka: periksa lagi berkala dan saat tab kembali aktif
 setInterval(() => refreshToko(false), 30000);
 document.addEventListener('visibilitychange', () => { if(!document.hidden) refreshToko(false); });
+
+/* ================= Statistik kunjungan (anonim) =================
+   Yang dicatat: kode acak perangkat, asal kunjungan (WhatsApp, Facebook, dst), jenis perangkat (HP/PC),
+   kode agen dari link, dan produk yang dilihat / dimasukkan keranjang. Tidak ada nama, nomor HP, atau cookie.
+   Perangkat admin/agen yang pernah masuk dashboard tidak dihitung (penanda kdmp_notrack).
+   Tambahkan &src=nama pada link yang dibagikan untuk melacak asalnya, mis. ?agen=tosa&src=grup-wa */
+(function(){
+  if(!API_URL || API_URL.indexOf('PASTE_URL') !== -1) return;
+  const lsGet = k => { try { return localStorage.getItem(k); } catch(e){ return null; } };
+  const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch(e){} };
+  const ssGet = k => { try { return sessionStorage.getItem(k); } catch(e){ return null; } };
+  const ssSet = (k, v) => { try { sessionStorage.setItem(k, v); } catch(e){} };
+  let qs; try { qs = new URLSearchParams(location.search); } catch(e){ qs = new URLSearchParams(''); }
+  if(qs.get('notrack') === '1') lsSet('kdmp_notrack', '1');
+  if(qs.get('notrack') === '0') { try { localStorage.removeItem('kdmp_notrack'); } catch(e){} }
+  if(lsGet('kdmp_notrack') === '1' || navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|preview/i.test(navigator.userAgent || '')) return;
+  const acak = () => { const a = new Uint32Array(3); try { crypto.getRandomValues(a); } catch(e){ a[0] = Math.random() * 4e9; a[1] = Math.random() * 4e9; a[2] = Date.now(); } return Array.from(a, n => n.toString(36)).join('').replace(/[^a-z0-9]/g, '').slice(0, 24).padEnd(8, '0'); };
+  let vid = lsGet('kdmp_vid'), baru = 0;
+  if(!vid || !/^[a-z0-9]{6,40}$/.test(vid)){ vid = acak(); lsSet('kdmp_vid', vid); baru = 1; }
+  let sid = ssGet('kdmp_sid'), awal = 0;
+  if(!sid){ sid = acak(); ssSet('kdmp_sid', sid); awal = 1; }
+  function sumber(){
+    const u = (qs.get('src') || qs.get('utm_source') || '').toLowerCase().replace(/[^\w.\-]/g, '').slice(0, 30);
+    if(u) return u;
+    let h = ''; try { h = new URL(document.referrer).hostname.replace(/^www\./, '').toLowerCase(); } catch(e){}
+    if(!h || h === location.hostname) return '';
+    if(/(^|\.)wa\.me$|whatsapp/.test(h)) return 'whatsapp';
+    if(/facebook|(^|\.)fb\.(com|me)$/.test(h)) return 'facebook';
+    if(/instagram/.test(h)) return 'instagram';
+    if(/(^|\.)google\./.test(h)) return 'google';
+    if(/tiktok/.test(h)) return 'tiktok';
+    if(/youtube|youtu\.be/.test(h)) return 'youtube';
+    if(/(^|\.)t\.me$|telegram/.test(h)) return 'telegram';
+    if(/(^|\.)(t\.co|x\.com|twitter\.com)$/.test(h)) return 'x';
+    return h.slice(0, 30);
+  }
+  let src = ssGet('kdmp_src');
+  if(src === null){ src = sumber() || 'langsung'; ssSet('kdmp_src', src); }
+  const ua = navigator.userAgent || '';
+  const dev = /iPad|Tablet/i.test(ua) ? 'tablet' : (/Mobi|Android|iPhone|iPod/i.test(ua) ? 'hp' : 'pc');
+  const P = { lihat:new Set(), krj:new Set(), vid:new Set(), geser:new Set(), co:false };
+  let pertama = awal, dikirim = false;
+  function flush(){
+    const ada = P.lihat.size || P.krj.size || P.vid.size || P.geser.size || P.co;
+    if(!ada && !pertama) return;
+    const body = { action:'trafik', v:vid, s:sid, agen: AGENT ? AGENT.kode : (qs.get('agen') || ''), src, dev, baru: pertama ? baru : 0, awal: pertama ? 1 : 0,
+      lihat:[...P.lihat], krj:[...P.krj], vid:[...P.vid], geser:[...P.geser], co: P.co ? 1 : 0 };
+    pertama = 0; baru = 0;
+    P.lihat.clear(); P.krj.clear(); P.vid.clear(); P.geser.clear(); P.co = false;
+    try { fetch(API_URL, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify(body), keepalive:true }).catch(() => {}); } catch(e){}
+    dikirim = true;
+  }
+  const lihatSesi = new Set();
+  TRK.ev = (jenis, id) => {
+    id = String(id || '');
+    if(jenis === 'co'){ P.co = true; flush(); return; }
+    if(P[jenis] && id && !(jenis === 'lihat' && lihatSesi.has(id))){ P[jenis].add(id); if(jenis === 'lihat') lihatSesi.add(id); }
+  };
+  // Produk dianggap "dilihat" bila kartunya tampil minimal separuh layar selama 0,8 detik
+  let io = null; const waktu = new Map();
+  TRK.cards = () => {
+    if(!('IntersectionObserver' in window)) return;
+    if(io) io.disconnect();
+    waktu.forEach(t => clearTimeout(t)); waktu.clear();
+    io = new IntersectionObserver(es => es.forEach(en => {
+      const id = en.target.dataset.pid;
+      if(en.isIntersecting){ if(!waktu.has(en.target) && !lihatSesi.has(id)) waktu.set(en.target, setTimeout(() => { TRK.ev('lihat', id); io.unobserve(en.target); waktu.delete(en.target); }, 800)); }
+      else if(waktu.has(en.target)){ clearTimeout(waktu.get(en.target)); waktu.delete(en.target); }
+    }), { threshold:0.5 });
+    document.querySelectorAll('#grid .card').forEach(c => io.observe(c));
+  };
+  setTimeout(flush, 1500);                        // kunjungan dicatat segera
+  setInterval(flush, 20000);                      // lalu perubahan dikirim berkala
+  document.addEventListener('visibilitychange', () => { if(document.hidden) flush(); });
+  window.addEventListener('pagehide', flush);
+})();
 
 /* ================= Proteksi ringan (dibawa dari versi lama) =================
    Hanya penghalang untuk pengunjung awam, bukan keamanan sungguhan. Komentari
